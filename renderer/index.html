@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+
+    <!-- Import Section html -->
+    <link rel="import" href="./sections/main.html">
+    <link rel="import" href="./sections/school_timetable_query.html">
+    <link rel="import" href="./sections/schedule.html">
+    <link rel="import" href="./sections/setting.html">
+
+</head>
+<body>
+    
+
+        <div id="Login-section" class="is-shown">
+            <div class="loginPanel">
+                <div class="LoginContent" id="loginForm">
+                        <h1 class="logo">Title</h1>
+                        
+                        <div id="AccountInputOuter" class="input-group mdig">
+                            <input v-model="account" type="text" name="account" id="AccountInput" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Account</label>
+                        </div>
+                        
+                        <div id="PasswordInputOuter" class="input-group mdig">
+                            <input v-model="password" type="password" name="password" id="PasswordInput" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Password</label>
+                        </div>
+                        
+                        <button @click="login">Login</button>
+                </div>
+            </div>
+    
+            <div class="carouselPanel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+    
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block fillWidth" src="../asset/yzu/pond.jpg" alt="A">
+                            <div class="carousel-caption d-none d-md-block ">
+                                <h2><b>絕對安全的選課系統</b></h2>
+                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+                            </div>
+                        </div>
+    
+                        <div class="carousel-item">
+                            <img class="d-block fillWidth" src="../asset/yzu/road.jpg" alt="Second slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2><b>絕對安全的選課系統</b></h2>
+                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item">
+                            <img class="d-block fillWidth" src="../asset/yzu/library_side.jpg" alt="Third slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2><b>絕對安全的選課系統</b></h2>
+                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+
+</body>
+</html>

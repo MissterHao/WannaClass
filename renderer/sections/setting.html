@@ -1,0 +1,67 @@
+<template>
+    <div id="section-Setting" class="section">
+        <h2>設定</h2>
+        <div class="">
+            <form>
+                <!-- row -->
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputSelectYear">學年</label>
+                        <select v-model="settingCourseUpdateYear" id="inputSelectYear" class="form-control">
+                            <option selected disabled>選擇學年...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputSelectSmt">學期</label>
+                        <select v-model="settingCourseUpdateSmt" id="inputSelectSmt" class="form-control">
+                            <option value="" selected disabled>選擇學期...</option>
+                            <option value="1">上學期</option>
+                            <option value="2">下學期</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputBtnUpdateCourseDB"></label>
+                        <button style="margin-top: 1px;" class="btn" @click="updateCourseDB($event)" id="inputBtnUpdateCourseDB">更新課程資料庫</button>
+                    </div>
+                </div>
+                
+                <!-- row -->
+                <!-- <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputSelectTimeSep">每隔多久檢查一次</label>
+                        <select v-model="inputSelectTimeSep" id="inputSelectTimeSep" class="form-control">
+                            <option value="" selected disabled>選擇時間間隔...</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                </div> -->
+
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        let THISYEAR = new Date().getFullYear() - 1911;
+        
+        {
+            var start = new Date().getFullYear() - 1911;
+            for(var i in [...Array(5).keys()]){
+                console.log(start-1 + parseInt(i));
+                $("#inputSelectYear").append($('<option>', {
+                    value: start-1 + parseInt(i),
+                    text: `${start-1 + parseInt(i)}`
+                }))
+            }
+        }
+        
+        
+
+    </script>
+
+</template>

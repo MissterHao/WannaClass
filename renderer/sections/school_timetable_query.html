@@ -1,0 +1,191 @@
+<template>
+    <div ss-container id="section-School-timetable-Query" class="section">
+
+        <h2>課程查詢 {{ queryResult }}</h2>
+
+        <div class="btabs">
+            <!-- https://codepen.io/woranov/pen/NRqLWK/ -->
+
+            <input value="dept"        type="radio" id="tab1" name="query-tab-control" v-model="queryType" checked>
+            <input value="courseName"  type="radio" id="tab2" name="query-tab-control" v-model="queryType">
+            <input value="teacherName" type="radio" id="tab3" name="query-tab-control" v-model="queryType">
+            <input value="courseTime"  type="radio" id="tab4" name="query-tab-control" v-model="queryType">
+
+            <ul>
+                <li title="系所查詢">      <label for="tab1" role="button"><br><span>系所查詢</span></label></li>
+                <li title="課程關鍵字查詢"><label for="tab2" role="button"><br><span>課程關鍵字查詢</span></label></li>
+                <li title="教師姓名">      <label for="tab3" role="button"><br><span>教師姓名</span></label></li>
+                <li title="時間查詢">      <label for="tab4" role="button"><br><span>時間查詢</span></label></li>
+            </ul>
+        
+            <div class="slider">
+                <div class="indicator"></div>
+            </div>
+            <div class="content">
+        
+
+                <!-- 系所查詢 Section -->
+                <section>
+                    <h2>系所查詢</h2>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="querySelectQueryYear">學年</label>
+                            <select v-model="querySelectQueryYear" id="querySelectQueryYear" class="form-control">
+                                <option value="" selected disabled>選擇學年...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="querySelectQuerySmt">學期</label>
+                            <select v-model="querySelectQuerySmt" id="querySelectQuerySmt" class="form-control">
+                                <option value="" selected disabled>選擇學期...</option>
+                                <option value="1">上學期</option>
+                                <option value="2">下學期</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="querySelectQueryDept">系所</label>
+                            <select v-model="querySelectQueryDept" id="querySelectQueryDept" class="form-control">
+                                <option value="" selected disabled>選擇系所...</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </section>
+        
+                <!-- 課程關鍵字查詢 Section -->
+                <section>
+                    <h2>課程關鍵字查詢</h2>
+                    <div class="form-row">
+                        <label for="queryInputQueryCourseName">課程關鍵字</label>
+                        <input @change="queryResult" v-model="queryInputQueryCourseName" type="text" class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
+                    </div>
+                </section>
+        
+                <!-- 教師姓名 Section -->
+                <section>
+                    <h2>教師姓名</h2>
+                    <div class="form-row">
+                        <label for="queryInputQueryTeacherName">教師姓名</label>
+                        <input @change="queryResult" v-model="queryInputQueryTeacherName" type="text" class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
+                    </div> 
+                </section>
+        
+                <!-- 時間查詢 Section -->
+                <section>
+                    <h2>時間查詢</h2>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-md-offset-4">
+                            <label for="querySelectQueryDay">星期</label>
+                            <select v-model="querySelectQueryDay" id="querySelectQueryDay" class="form-control">
+                                <option value="" selected disabled>選擇星期幾...</option>
+                                <option value="1">星期一</option>
+                                <option value="2">星期二</option>
+                                <option value="3">星期三</option>
+                                <option value="4">星期四</option>
+                                <option value="5">星期五</option>
+                                <option value="6">星期六</option>
+                                <option value="7">星期日</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="querySelectQueryPeriod">節次</label>
+                            <select v-model="querySelectQueryPeriod" id="querySelectQueryPeriod" class="form-control">
+                                <option value="" selected disabled>選擇第幾節...</option>
+                                <option value="01">第 1 節 08:10~09:00</option>
+                                <option value="02">第 2 節 09:10~10:00</option>
+                                <option value="03">第 3 節 10:10~11:00</option>
+                                <option value="04">第 4 節 11:10~12:00</option>
+                                <option value="05">第 5 節 12:10~13:00</option>
+                                <option value="06">第 6 節 13:10~14:00</option>
+                                <option value="07">第 7 節 14:10~15:00</option>
+                                <option value="08">第 8 節 15:10~16:00</option>
+                                <option value="09">第 9 節 16:10~17:00</option>
+                                <option value="10">第 10 節 17:10~18:00	</option>
+                                <option value="11">第 11 節 18:30~19:20</option>
+                                <option value="12">第 12 節 19:30~20:20</option>
+                                <option value="13">第 13 節 20:30~21:20</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        
+        <div class="courses-list">
+            <!-- 控制 MHModal -->
+            <!-- https://codepen.io/joshuaward/pen/pwGgep?editors=1100 -->
+            <input type="checkbox" id="MHmodal" />
+            <!-- <label for="MHmodal" class="MHmodal-btn">
+                123132
+            </label> -->
+            <!-- <div class="modal-bg"></div> -->
+            <label for="MHmodal" class="MHmodal-bg"></label>
+            <div class="MHmodal-content">
+                <label for="MHmodal" class="close">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </label>
+                <header>
+                    <h2>{{ modalCourse.name }}</h3>
+                </header>
+                <article class="content">
+                    <p>由{{ modalCourse.teacher_name }}教授教導，為系上的{{modalCourse.cos_type_name}}課程之一，上課教室位於{{modalCourse.room}}，學分數為{{modalCourse.credit}}。</p>
+                </article>
+                <!-- <footer>
+                    <a href="http://geekstudios.co" target="_parent" class="button success">Accept</a>
+                    <label for="MHmodal" class="button danger">Decline</label>
+                </footer> -->
+            </div>
+
+
+
+            <div class="col-lg-12">
+                <table id="courses-list-data-table" class="table table-striped table-hover" style="border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th>課程名稱</th>
+                            <th>授課教師</th>
+                            <th>課程類型</th>
+                            <th>學分數</th>
+                            <th>學系</th>
+                            <th>加入選課名單</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template>
+                            <course-list-item 
+                                v-on:showcourseinfotoparent="showcourseinfomodal"
+                                v-for="(course, index) in queryResultForList" 
+                                v-bind:key="course.hashid" 
+                                v-bind:course="course" 
+                                v-bind:index="index">
+                            </course-list-item>
+                            
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+    
+    </div>
+
+    <script>
+        
+        {
+            var start = new Date().getFullYear() - 1911;
+            for(var i in [...Array(5).keys()]){
+                console.log(start-1 + parseInt(i));
+                $("#querySelectQueryYear").append($('<option>', {
+                    value: start-1 + parseInt(i),
+                    text: `${start-1 + parseInt(i)}`
+                }))
+            }
+
+
+            ipcRenderer.send(CHANNEL_NAME.TELL_MAIN_GET_DEPTS, {});
+        }
+    </script>
+</template>
