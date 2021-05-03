@@ -31,12 +31,19 @@
                 <h2>給自己的學分一點機會</h2>
                 <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
 
-                <span class="cta">開始使用</span>
+                <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
             </div>
-            <div class="login-block">
-                <input placeholder="學號" type="text" id="student_id">
-                <input placeholder="密碼" type="password" id="student_pw">
-                <button id="login-btn">登入</button>
+            <div class="login-block move-to-hidden">
+                <div class="login-block-inner container">
+                    <h2>登入</h2>
+                    <div class="login-block-inner-input-group">
+                        <input class="login-block-input-element" placeholder="學號" type="text" id="student_id" pattern="s[0-9]{7}">
+                        <input class="login-block-input-element" placeholder="密碼" type="password" id="student_pw">
+                        <button class="login-block-input-element" id="login-btn">開始搶課！</button>
+                    </div>
+
+                    <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
+                </div>
             </div>
         </div>
         <div class="footer container">
