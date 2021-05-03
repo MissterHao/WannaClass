@@ -13,6 +13,7 @@
     <link rel="import" href="./sections/schedule.html">
     <link rel="import" href="./sections/setting.html">
 
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
 
     <link rel="stylesheet" href="./css/wannaclass.css">
@@ -22,53 +23,29 @@
 <body>
 
 
-    <div class="loginPanel section">
-        <div class="hero-shape hero-shape-corner"></div>
-        <div class="container">
-            <div class="hero">
-                <div class="hero__heading">
-                    <h1>Welcome</h1>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. ?Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. ?</span>
-                </div>
+    <div class="login-panel section">
+        <div class="header"></div>
+        <div class="middle container">
+            <div class="hero-image"></div>
+            <div class="hero-text">
+                <h2>給自己的學分一點機會</h2>
+                <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
 
-                <div class="hero__featureimg">
-                    <div class="hero-shape hero-shape-1">
-                        <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-                            <circle class="anime-element fadeup-animation" cx="44" cy="44" r="44" fill="#FFD2DA"
-                                fill-rule="evenodd" style="opacity: 1; transform: translateY(0px);"></circle>
-                        </svg>
-                    </div>
-
-                    <img src="../assets/hi.png" alt="">
-                </div>
-
-
-                <div class="hero-shape hero-shape-2">
-                    <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"
-                        style="overflow:visible">
-                        <defs>
-                            <linearGradient x1="93.05%" y1="19.767%" x2="15.034%" y2="85.765%" id="header-shape-2">
-                                <stop stop-color="#FF3058" offset="0%"></stop>
-                                <stop stop-color="#FF6381" offset="100%"></stop>
-                            </linearGradient>
-                        </defs>
-                        <circle class="anime-element fadeup-animation" cx="64" cy="64" r="64"
-                            fill="url(#header-shape-2)" fill-rule="evenodd"
-                            style="opacity: 1; transform: translateY(0px);"></circle>
-                    </svg>
-                </div>
-
-
+                <span class="cta">開始使用</span>
             </div>
-            
-            
+            <div class="login-block">
+                <input placeholder="學號" type="text" id="student_id">
+                <input placeholder="密碼" type="password" id="student_pw">
+                <button id="login-btn">登入</button>
+            </div>
         </div>
-        
-        <div class="loginPanel__footer">
-            footer
+        <div class="footer container">
+            <ul>
+                <li><a><i class="fab fa-facebook-f"></i></a></li>
+                <li><a><i class="fab fa-github"></i></a></li>
+                <li><a><i class="fab fa-linkedin-in"></i></a></li>
+            </ul>
         </div>
-
     </div>
 
 
@@ -76,12 +53,7 @@
 
 
 
-    <div id="app">
-        <div class="contentPanel section">
-
-        </div>
-
-
+    <div class="contentPanel section">
     </div>
 
 

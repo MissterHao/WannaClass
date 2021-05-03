@@ -537,15 +537,20 @@ html, body {
   overflow-y: hidden;
 }
 
-.container {
-  height: 100%;
-  width: 100%;
-  max-width: 1128px;
-  margin: 0 auto;
+.section {
+  height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.loginPanel {
-  height: 100%;
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+.login-panel {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -553,77 +558,138 @@ html, body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  position: relative;
 }
 
-.loginPanel__footer {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 15vh;
-          flex: 0 0 15vh;
-  width: 100%;
+.login-panel .header {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 10%;
+          flex: 1 1 10%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login-panel .middle {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  overflow-x: hidden;
+}
+
+.login-panel .middle .hero-image {
+  background-image: url("/assets/undraw_programming_2svr.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 60%;
+          flex: 1 0 60%;
+}
+
+.login-panel .middle .hero-text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 40%;
+          flex: 1 0 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  padding-top: 10em;
+}
+
+.login-panel .middle .cta {
+  font-size: 2rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.login-panel .footer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 10%;
+          flex: 1 1 10%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-.hero {
-  height: 100%;
+.login-panel .footer ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  font-size: 2rem;
+}
+
+.login-panel .footer ul li {
+  text-decoration: none;
+  list-style: none;
+}
+
+.login-panel .footer ul li a {
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  text-decoration: none;
+  color: #3e454e;
+  background: lightsteelblue;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: relative;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
-.hero__heading {
-  text-align: left;
-  -webkit-box-flex: 2;
-      -ms-flex: 2 1 100px;
-          flex: 2 1 100px;
-  padding-top: 12rem;
-}
-
-.hero__featureimg {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 100px;
-          flex: 1 1 100px;
+.login-panel .footer ul li a .fab {
   position: relative;
+  z-index: 100;
 }
 
-.hero__featureimg img {
+.login-panel .footer ul li a:hover {
+  color: white;
+}
+
+.login-panel .footer ul li a:hover:before {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.login-panel .footer ul li a:before {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.hero-shape {
-  position: absolute;
-}
-
-.hero-shape-1 {
-  top: 20px;
-  left: 20px;
-}
-
-.hero-shape-2 {
-  bottom: 20px;
-  left: -50px;
-}
-
-.hero-shape-corner {
-  bottom: 0px;
-  right: 0px;
-  width: 50vw;
-  height: 100vh;
-  background-color: lightsteelblue;
-  -webkit-clip-path: circle(600px at right bottom);
-          clip-path: circle(600px at right bottom);
+  width: 100%;
+  height: 100%;
+  background: #113a70;
+  border-radius: 50%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: .5s;
+  transition: .5s;
 }
 /*# sourceMappingURL=wannaclass.css.map */

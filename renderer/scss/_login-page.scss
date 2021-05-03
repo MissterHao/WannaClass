@@ -1,77 +1,107 @@
+.login-panel {
 
-
-.container {
-    height: 100%;
-    width: 100%;
-    max-width: 1128px;
-    margin: 0 auto;
-}
-
-
-.loginPanel {
-    height: 100%;
-    display: flex;
+    display       : flex;
     flex-direction: column;
-    position: relative;
 
-    &__footer {
-        z-index: 100;
-        flex: 0 0 15vh;
-        width: 100%;
-        display: flex;
-        justify-content:right
-        align-items: center;
+    .header {
+        flex           : 1 1 10%;
+        justify-content: start;
+        align-items    : center;
     }
-}
-.hero {
-    
-    height: 100%;
-    display: flex;
-    position: relative;
-    
-    
-    &__heading {
-        text-align: left;
-        flex: 2 1 100px;
-        padding-top: 12rem;
-    }
-    
-    &__featureimg {
-        
-        flex: 1 1 100px;
-        position: relative;
-        
-        img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+
+    .middle {
+        flex          : 1 1 100%;
+        display       : flex;
+        flex-direction: row;
+
+        overflow-x: hidden;
+
+
+
+        .hero-image {
+            background-image   : url("/assets/undraw_programming_2svr.png");
+            background-position: center center;
+            background-repeat  : no-repeat;
+            background-size    : contain;
+
+            flex: 1 0 60%;
+        }
+
+        .hero-text {
+            flex          : 1 0 40%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : start;
+            padding-top: 10em;
+        }
+
+        .cta {
+            font-size: 2rem;
+            margin-top: 2rem;
+            cursor: pointer;
         }
     }
 
-    &-shape {
-        position: absolute;
-        &-1 {
-            top: 20px;
-            left: 20px;
+    .footer {
+        flex           : 1 1 10%;
+        display        : flex;
+        justify-content: flex-end;
+
+        ul {
+            display: flex;
+            font-size: 2rem;
+
+            li {
+                text-decoration: none;
+                list-style: none;
+
+                a {
+                    width: 50px;
+                    height: 50px;
+                    margin: 0 5px;
+
+                    text-decoration: none;
+                    color: rgb(62, 69, 78);
+                    background: lightsteelblue;
+                    border-radius: 50%;
+                    
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    position: relative;
+
+                    cursor: pointer;
+
+                    transition: 0.5s;
+                    
+                    .fab {
+                        position: relative;
+                        z-index: 100;
+                    }
+                    &:hover {
+                        color: white;
+                    }
+                    &:hover:before {
+                        transform: scale(1);
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: rgb(17, 58, 112);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        transition: .5s;
+                        
+                    }
+
+                }
+            }
         }
-        &-2 {
-            bottom: 20px;
-            left: -50px;
-        }
-    
-        
+
+
     }
-}
-
-
-.hero-shape-corner {
-    z-index: 0;
-    bottom: 0px;
-    right: 0px;
-
-    width: 50vw;
-    height: 100vh;
-    background-color: lightsteelblue;
-    clip-path: circle(600px at right bottom);
 }
