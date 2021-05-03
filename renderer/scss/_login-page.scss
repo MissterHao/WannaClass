@@ -16,7 +16,7 @@
 
         overflow-x: hidden;
 
-
+        // position: relative;
 
         .hero-image {
             background-image   : url("/assets/undraw_programming_2svr.png");
@@ -25,14 +25,34 @@
             background-size    : contain;
 
             flex: 1 0 60%;
-        }
 
+            transition: .8s;
+            
+            
+            &.move-to-hidden {
+                flex: 0 0 0px;
+                transform: translateX(-100%);
+            }
+            
+        }
+        
         .hero-text {
             flex          : 1 0 40%;
             display       : flex;
             flex-direction: column;
             align-items   : start;
             padding-top: 10em;
+            
+            h2 {
+                word-wrap: break-word;
+            }
+            transition: .8s;
+            &.move-to-hidden {
+            }
+        }
+
+        .hero-desc {
+            font-weight: 300;
         }
 
         .cta {
@@ -85,7 +105,6 @@
                     &:hover:before {
                         transform: scale(1);
                     }
-
                     &:before {
                         content: '';
                         position: absolute;
@@ -95,7 +114,6 @@
                         border-radius: 50%;
                         transform: scale(0);
                         transition: .5s;
-                        
                     }
 
                 }

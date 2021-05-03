@@ -594,6 +594,16 @@ html, body {
   -webkit-box-flex: 1;
       -ms-flex: 1 0 60%;
           flex: 1 0 60%;
+  -webkit-transition: .8s;
+  transition: .8s;
+}
+
+.login-panel .middle .hero-image.move-to-hidden {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 0px;
+          flex: 0 0 0px;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
 }
 
 .login-panel .middle .hero-text {
@@ -611,6 +621,16 @@ html, body {
       -ms-flex-align: start;
           align-items: start;
   padding-top: 10em;
+  -webkit-transition: .8s;
+  transition: .8s;
+}
+
+.login-panel .middle .hero-text h2 {
+  word-wrap: break-word;
+}
+
+.login-panel .middle .hero-desc {
+  font-weight: 300;
 }
 
 .login-panel .middle .cta {
