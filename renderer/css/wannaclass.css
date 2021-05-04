@@ -553,6 +553,72 @@ body {
   width: 90%;
 }
 
+.hidden {
+  display: none;
+}
+
+.hidden-disapear {
+  -webkit-animation: hidden-disapear-anim 2s normal forwards ease-in-out;
+          animation: hidden-disapear-anim 2s normal forwards ease-in-out;
+}
+
+.hidden-onshown {
+  -webkit-animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+          animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+}
+
+@-webkit-keyframes hidden-disapear-anim {
+  0% {
+    opacity: 1;
+    display: inherit;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    display: none;
+  }
+}
+
+@keyframes hidden-disapear-anim {
+  0% {
+    opacity: 1;
+    display: inherit;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    display: none;
+  }
+}
+
+@-webkit-keyframes hidden-onshown-anim {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  1% {
+    display: unset;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hidden-onshown-anim {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  1% {
+    display: unset;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .login-panel {
   background: #bcc7da;
   display: -webkit-box;
@@ -587,20 +653,45 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -ms-flex-line-pack: center;
+      align-content: center;
   overflow-x: hidden;
 }
 
 .login-panel .middle .hero-image {
   z-index: 100;
-  background-image: url("/assets/undraw_programming_2svr.svg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  max-height: 80vh;
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 60%;
           flex: 0 0 60%;
   -webkit-transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.login-panel .middle .hero-image img {
+  margin: auto 0;
+  max-width: 100%;
+  -webkit-transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 1;
+}
+
+.login-panel .middle .hero-image img.hidden {
+  opacity: 0;
 }
 
 .login-panel .middle .hero-image.move-to-hidden {

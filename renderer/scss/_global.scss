@@ -23,3 +23,46 @@ body {
     max-width: 1280px;
     width    : 90%;
 }
+
+.hidden {
+    display: none;
+}
+
+.hidden-disapear {
+    animation: hidden-disapear-anim 2s normal forwards ease-in-out;
+}
+.hidden-onshown {
+    animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+}
+
+@keyframes hidden-disapear-anim {
+    0% {
+        opacity: 1;
+        display: inherit;
+    }
+
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        display: none;
+    }
+}
+
+@keyframes hidden-onshown-anim {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    1% {
+        display: unset;
+    }
+
+
+
+    100% {
+        opacity: 1;
+    }
+}
