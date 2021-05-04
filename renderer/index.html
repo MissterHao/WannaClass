@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="./css/wannaclass.css">
 
+    <script type="module" src="/renderer/js/yzu_backend.js"></script>
+
 </head>
 
 <body>
@@ -38,7 +40,7 @@
                     <h2>登入</h2>
                     <div class="login-block-inner-input-group">
                         <input class="login-block-input-element" placeholder="學號" type="text" id="student_id" pattern="s[0-9]{7}">
-                        <input class="login-block-input-element" placeholder="密碼" type="password" id="student_pw">
+                        <input class="login-block-input-element" placeholder="密碼" type="password" id="student_pwd">
                         <button class="login-block-input-element" id="login-btn">開始搶課！</button>
                     </div>
 
@@ -65,7 +67,7 @@
 
 
 
-<script src="./js/landing.js"></script>
+<script defer type="module" src="./js/landing.js"></script>
 </body>
 
 </html>

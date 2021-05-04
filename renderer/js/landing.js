@@ -1,3 +1,5 @@
+import BackendService  from "/renderer/js/yzu_backend.js";
+
 const cta = document.querySelector(".login-panel .cta")
 
 cta.onclick = function(){
@@ -12,5 +14,21 @@ cta.onclick = function(){
     }
     cta.querySelector("i").classList.toggle("fa-arrow-right")
     cta.querySelector("i").classList.toggle("fa-arrow-left")
+}
 
+
+var backend = new BackendService()
+
+
+const login_btn = document.querySelector("#login-btn");
+const sid_input = document.querySelector("#student_id");
+const spwd_input = document.querySelector("#student_pwd");
+
+login_btn.onclick = function(){
+    if(backend.loginService(sid_input.value, spwd_input.value)){
+        // 登入成功
+        console.log("成功");
+    }else{
+        // 登入失敗
+    }
 }
