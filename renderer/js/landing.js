@@ -5,37 +5,34 @@ var backend = new BackendService()
 const cta = document.querySelector(".login-panel .cta")
 
 // Hero text and image
-const heroHeader = document.querySelector(".login-panel .hero-text")
+const heroHeader = document.querySelector(".login-panel .hero-text h2")
 const heroContent = document.querySelector(".login-panel .hero-text")
-// const heroImage = document.querySelectorAll(".login-panel .hero-image img")
-
-
-// var heroImageIndex = 0;
-// setInterval(() => {
-    // heroImage[heroImageIndex].classList.toggle("hidden-onshown")
-    // heroImage[heroImageIndex].classList.toggle("hidden-disapear")
-    // heroImage[heroImageIndex].classList.add("hidden")
-    // setTimeout(() => {
-    //     heroImageIndex = (heroImageIndex + 1) % 3;
-    //     heroImage[heroImageIndex].classList.toggle("hidden")
-    //     heroImage[heroImageIndex].classList.toggle("hidden-onshown")
-    // }, 0);
-// }, 5000)
 
 // 
 const heroImage = document.querySelector(".login-panel .hero-image img")
-const heroImageSrc = [
-    "/assets/undraw_programming_2svr.svg",
-    "/assets/undraw_education_f8ru.svg",
-    "/assets/undraw_schedule_pnbk.svg",
+const heroImageData = [
+    {
+        src: "/assets/undraw_programming_2svr.svg",
+        header: "半夜還在電腦前守著?"
+    },
+    {
+        src: "/assets/undraw_education_f8ru.svg",
+        header: "給自己的學分一點機會"
+    },
+    {
+        src: "/assets/undraw_schedule_pnbk.svg",
+        header: "還在上網查下學期課表?"
+    },
+    
 ]
 var heroImageIndex = 0;
 setInterval(() => {
-    heroImage.classList.toggle("hidden")
+    // heroImage.classList.toggle("hidden")
     heroImageIndex = (heroImageIndex + 1) % 3;
-    heroImage.setAttribute("src", heroImageSrc[heroImageIndex])
-    heroImage.classList.toggle("hidden")
-}, 3000)
+    heroImage.setAttribute("src", heroImageData[heroImageIndex].src)
+    heroHeader.textContent = heroImageData[heroImageIndex].header
+    // heroImage.classList.toggle("hidden")
+}, 4000)
 
 
 

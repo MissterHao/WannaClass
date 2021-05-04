@@ -655,7 +655,6 @@ body {
           flex-direction: row;
   -ms-flex-line-pack: center;
       align-content: center;
-  overflow-x: hidden;
 }
 
 .login-panel .middle .hero-image {
@@ -683,6 +682,8 @@ body {
 }
 
 .login-panel .middle .hero-image img {
+  -webkit-animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+          animation: hidden-onshown-anim 2s normal forwards ease-in-out;
   margin: auto 0;
   max-width: 100%;
   -webkit-transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
