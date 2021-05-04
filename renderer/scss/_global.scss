@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
+html,
+body {
+    height    : 100vh;
+    max-width : 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+
+.section {
+    height    : 100vh;
+    max-width : 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.container {
+    margin   : 0 auto;
+    max-width: 1280px;
+    width    : 90%;
+}
