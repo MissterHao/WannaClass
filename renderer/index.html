@@ -17,10 +17,13 @@
     <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <!-- Compile css -->
     <link rel="stylesheet" href="./css/wannaclass.css">
+    <!-- Tabs css -->
+    <link rel="stylesheet" href="./css/tabs.css">
 
     <!-- Simple Scrollbar -->
     <link rel="stylesheet" href="./css/simple-scrollbar.css">
@@ -41,7 +44,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 
 
 </head>
@@ -113,11 +118,11 @@
 
             <div id="inner-content-panel">
                 <!-- 首頁 -->
-                <div ss-wc-container id="section-Main" class="inner-section">
+                <div ss-container id="section-Main" class="inner-section">
                     <div class="header">
                         <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
                     </div>
-            
+
                     <div class="content-panel__infogrid">
                         <div class="content-panel__notifylist">
                             <div v-for="notify in notify_list" class="content-panel__notifylist-item">
@@ -133,7 +138,7 @@
                             * SendDate -->
                         </div>
                         <div class="content-panel__coursetable">
-            
+
                         </div>
                     </div>
                 </div>
@@ -142,118 +147,122 @@
 
 
                 <!-- 查詢課程 -->
-                <div ss-wc-container id="section-School-timetable-Query" class="inner-section">
-                    <h2>課程查詢 {{  }}</h2>
-                    
-        <div class="btabs">
-            <!-- https://codepen.io/woranov/pen/NRqLWK/ -->
+                <div ss-container id="section-School-timetable-Query" class="inner-section">
+                    <h4>課程查詢 {{ }}</h4>
 
-            <input value="dept"        type="radio" id="tab1" name="query-tab-control" v-model="queryType" checked>
-            <input value="courseName"  type="radio" id="tab2" name="query-tab-control" v-model="queryType">
-            <input value="teacherName" type="radio" id="tab3" name="query-tab-control" v-model="queryType">
-            <input value="courseTime"  type="radio" id="tab4" name="query-tab-control" v-model="queryType">
+                    <div class="btabs">
+                        <!-- https://codepen.io/woranov/pen/NRqLWK/ -->
 
-            <ul>
-                <li title="系所查詢">      <label for="tab1" role="button"><br><span>系所查詢</span></label></li>
-                <li title="課程關鍵字查詢"><label for="tab2" role="button"><br><span>課程關鍵字查詢</span></label></li>
-                <li title="教師姓名">      <label for="tab3" role="button"><br><span>教師姓名</span></label></li>
-                <li title="時間查詢">      <label for="tab4" role="button"><br><span>時間查詢</span></label></li>
-            </ul>
-        
-            <div class="slider">
-                <div class="indicator"></div>
-            </div>
-            <div class="content">
-        
+                        <input value="dept" type="radio" id="tab1" name="query-tab-control" v-model="queryType" checked>
+                        <input value="courseName" type="radio" id="tab2" name="query-tab-control" v-model="queryType">
+                        <input value="teacherName" type="radio" id="tab3" name="query-tab-control" v-model="queryType">
+                        <input value="courseTime" type="radio" id="tab4" name="query-tab-control" v-model="queryType">
 
-                <!-- 系所查詢 Section -->
-                <section>
-                    <h2>系所查詢</h2>
+                        <ul>
+                            <li title="系所查詢"> <label for="tab1" role="button"><br><span>系所查詢</span></label></li>
+                            <li title="課程關鍵字查詢"><label for="tab2" role="button"><br><span>課程關鍵字查詢</span></label></li>
+                            <li title="教師姓名"> <label for="tab3" role="button"><br><span>教師姓名</span></label></li>
+                            <li title="時間查詢"> <label for="tab4" role="button"><br><span>時間查詢</span></label></li>
+                        </ul>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="querySelectQueryYear">學年</label>
-                            <select v-model="querySelectQueryYear" id="querySelectQueryYear" class="form-control">
-                                <option value="" selected disabled>選擇學年...</option>
-                            </select>
+                        <div class="slider">
+                            <div class="indicator"></div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="querySelectQuerySmt">學期</label>
-                            <select v-model="querySelectQuerySmt" id="querySelectQuerySmt" class="form-control">
-                                <option value="" selected disabled>選擇學期...</option>
-                                <option value="1">上學期</option>
-                                <option value="2">下學期</option>
-                            </select>
-                        </div>
+                        <div class="content">
+                            <!-- 系所查詢 Section -->
+                            <section>
+                                <h2>系所查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
 
-                        <div class="form-group col-md-4">
-                            <label for="querySelectQueryDept">系所</label>
-                            <select v-model="querySelectQueryDept" id="querySelectQueryDept" class="form-control">
-                                <option value="" selected disabled>選擇系所...</option>
-                            </select>
-                        </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDept">系所</label>
+                                        <select v-model="querySelectQueryDept" id="querySelectQueryDept"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇系所...</option>
+                                        </select>
+                                    </div>
 
+                                </div>
+                            </section>
+
+                            <!-- 課程關鍵字查詢 Section -->
+                            <section>
+                                <h2>課程關鍵字查詢</h2>
+                                <div class="row">
+                                    <label for="queryInputQueryCourseName">課程關鍵字</label>
+                                    <input @change="queryResult" v-model="queryInputQueryCourseName" type="text"
+                                        class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
+                                </div>
+                            </section>
+
+                            <!-- 教師姓名 Section -->
+                            <section>
+                                <h2>教師姓名</h2>
+                                <div class="row">
+                                    <label for="queryInputQueryTeacherName">教師姓名</label>
+                                    <input @change="queryResult" v-model="queryInputQueryTeacherName" type="text"
+                                        class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
+                                </div>
+                            </section>
+
+                            <!-- 時間查詢 Section -->
+                            <section>
+                                <h2>時間查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDay">星期</label>
+                                        <select v-model="querySelectQueryDay" id="querySelectQueryDay"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇星期幾...</option>
+                                            <option value="1">星期一</option>
+                                            <option value="2">星期二</option>
+                                            <option value="3">星期三</option>
+                                            <option value="4">星期四</option>
+                                            <option value="5">星期五</option>
+                                            <option value="6">星期六</option>
+                                            <option value="7">星期日</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryPeriod">節次</label>
+                                        <select v-model="querySelectQueryPeriod" id="querySelectQueryPeriod"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇第幾節...</option>
+                                            <option value="01">第 1 節 08:10~09:00</option>
+                                            <option value="02">第 2 節 09:10~10:00</option>
+                                            <option value="03">第 3 節 10:10~11:00</option>
+                                            <option value="04">第 4 節 11:10~12:00</option>
+                                            <option value="05">第 5 節 12:10~13:00</option>
+                                            <option value="06">第 6 節 13:10~14:00</option>
+                                            <option value="07">第 7 節 14:10~15:00</option>
+                                            <option value="08">第 8 節 15:10~16:00</option>
+                                            <option value="09">第 9 節 16:10~17:00</option>
+                                            <option value="10">第 10 節 17:10~18:00 </option>
+                                            <option value="11">第 11 節 18:30~19:20</option>
+                                            <option value="12">第 12 節 19:30~20:20</option>
+                                            <option value="13">第 13 節 20:30~21:20</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                </section>
-        
-                <!-- 課程關鍵字查詢 Section -->
-                <section>
-                    <h2>課程關鍵字查詢</h2>
-                    <div class="form-row">
-                        <label for="queryInputQueryCourseName">課程關鍵字</label>
-                        <input @change="queryResult" v-model="queryInputQueryCourseName" type="text" class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
-                    </div>
-                </section>
-        
-                <!-- 教師姓名 Section -->
-                <section>
-                    <h2>教師姓名</h2>
-                    <div class="form-row">
-                        <label for="queryInputQueryTeacherName">教師姓名</label>
-                        <input @change="queryResult" v-model="queryInputQueryTeacherName" type="text" class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
-                    </div> 
-                </section>
-        
-                <!-- 時間查詢 Section -->
-                <section>
-                    <h2>時間查詢</h2>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-md-offset-4">
-                            <label for="querySelectQueryDay">星期</label>
-                            <select v-model="querySelectQueryDay" id="querySelectQueryDay" class="form-control">
-                                <option value="" selected disabled>選擇星期幾...</option>
-                                <option value="1">星期一</option>
-                                <option value="2">星期二</option>
-                                <option value="3">星期三</option>
-                                <option value="4">星期四</option>
-                                <option value="5">星期五</option>
-                                <option value="6">星期六</option>
-                                <option value="7">星期日</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="querySelectQueryPeriod">節次</label>
-                            <select v-model="querySelectQueryPeriod" id="querySelectQueryPeriod" class="form-control">
-                                <option value="" selected disabled>選擇第幾節...</option>
-                                <option value="01">第 1 節 08:10~09:00</option>
-                                <option value="02">第 2 節 09:10~10:00</option>
-                                <option value="03">第 3 節 10:10~11:00</option>
-                                <option value="04">第 4 節 11:10~12:00</option>
-                                <option value="05">第 5 節 12:10~13:00</option>
-                                <option value="06">第 6 節 13:10~14:00</option>
-                                <option value="07">第 7 節 14:10~15:00</option>
-                                <option value="08">第 8 節 15:10~16:00</option>
-                                <option value="09">第 9 節 16:10~17:00</option>
-                                <option value="10">第 10 節 17:10~18:00	</option>
-                                <option value="11">第 11 節 18:30~19:20</option>
-                                <option value="12">第 12 節 19:30~20:20</option>
-                                <option value="13">第 13 節 20:30~21:20</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
                 </div>
             </div>
 
