@@ -1,81 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hant">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Wanna Class Application</title>
 
 
     <!-- Import Section html -->
-    <link rel="import" href="./sections/main.html">
+    <!-- <link rel="import" href="./sections/main.html">
     <link rel="import" href="./sections/school_timetable_query.html">
     <link rel="import" href="./sections/schedule.html">
-    <link rel="import" href="./sections/setting.html">
+    <link rel="import" href="./sections/setting.html"> -->
 
+    <!-- Fontawesome -->
     <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
-
+    <!-- Compile css -->
     <link rel="stylesheet" href="./css/wannaclass.css">
 
-    <script type="module" src="/renderer/js/yzu_backend.js"></script>
+    <!-- YZU Backend api module -->
+    <script type="module" src="./js/yzu_backend.js"></script>
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
 <body>
 
+    <div id="app" class="section">
 
-    <div class="login-panel section">
-        <div class="header"></div>
-        <div class="middle container">
-            <div class="hero-image">
-                <img class="" src="/assets/undraw_programming_2svr.svg" alt="">
-                <!-- <img class="" src="/assets/undraw_education_f8ru.svg" alt="">
-                <img class=""src="/assets/undraw_schedule_pnbk.svg" alt=""> -->
-                <!-- <img class="hidden-onshown" src="/assets/undraw_programming_2svr.svg" alt="">
-                <img class="hidden" src="/assets/undraw_education_f8ru.svg" alt="">
-                <img class="hidden"src="/assets/undraw_schedule_pnbk.svg" alt=""> -->
 
-            </div>
-            <div class="hero-text">
-                <h2>半夜還在電腦前守著</h2>
-                <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
+        <div v-show="isLoading" id="loading-panel" class="section">
+            <img src="../assets/Blue Cat-1s-200px.svg" alt="">
+            <h3>{{ loading_text }}</h3>
+        </div>
 
-                <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
-            </div>
-            <div class="login-block move-to-hidden">
-                <div class="login-block-inner container">
-                    <h2>登入</h2>
-                    <div class="login-block-inner-input-group">
-                        <input class="login-block-input-element" placeholder="學號" type="text" id="student_id" pattern="s[0-9]{7}" required>
-                        <input class="login-block-input-element" placeholder="密碼" type="password" id="student_pwd" required>
-                        <button class="login-block-input-element" id="login-btn">開始搶課！</button>
+
+        <div class="login-panel section">
+            <div class="header"></div>
+            <div class="middle container">
+                <div class="hero-image">
+                    <img class="" src="../assets/undraw_programming_2svr.svg" alt="">
+
+                </div>
+                <div class="hero-text">
+                    <h2>半夜還在電腦前守著</h2>
+                    <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
+
+                    <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="login-block move-to-hidden">
+                    <div class="login-block-inner container">
+                        <h2>登入</h2>
+                        <div class="login-block-inner-input-group">
+                            <input v-model="sid" class="login-block-input-element" placeholder="學號" type="text" id="student_id"
+                                pattern="s[0-9]{7}" required>
+                            <input v-model="spwd" class="login-block-input-element" placeholder="密碼" type="password" id="student_pwd"
+                                required>
+                            <button @click="login"  class="login-block-input-element" id="login-btn">開始搶課！</button>
+                        </div>
+
+                        <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
                     </div>
-
-                    <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
                 </div>
             </div>
+            <div class="footer container">
+                <ul>
+                    <li><a><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a><i class="fab fa-github"></i></a></li>
+                    <li><a><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer container">
-            <ul>
-                <li><a><i class="fab fa-facebook-f"></i></a></li>
-                <li><a><i class="fab fa-github"></i></a></li>
-                <li><a><i class="fab fa-linkedin-in"></i></a></li>
-            </ul>
+
+
+
+
+
+
+        <div class="contentPanel section">
+            content Panel
+            {{ student_infomation }}
         </div>
+
+
     </div>
 
 
+    <!-- Debug Use -->
+    <script src="../config/dev.js"></script>
 
-
-
-
-    <div class="contentPanel section">
-    </div>
-
-
-
-<script defer type="module" src="./js/landing.js"></script>
+    <!-- Import js -->
+    <script src="./js/app_vue.js"></script>
+    <script src="./js/landing.js"></script>
 </body>
 
 </html>

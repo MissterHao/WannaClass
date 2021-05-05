@@ -547,6 +547,10 @@ body {
   overflow-y: hidden;
 }
 
+#app {
+  position: relative;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -555,6 +559,14 @@ body {
 
 .hidden {
   display: none;
+}
+
+.slide-up {
+  position: absolute;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  -webkit-transition: all 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transition: all 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .hidden-disapear {
@@ -570,12 +582,12 @@ body {
 @-webkit-keyframes hidden-disapear-anim {
   0% {
     opacity: 1;
-    display: inherit;
   }
   99% {
     opacity: 0;
   }
   100% {
+    opacity: 0;
     display: none;
   }
 }
@@ -583,12 +595,12 @@ body {
 @keyframes hidden-disapear-anim {
   0% {
     opacity: 1;
-    display: inherit;
   }
   99% {
     opacity: 0;
   }
   100% {
+    opacity: 0;
     display: none;
   }
 }
@@ -617,6 +629,24 @@ body {
   100% {
     opacity: 1;
   }
+}
+
+#loading-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 100;
+  background: white;
 }
 
 .login-panel {

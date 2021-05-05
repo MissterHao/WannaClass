@@ -18,6 +18,14 @@ body {
     overflow-y: hidden;
 }
 
+#app {
+    position: relative;
+    // height    : 100vh;
+    // max-width : 100vw;
+    // overflow-x: hidden;
+    // overflow-y: hidden;
+}
+
 .container {
     margin   : 0 auto;
     max-width: 1280px;
@@ -29,6 +37,16 @@ body {
     // animation: hidden-disapear-anim 2s normal forwards ease-in-out;
 }
 
+
+
+.slide-up {
+    position: absolute;
+    transform: translateY(-100%);
+    transition: all .8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+}
+
+
 .hidden-disapear {
     animation: hidden-disapear-anim 2s normal forwards ease-in-out;
 }
@@ -39,15 +57,14 @@ body {
 @keyframes hidden-disapear-anim {
     0% {
         opacity: 1;
-        display: inherit;
     }
-
 
     99% {
         opacity: 0;
     }
 
     100% {
+        opacity: 0;
         display: none;
     }
 }
@@ -66,4 +83,16 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+
+#loading-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+
+    background: white;
 }
