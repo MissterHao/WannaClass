@@ -267,6 +267,41 @@ class BackendService {
         })
     }
 
+
+    getNotifyList() {
+        var url = "https://portalx.yzu.edu.tw/NewPortal/api/FCM/NotifyList"
+
+        var payload = new URLSearchParams()
+        payload.append("Token", this.ALLDATA["Token"])
+        payload.append("FCMToken", "")
+
+        var headers = {
+            "Accept": this.ALLDATA["Accept"],
+        }
+
+        return Axios.post(url, payload, {headers: headers}).then((response) => {
+            console.log("Notify: ", response.data)
+            this.notify_list = response.data;
+            /**
+             * Title
+             * Body
+             * ETitle
+             * EBody
+             * 
+             * NotifyType
+             * PostID
+             * SendDate
+             */
+
+            var that = this;
+            // 繼續 promise 的 chain
+            return new Promise(function (resolve, reject) {
+                return resolve(that)
+            })
+
+        })
+    }
+
 }
 
 
