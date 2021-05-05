@@ -48,6 +48,10 @@ const app = Vue.createApp({
 						isLoading.value = false;
 						loading_text.value = "";
 						document.querySelector(".login-panel").classList.add("slide-up")
+
+						// 顯示首頁
+						showSectionById("Main")
+						
 					}, 2000)
 
 				})

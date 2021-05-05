@@ -7,11 +7,7 @@
         flex: 0 0 20%;
     }
 
-    .content-panel-innercontent {
-        width: 100%;
-        flex: 1 0 80%;
-    }
-
+    
 
     .header {
         height: 10vh;
@@ -20,8 +16,8 @@
 
     .content-panel__infogrid {
         display: grid;
-        grid-template-columns: 3fr 2fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 3fr;// 2fr;
+        grid-template-rows: 1fr 3fr;
         height: 100%;
         width: 100%;
     }
@@ -64,4 +60,33 @@
 
 
 
+}
+
+#inner-content-panel {
+    width: 100%;
+    height: 100%;
+    flex: 1 0 80%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.inner-section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow-y: auto;
+
+    visibility: hidden;
+    opacity: 0;
+
+    &.is-shown {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.3s ease-in-out;
+    }
 }

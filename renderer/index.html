@@ -25,7 +25,7 @@
 
     <!-- YZU Backend api module -->
     <script type="module" src="./js/yzu_backend.js"></script>
-    
+
     <!-- Simple Scrollbar -->
     <script src="./js/simple-scrollbar.js"></script>
 
@@ -64,11 +64,11 @@
                     <div class="login-block-inner container">
                         <h2>登入</h2>
                         <div class="login-block-inner-input-group">
-                            <input v-model="sid" class="login-block-input-element" placeholder="學號" type="text" id="student_id"
-                                pattern="s[0-9]{7}" required>
-                            <input v-model="spwd" class="login-block-input-element" placeholder="密碼" type="password" id="student_pwd"
-                                required>
-                            <button @click="login"  class="login-block-input-element" id="login-btn">開始搶課！</button>
+                            <input v-model="sid" class="login-block-input-element" placeholder="學號" type="text"
+                                id="student_id" pattern="s[0-9]{7}" required>
+                            <input v-model="spwd" class="login-block-input-element" placeholder="密碼" type="password"
+                                id="student_pwd" required>
+                            <button @click="login" class="login-block-input-element" id="login-btn">開始搶課！</button>
                         </div>
 
                         <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
@@ -101,32 +101,40 @@
                 </ul>
             </div>
 
-            <div class="content-panel-innercontent">
-                <div class="header">
-                    <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
-                </div>
-
-                <div class="content-panel__infogrid">
-                    <div class="content-panel__notifylist">
-                        <div v-for="notify in notify_list" class="content-panel__notifylist-item">
-                            <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
+            <div id="inner-content-panel">
+                <!-- 首頁 -->
+                <div ss-container id="section-Main" class="inner-section">
+                    <div class="header">
+                        <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
+                    </div>
+            
+                    <div class="content-panel__infogrid">
+                        <div class="content-panel__notifylist">
+                            <div v-for="notify in notify_list" class="content-panel__notifylist-item">
+                                <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
+                            </div>
+                            <!-- * Title
+                            * Body
+                            * ETitle
+                            * EBody
+                            * 
+                            * NotifyType
+                            * PostID
+                            * SendDate -->
                         </div>
-                        <!-- * Title
-                        * Body
-                        * ETitle
-                        * EBody
-                        * 
-                        * NotifyType
-                        * PostID
-                        * SendDate -->
-                    </div>
-                    <div class="content-panel__coursetable">
-
+                        <div class="content-panel__coursetable">
+            
+                        </div>
                     </div>
                 </div>
 
 
 
+
+                <!-- 查詢課程 -->
+                <div ss-container id="section-School-timetable-Query" class="inner-section">
+                    <h2>課程查詢 {{  }}</h2>
+                </div>
             </div>
 
 
@@ -140,6 +148,8 @@
     <script src="../config/dev.js"></script>
 
     <!-- Import js -->
+    <script src="./js/import_template.js"></script>
+    <script src="./js/navigate.js"></script>
     <script src="./js/app_vue.js"></script>
     <script src="./js/landing.js"></script>
 
