@@ -1,73 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hant">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Wanna Class Application</title>
 
 
     <!-- Import Section html -->
-    <link rel="import" href="./sections/main.html">
+    <!-- <link rel="import" href="./sections/main.html">
     <link rel="import" href="./sections/school_timetable_query.html">
     <link rel="import" href="./sections/schedule.html">
-    <link rel="import" href="./sections/setting.html">
+    <link rel="import" href="./sections/setting.html"> -->
 
+    <!-- Fontawesome -->
     <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
+    <!-- Compile css -->
     <link rel="stylesheet" href="./css/wannaclass.css">
+    <!-- Tabs css -->
+    <link rel="stylesheet" href="./css/tabs.css">
 
-    <script type="module" src="/renderer/js/yzu_backend.js"></script>
+    <!-- Simple Scrollbar -->
+    <link rel="stylesheet" href="./css/simple-scrollbar.css">
+
+
+
+
+
+    <!-- YZU Backend api module -->
+    <script type="module" src="./js/yzu_backend.js"></script>
+
+    <!-- Simple Scrollbar -->
+    <script src="./js/simple-scrollbar.js"></script>
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
 
 </head>
 
 <body>
 
+    <div id="app" class="section">
 
-    <div class="login-panel section">
-        <div class="header"></div>
-        <div class="middle container">
-            <div class="hero-image"></div>
-            <div class="hero-text">
-                <h2>給自己的學分一點機會</h2>
-                <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
 
-                <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
-            </div>
-            <div class="login-block move-to-hidden">
-                <div class="login-block-inner container">
-                    <h2>登入</h2>
-                    <div class="login-block-inner-input-group">
-                        <input class="login-block-input-element" placeholder="學號" type="text" id="student_id" pattern="s[0-9]{7}">
-                        <input class="login-block-input-element" placeholder="密碼" type="password" id="student_pwd">
-                        <button class="login-block-input-element" id="login-btn">開始搶課！</button>
+        <div style="display: none;" v-show="isLoading" id="loading-panel" class="section">
+            <img src="../assets/Blue Cat-1s-200px.svg" alt="">
+            <h3>{{ loading_text }}</h3>
+        </div>
+
+
+        <div class="login-panel section">
+            <div class="header"></div>
+            <div class="middle wc-container">
+                <div class="hero-image">
+                    <img class="" src="../assets/undraw_programming_2svr.svg" alt="">
+
+                </div>
+                <div class="hero-text">
+                    <h2>半夜還在電腦前守著</h2>
+                    <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
+
+                    <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="login-block move-to-hidden">
+                    <div class="login-block-inner wc-container">
+                        <h2>登入</h2>
+                        <div class="login-block-inner-input-group">
+                            <input v-model="sid" class="login-block-input-element" placeholder="學號" type="text"
+                                id="student_id" pattern="s[0-9]{7}" required>
+                            <input v-model="spwd" class="login-block-input-element" placeholder="密碼" type="password"
+                                id="student_pwd" required>
+                            <button @click="login" class="login-block-input-element" id="login-btn">開始搶課！</button>
+                        </div>
+
+                        <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
                     </div>
-
-                    <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
                 </div>
             </div>
+            <div class="footer wc-container">
+                <ul>
+                    <li><a><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a><i class="fab fa-github"></i></a></li>
+                    <li><a><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer container">
-            <ul>
-                <li><a><i class="fab fa-facebook-f"></i></a></li>
-                <li><a><i class="fab fa-github"></i></a></li>
-                <li><a><i class="fab fa-linkedin-in"></i></a></li>
-            </ul>
+
+
+
+
+
+
+        <div class="content-panel section">
+            <div class="sidebar">
+                <div class="header">
+                    Logo
+                </div>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </div>
+
+            <div id="inner-content-panel">
+                <!-- 首頁 -->
+                <div ss-container id="section-Main" class="inner-section">
+                    <div class="header">
+                        <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
+                    </div>
+
+                    <div class="content-panel__infogrid">
+                        <div class="content-panel__notifylist">
+                            <div v-for="notify in notify_list" class="content-panel__notifylist-item">
+                                <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
+                            </div>
+                            <!-- * Title
+                            * Body
+                            * ETitle
+                            * EBody
+                            * 
+                            * NotifyType
+                            * PostID
+                            * SendDate -->
+                        </div>
+                        <div class="content-panel__coursetable">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- 查詢課程 -->
+                <div ss-container id="section-School-timetable-Query" class="inner-section">
+                    <h4>課程查詢 {{ }}</h4>
+
+                    <div class="btabs">
+                        <!-- https://codepen.io/woranov/pen/NRqLWK/ -->
+
+                        <input value="dept" type="radio" id="tab1" name="query-tab-control" v-model="queryType" checked>
+                        <input value="courseName" type="radio" id="tab2" name="query-tab-control" v-model="queryType">
+                        <input value="teacherName" type="radio" id="tab3" name="query-tab-control" v-model="queryType">
+                        <input value="courseTime" type="radio" id="tab4" name="query-tab-control" v-model="queryType">
+
+                        <ul>
+                            <li title="系所查詢"> <label for="tab1" role="button"><br><span>系所查詢</span></label></li>
+                            <li title="課程關鍵字查詢"><label for="tab2" role="button"><br><span>課程關鍵字查詢</span></label></li>
+                            <li title="教師姓名"> <label for="tab3" role="button"><br><span>教師姓名</span></label></li>
+                            <li title="時間查詢"> <label for="tab4" role="button"><br><span>時間查詢</span></label></li>
+                        </ul>
+
+                        <div class="slider">
+                            <div class="indicator"></div>
+                        </div>
+                        <div class="content">
+                            <!-- 系所查詢 Section -->
+                            <section>
+                                <h2>系所查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDept">系所</label>
+                                        <select v-model="querySelectQueryDept" id="querySelectQueryDept"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇系所...</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <!-- 課程關鍵字查詢 Section -->
+                            <section>
+                                <h2>課程關鍵字查詢</h2>
+                                <div class="row">
+                                    <label for="queryInputQueryCourseName">課程關鍵字</label>
+                                    <input @change="queryResult" v-model="queryInputQueryCourseName" type="text"
+                                        class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
+                                </div>
+                            </section>
+
+                            <!-- 教師姓名 Section -->
+                            <section>
+                                <h2>教師姓名</h2>
+                                <div class="row">
+                                    <label for="queryInputQueryTeacherName">教師姓名</label>
+                                    <input @change="queryResult" v-model="queryInputQueryTeacherName" type="text"
+                                        class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
+                                </div>
+                            </section>
+
+                            <!-- 時間查詢 Section -->
+                            <section>
+                                <h2>時間查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDay">星期</label>
+                                        <select v-model="querySelectQueryDay" id="querySelectQueryDay"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇星期幾...</option>
+                                            <option value="1">星期一</option>
+                                            <option value="2">星期二</option>
+                                            <option value="3">星期三</option>
+                                            <option value="4">星期四</option>
+                                            <option value="5">星期五</option>
+                                            <option value="6">星期六</option>
+                                            <option value="7">星期日</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryPeriod">節次</label>
+                                        <select v-model="querySelectQueryPeriod" id="querySelectQueryPeriod"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇第幾節...</option>
+                                            <option value="01">第 1 節 08:10~09:00</option>
+                                            <option value="02">第 2 節 09:10~10:00</option>
+                                            <option value="03">第 3 節 10:10~11:00</option>
+                                            <option value="04">第 4 節 11:10~12:00</option>
+                                            <option value="05">第 5 節 12:10~13:00</option>
+                                            <option value="06">第 6 節 13:10~14:00</option>
+                                            <option value="07">第 7 節 14:10~15:00</option>
+                                            <option value="08">第 8 節 15:10~16:00</option>
+                                            <option value="09">第 9 節 16:10~17:00</option>
+                                            <option value="10">第 10 節 17:10~18:00 </option>
+                                            <option value="11">第 11 節 18:30~19:20</option>
+                                            <option value="12">第 12 節 19:30~20:20</option>
+                                            <option value="13">第 13 節 20:30~21:20</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+
+
     </div>
 
 
+    <!-- Debug Use -->
+    <script src="../config/dev.js"></script>
 
+    <!-- Import js -->
+    <script src="./js/import_template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/app_vue.js"></script>
+    <script src="./js/landing.js"></script>
 
-
-
-    <div class="contentPanel section">
-    </div>
-
-
-
-<script defer type="module" src="./js/landing.js"></script>
 </body>
 
 </html>

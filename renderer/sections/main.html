@@ -1,5 +1,26 @@
 <template>
-    <div id="section-Main" class="section">
-        <h2>{{  }} 歡迎使用</h2>
+    <div ss-container id="section-Main" class="inner-section">
+        <div class="header">
+            <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
+        </div>
+
+        <div class="content-panel__infogrid">
+            <div class="content-panel__notifylist">
+                <div v-for="notify in notify_list" class="content-panel__notifylist-item">
+                    <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
+                </div>
+                <!-- * Title
+                * Body
+                * ETitle
+                * EBody
+                * 
+                * NotifyType
+                * PostID
+                * SendDate -->
+            </div>
+            <div class="content-panel__coursetable">
+
+            </div>
+        </div>
     </div>
 </template>

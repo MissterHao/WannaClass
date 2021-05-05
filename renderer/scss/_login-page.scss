@@ -13,17 +13,37 @@
         flex          : 1 1 100%;
         display       : flex;
         flex-direction: row;
+        align-content: center;
 
-        overflow-x: hidden;
 
         // position: relative;
 
         .hero-image {
             z-index: 100;
-            background-image   : url("/assets/undraw_programming_2svr.svg");
-            background-position: center center;
-            background-repeat  : no-repeat;
-            background-size    : contain;
+            // background-image   : url("/assets/undraw_programming_2svr.svg");
+            // background-position: center center;
+            // background-repeat  : no-repeat;
+            // background-size    : contain;
+
+            max-height: 80vh;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+                margin: auto 0;
+                max-width: 100%;
+                // height: 100%;
+                transition: all 1s cubic-bezier(0.23, 1, 0.320, 1);
+                opacity: 1;
+                &.hidden {
+                    opacity: 0;
+                }
+
+            }
 
             flex: 0 0 60%;
 

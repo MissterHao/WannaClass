@@ -18,8 +18,82 @@ body {
     overflow-y: hidden;
 }
 
-.container {
+#app {
+    position: relative;
+    // height    : 100vh;
+    // max-width : 100vw;
+    // overflow-x: hidden;
+    // overflow-y: hidden;
+}
+
+.wc-container {
     margin   : 0 auto;
     max-width: 1280px;
     width    : 90%;
+}
+
+.hidden {
+    display: none;
+    // animation: hidden-disapear-anim 2s normal forwards ease-in-out;
+}
+
+
+
+.slide-up {
+    position: absolute;
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: all .8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+}
+
+
+.hidden-disapear {
+    animation: hidden-disapear-anim 2s normal forwards ease-in-out;
+}
+.hidden-onshown {
+    animation: hidden-onshown-anim 2s normal forwards ease-in-out;
+}
+
+@keyframes hidden-disapear-anim {
+    0% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes hidden-onshown-anim {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    1% {
+        display: unset;
+    }
+
+
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+#loading-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+
+    background: white;
 }
