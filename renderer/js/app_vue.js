@@ -15,7 +15,7 @@ const app = Vue.createApp({
 
 		const login_infomation = ref({}); // 儲存登入資訊
 		const std_account_infomation = ref({}); // 儲存學生資訊
-
+		const notify_list = ref([]);
 
 
 		// 登入並取得學生名字
@@ -41,11 +41,14 @@ const app = Vue.createApp({
 				}).then((service)=>{
 					std_account_infomation.value = service.std_account_infomation
 					getCourseList()
+					getNotifyList()
+
+					
 					setTimeout(()=>{
 						isLoading.value = false;
 						loading_text.value = "";
 						document.querySelector(".login-panel").classList.add("slide-up")
-					}, 2000)					
+					}, 2000)
 
 				})
 			}
@@ -56,11 +59,19 @@ const app = Vue.createApp({
 			apibackend.getCourseSchedule("109", 2)
 		}
 
+		function getNotifyList(){
+			apibackend.getNotifyList().then((service)=>{
+				notify_list.value = service.notify_list;
+			})
+		}
+
 
 		return {
 			// student login infomation
 			sid, spwd, login,
+			// student infomation
 			std_account_infomation,
+			notify_list,
 			// UI controlling
 			isLoading, loading_text,
 		}

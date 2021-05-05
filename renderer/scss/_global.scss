@@ -41,6 +41,7 @@ body {
 
 .slide-up {
     position: absolute;
+    z-index: 1000;
     transform: translateY(-100%);
     transition: all .8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 
@@ -92,7 +93,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    z-index: 100;
+    z-index: 1000;
 
     background: white;
 }

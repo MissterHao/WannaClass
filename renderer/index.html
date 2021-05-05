@@ -19,8 +19,15 @@
     <!-- Compile css -->
     <link rel="stylesheet" href="./css/wannaclass.css">
 
+    <!-- Simple Scrollbar -->
+    <link rel="stylesheet" href="./css/simple-scrollbar.css">
+
+
     <!-- YZU Backend api module -->
     <script type="module" src="./js/yzu_backend.js"></script>
+    
+    <!-- Simple Scrollbar -->
+    <script src="./js/simple-scrollbar.js"></script>
 
     <!-- Vue 3 -->
     <script src="https://unpkg.com/vue@next"></script>
@@ -34,7 +41,7 @@
     <div id="app" class="section">
 
 
-        <div v-show="isLoading" id="loading-panel" class="section">
+        <div style="display: none;" v-show="isLoading" id="loading-panel" class="section">
             <img src="../assets/Blue Cat-1s-200px.svg" alt="">
             <h3>{{ loading_text }}</h3>
         </div>
@@ -83,8 +90,47 @@
 
 
         <div class="content-panel section">
+            <div class="sidebar">
+                <div class="header">
+                    Logo
+                </div>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </div>
+
+            <div class="content-panel-innercontent">
+                <div class="header">
+                    <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
+                </div>
+
+                <div class="content-panel__infogrid">
+                    <div ss-container class="content-panel__notifylist">
+                        <div v-for="notify in notify_list" class="content-panel__notifylist-item">
+                            {{notify.Title}} | {{ notify.SendDate }}
+                            <div class="content-panel__notifylist-item-body">
+                                {{ notify.Body }}
+                            </div>
+                        </div>
+                        <!-- * Title
+                        * Body
+                        * ETitle
+                        * EBody
+                        * 
+                        * NotifyType
+                        * PostID
+                        * SendDate -->
+                    </div>
+                    <div class="content-panel__coursetable">
+
+                    </div>
+                </div>
 
 
+
+            </div>
 
 
         </div>
@@ -99,6 +145,7 @@
     <!-- Import js -->
     <script src="./js/app_vue.js"></script>
     <script src="./js/landing.js"></script>
+
 </body>
 
 </html>
