@@ -25,6 +25,9 @@ class BackendService {
             "Password": "!@#$_YzuApp_IS5201",
 
             "PublicKeyXml": "",
+
+            // Header
+            "Accept": "application/json"
         }
 
 
@@ -161,7 +164,7 @@ class BackendService {
                 return Promise.reject(new Error("解密失敗"))
             }
 
-            this.student_infomation = response.data;
+            this.login_infomation = response.data;
             console.log(response.data)
 
             this.ALLDATA["Token"] = response.data["Token"]
@@ -196,6 +199,37 @@ class BackendService {
 
             console.log(response)
 
+
+
+            var that = this;
+            // 繼續 promise 的 chain
+            return new Promise(function (resolve, reject) {
+                return resolve(that)
+            })
+
+        })
+    }
+
+    _getAppLoginccount() {
+        var url = "https://portal.yzu.edu.tw/StdWebAPI/api/CheckAppAccessToken20190216/GetAppAccount"
+
+        var payload = new URLSearchParams()
+        payload.append("Token", this.ALLDATA["Token"])
+        payload.append("Lang", "zh")
+
+
+        var headers = {
+            "Accept": this.ALLDATA["Accept"],
+            // "Authorization": this.ALLDATA["Authorization"]
+        }
+
+
+        return Axios.post(url, payload, {
+            headers: headers
+        }).then((response) => {
+
+            console.log(response.data)
+            this.std_account_infomation = response.data
 
 
             var that = this;

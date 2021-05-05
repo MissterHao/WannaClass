@@ -10,13 +10,15 @@ const app = Vue.createApp({
 		const sid = ref(sconfig.sid);
 		const spwd = ref(sconfig.spwd);
 
-		const isLoading = ref(false);
+		const isLoading = ref(false);  // 是否
 		const loading_text= ref("");
 
-		const student_infomation = ref({});
+		const login_infomation = ref({}); // 儲存登入資訊
+		const std_account_infomation = ref({}); // 儲存學生資訊
 
 
 
+		// 登入並取得學生名字
 		function login(){
 			if(sid.value !== "" && spwd.value !== ""){
 				console.log(sid.value, spwd.value);
@@ -39,7 +41,10 @@ const app = Vue.createApp({
 
 					document.querySelector(".login-panel").classList.add("slide-up")
 
-					student_infomation.value = service.student_infomation;
+					login_infomation.value = service.login_infomation;
+					return service._getAppLoginccount()
+				}).then((service)=>{
+					std_account_infomation.value = service.std_account_infomation
 				})
 			}
 		}
@@ -48,7 +53,7 @@ const app = Vue.createApp({
 		return {
 			// student login infomation
 			sid, spwd, login,
-			student_infomation,
+			std_account_infomation,
 			// UI controlling
 			isLoading, loading_text,
 		}
