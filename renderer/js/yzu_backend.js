@@ -1,6 +1,7 @@
 const request = require("request")
 const { default: Axios } = require("axios")
 const NodeRSA = require('node-rsa');
+const moment = require("moment")
 
 
 class BackendService {
@@ -281,7 +282,23 @@ class BackendService {
 
         return Axios.post(url, payload, {headers: headers}).then((response) => {
             console.log("Notify: ", response.data)
-            this.notify_list = response.data;
+            this.notify_list = []
+            var length_to_truncate = 20;
+            // 針對 notify item 做處理
+            response.data.forEach(element => {
+                // 截短 Title
+                if(element.Title.length > length_to_truncate){
+                    element.Title = element.Title.substring(0 ,length_to_truncate) + "...";
+                }else {
+                    element.Title = element.Title;
+                }
+
+                // 使用 moment 轉換格式
+                element.SendDate = moment(element.SendDate).format('YYYY/MM/DD');
+                this.notify_list.push(element);
+            });
+            
+            // this.notify_list = response.data;
             /**
              * Title
              * Body

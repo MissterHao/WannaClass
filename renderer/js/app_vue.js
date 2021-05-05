@@ -43,7 +43,7 @@ const app = Vue.createApp({
 					getCourseList()
 					getNotifyList()
 
-					
+
 					setTimeout(()=>{
 						isLoading.value = false;
 						loading_text.value = "";
@@ -62,8 +62,16 @@ const app = Vue.createApp({
 		function getNotifyList(){
 			apibackend.getNotifyList().then((service)=>{
 				notify_list.value = service.notify_list;
+				var el = document.querySelector('.content-panel__notifylist');
+				SimpleScrollbar.initEl(el);
 			})
 		}
+
+
+
+		onUpdated(()=>{
+			
+		})
 
 
 		return {

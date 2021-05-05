@@ -107,12 +107,9 @@
                 </div>
 
                 <div class="content-panel__infogrid">
-                    <div ss-container class="content-panel__notifylist">
+                    <div class="content-panel__notifylist">
                         <div v-for="notify in notify_list" class="content-panel__notifylist-item">
-                            {{notify.Title}} | {{ notify.SendDate }}
-                            <div class="content-panel__notifylist-item-body">
-                                {{ notify.Body }}
-                            </div>
+                            <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
                         </div>
                         <!-- * Title
                         * Body

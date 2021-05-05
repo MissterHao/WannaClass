@@ -29,43 +29,25 @@
     .content-panel__notifylist {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
-        // background: yellowgreen;
+
+        padding: 1rem 1rem;
 
         overflow-x: hidden;
         overflow-y: auto;
 
-        padding: 1rem;
         transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-        // display: flex;
-        // flex-direction: column;
 
 
         &-item {
-
-
             height: 30px;
-            padding: 1rem 0;
             transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            &:hover {
-                height: fit-content;
-                box-shadow: 0px 0px 2px black;
 
-                .content-panel__notifylist-item-body {
-                    height: fit-content;
-                    opacity: 1;
-                }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-            }
-
-            &-body {
-                transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);;
-                height: 0px;
-                opacity: 0;
-            }
-
-
-
+            width: 100%;
+            overflow-x: hidden;
         }
     }
 
