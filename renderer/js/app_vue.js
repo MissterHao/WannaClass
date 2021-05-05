@@ -32,21 +32,28 @@ const app = Vue.createApp({
 					return service._encryptData(sid.value, spwd.value)
 				})
 				.then((service) => {
-					
-					isLoading.value = false;
-					loading_text.value = "";
-
 					return service._getUserAccessToken()
 				}).then((service)=>{
 
-					document.querySelector(".login-panel").classList.add("slide-up")
-
+					
 					login_infomation.value = service.login_infomation;
 					return service._getAppLoginccount()
 				}).then((service)=>{
 					std_account_infomation.value = service.std_account_infomation
+					getCourseList()
+					setTimeout(()=>{
+						isLoading.value = false;
+						loading_text.value = "";
+						document.querySelector(".login-panel").classList.add("slide-up")
+					}, 2000)					
+
 				})
 			}
+		}
+
+
+		function getCourseList(){
+			apibackend.getCourseSchedule("109", 2)
 		}
 
 

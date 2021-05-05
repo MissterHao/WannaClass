@@ -31,7 +31,7 @@ class BackendService {
         }
 
 
-        
+
         this.sid = sid;
         this.spwd = spwd;
 
@@ -48,13 +48,13 @@ class BackendService {
 
 
         yzuService.getRSAKey()
-        .then((service) => {
-            return service.encryptData(loginConfig.account, loginConfig.password)
-        })
-        .then((service) => {
-            return service.getUserAccessToken()
-        })
-        
+            .then((service) => {
+                return service.encryptData(loginConfig.account, loginConfig.password)
+            })
+            .then((service) => {
+                return service.getUserAccessToken()
+            })
+
         return true;
     }
 
@@ -231,6 +231,32 @@ class BackendService {
             console.log(response.data)
             this.std_account_infomation = response.data
 
+
+            var that = this;
+            // 繼續 promise 的 chain
+            return new Promise(function (resolve, reject) {
+                return resolve(that)
+            })
+
+        })
+    }
+
+
+    getCourseSchedule(year, smtr) {
+        var url = "https://portal.yzu.edu.tw/AcademicWebAPI/api/Cos/Get_Course_Schedule"
+
+        var payload = new URLSearchParams()
+        payload.append("token", this.ALLDATA["Token"])
+        payload.append("year", year)
+        payload.append("smtr", smtr)
+        payload.append("ShowLang", "zh")
+
+        var headers = {
+            "Accept": this.ALLDATA["Accept"],
+        }
+
+        return Axios.post(url, payload, {headers: headers}).then((response) => {
+            console.log(response.data)
 
             var that = this;
             // 繼續 promise 的 chain
