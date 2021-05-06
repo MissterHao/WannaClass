@@ -1,4 +1,6 @@
 const { BackendService } = require("./js/yzu_backend");
+// import * as JsSearch from 'js-search';
+const JsSearch = require("js-search")
 const { ref, onMounted, onUpdated, computed } = Vue;
 var apibackend = new BackendService()
 
@@ -31,7 +33,7 @@ const app = Vue.createApp({
 		const querySelectQueryPeriod = ref("01")
 		const queryResultForList = ref([]) // 用於儲存已查詢到的課程列表
 		const modalCourse = ref({}) // 用於儲存點擊的 Course Info 並顯示於 Modal 中
-
+		const QueryCourseList = ref([]);
 
 		/**
 		 * Functions
@@ -79,7 +81,32 @@ const app = Vue.createApp({
 
 
 		function getCourseList() {
-			apibackend.getCourseSchedule("109", 2)
+			// apibackend.getCourseSchedule("109", 2)
+			apibackend.getCourseListFromYZUApi("109", "2").then((data) => {
+				QueryCourseList.value = data.course_list;
+
+				console.log( data );
+				var search = new JsSearch.Search("hashid");
+
+
+				/**
+				 * WeekandRoom: "506(體育場地),507(體育場地),"
+					cd_prompt: null
+					ci_prompt: "中語一配班授課 (限一年級該班學生)。第三階段開放選課，退選請洽體育室。"
+					cos_class: "J "
+					cos_id: "PL101 "
+					cos_type_name: "共同必修"
+					credit: 0
+					dept_name: "體育室                        "
+					name: "體育"
+					smtr: "2  "
+					teacher_id: "wu1968"
+					teacher_name: "吳政文"
+					year: "109"
+				 */
+				search.addDocuments(QueryCourseList.value);
+			})
+
 		}
 
 		function getNotifyList() {

@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const request = require("request")
 const { default: Axios } = require("axios")
 const NodeRSA = require('node-rsa');
@@ -38,6 +39,15 @@ class BackendService {
 
         this._setSidSpwd(sid, spwd)
 
+
+
+        this.AcademicWebAPIurl = "https://portal.yzu.edu.tw/AcademicWebAPI/"
+        this.portalOpenAPIurl = "https://portalx.yzu.edu.tw/OpenData/"
+        this.portalOpenAPI = {
+            "News": "api/Open/YzuNews",
+            "CosList": "api/Open/CosList?year=%s&smtr=%s",
+            "CosListByTeacher": "api/Open/CosListByTeacher?TeacherName=%s",
+        }
 
 
     }
@@ -256,7 +266,7 @@ class BackendService {
             "Accept": this.ALLDATA["Accept"],
         }
 
-        return Axios.post(url, payload, {headers: headers}).then((response) => {
+        return Axios.post(url, payload, { headers: headers }).then((response) => {
             console.log(response.data)
 
             var that = this;
@@ -280,16 +290,16 @@ class BackendService {
             "Accept": this.ALLDATA["Accept"],
         }
 
-        return Axios.post(url, payload, {headers: headers}).then((response) => {
+        return Axios.post(url, payload, { headers: headers }).then((response) => {
             console.log("Notify: ", response.data)
             this.notify_list = []
             var length_to_truncate = 20;
             // 針對 notify item 做處理
             response.data.forEach(element => {
                 // 截短 Title
-                if(element.Title.length > length_to_truncate){
-                    element.Title = element.Title.substring(0 ,length_to_truncate) + "...";
-                }else {
+                if (element.Title.length > length_to_truncate) {
+                    element.Title = element.Title.substring(0, length_to_truncate) + "...";
+                } else {
                     element.Title = element.Title;
                 }
 
@@ -297,7 +307,7 @@ class BackendService {
                 element.SendDate = moment(element.SendDate).format('YYYY/MM/DD');
                 this.notify_list.push(element);
             });
-            
+
             // this.notify_list = response.data;
             /**
              * Title
@@ -316,6 +326,40 @@ class BackendService {
                 return resolve(that)
             })
 
+        })
+    }
+
+
+    /**
+     * 得到某一學年某學期修的課程列表
+     * @param {string} year 學年，ex: 108, 107
+     * @param {string} smtr 學期，ex: 1, 2
+     */
+    getCourseListFromYZUApi(year, smtr) {
+        console.log("Calling: " + this.portalOpenAPIurl + this.portalOpenAPI["CosList"]);
+
+        var url = this.portalOpenAPIurl + "/api/Open/CosList?year=" + year + "&smtr=" + smtr
+
+        return new Promise(function (resolve, reject) {
+            request.get(url, function (err, response, body) {
+                if (!err && response.statusCode == 200) {
+                    // console.log(JSON.parse(body));
+
+                    var dept_list = []; // 所有科系名稱
+
+                    var data = JSON.parse(body)
+                    data.forEach(function(datum, index, theArray) {
+                        dept_list.indexOf(datum["dept_name"]) === -1 ? dept_list.push(datum["dept_name"]): "";
+                        theArray[index].hashid = crypto.createHash('md5').update(JSON.stringify(datum)).digest('hex');
+                    });
+
+
+                    return resolve({
+                        course_list: data,
+                        dept_list: dept_list
+                    })
+                }
+            })
         })
     }
 
