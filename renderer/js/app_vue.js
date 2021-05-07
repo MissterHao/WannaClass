@@ -122,33 +122,55 @@ const app = Vue.createApp({
 			})
 		}
 
+
+
 		function query(qtype, ...args){
 			if(qtype == "dept"){
 				var a = Enumerable.from(CourseList)
 					.where((x)=>{ return  x.year == args[0] && x.smtr == args[1] && x.dept_name.includes(args[2])})
 					.select("$")
 					.toArray();
-
-				
-				console.log(a);
-				console.log(a.length);
-
 				queryResultForList.value = a;
-
 			}else if(qtype == "courseName"){
-
+				var a = Enumerable.from(CourseList)
+					.where((x)=>{ return  x.name == args[0]})
+					.select("$")
+					.toArray();
+				queryResultForList.value = a;
 			}else if(qtype == "teacherName"){
-
+				var a = Enumerable.from(CourseList)
+				.where((x)=>{ return  x.teacher_name == args[0]})
+				.select("$")
+				.toArray();
+				queryResultForList.value = a;
 			}else if(qtype == "courseTime"){
 
+				var time = args[0] + args[1];
+				console.log(args);
+				var a = Enumerable.from(CourseList)
+				.where((x)=>{ return  x.WeekandRoom.contains(time)})
+				.select("$")
+				.toArray();
+				queryResultForList.value = a;
 			}
 		}
-
-
 		watch([querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept,], ([newYear, newSmt, newDept], [prevYear, prevSmt, prevDept])=>{
-			console.log("[newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]", [newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]);
 			query(queryType.value, newYear, newSmt, newDept)
 		})
+		watch([querySelectQueryDay, querySelectQueryPeriod,], ([newDay, newPeriod], [prevDay, prevPeriod])=>{
+			query(queryType.value, newDay, newPeriod)
+		})
+		watch(queryInputQueryCourseName, (newCN, prevCN)=>{
+			query(queryType.value, newCN)
+		})
+		watch(queryInputQueryTeacherName, (newTN, prevTN)=>{
+			query(queryType.value, newTN)
+		})
+
+
+
+		
+		queryInputQueryTeacherName
 
 		// watch([a, b], ([newA, newB], [prevA, prevB]) => {
 		// 	// do whatever you want
@@ -157,6 +179,8 @@ const app = Vue.createApp({
 		function addToSchedule(event, course){
 			
 			console.log("Add to schedule", course);
+
+			// TODO: IPC 通知 worker 加入搶課列表
 
 
             event.preventDefault()

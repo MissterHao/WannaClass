@@ -345,6 +345,39 @@ class BackendService {
                     data.forEach(function(datum, index, theArray) {
                         dept_list.indexOf(datum["dept_name"]) === -1 ? dept_list.push(datum["dept_name"].trim()): "";
                         theArray[index].smtr = datum["smtr"].trim();
+
+                        
+                        var times = datum["WeekandRoom"].split(",")
+                        var r = RegExp("([0-9]{3})\(([0-9a-zA-Z]*)\)", "g");
+
+                        var datumTime = [];
+
+                        times.forEach((time)=>{
+                            if(time==""){
+                                return;
+                            }
+                    
+                            var info = time.match(r);
+                            
+                            if(info==null){
+                                datum["time"] = "無課程資料";
+                                datum["room"] = "無課程資料";
+                            }else if(info.length==1){
+                                datum["time"] = info[0];
+                                datum["room"] = "無教室位置";
+                                datumTime.push(info[0])
+                            }else{
+                                datum["time"] = info[0];
+                                datum["room"] = info[1];
+                                datumTime.push(info[0])
+                            }
+                        })
+                        
+                        if(datumTime.length > 0){
+                            datum["time"] = datumTime.join(",")
+                        }
+
+
                         theArray[index].hashid = crypto.createHash('md5').update(JSON.stringify(datum)).digest('hex');
                     });
 
