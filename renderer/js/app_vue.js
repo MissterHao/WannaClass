@@ -23,17 +23,18 @@ const app = Vue.createApp({
 
 
 		// School Timetable Query
-		const queryType = ref("dept")
-		const querySelectQueryYear = ref("109")
-		const querySelectQuerySmt = ref("2")
-		const querySelectQueryDept = ref("資訊工程學系學士班")
-		const queryInputQueryCourseName = ref("")
-		const queryInputQueryTeacherName = ref("")
-		const querySelectQueryDay = ref("1")
-		const querySelectQueryPeriod = ref("01")
+		const queryType = ref("dept")  // 欲搜尋的類型
+		const querySelectQueryYear = ref("109")  // 欲搜尋的學年
+		const querySelectQuerySmt = ref("2")  // 欲搜尋的學期
+		const querySelectQueryDept = ref("資訊工程學系學士班")  // 欲搜尋的系級
+		const queryInputQueryCourseName = ref("")  // 欲搜尋的課程名稱
+		const queryInputQueryTeacherName = ref("")  // 欲搜尋的教師名稱
+		const querySelectQueryDay = ref("1")   // 欲搜尋的星期
+		const querySelectQueryPeriod = ref("01")  // 欲搜尋的課堂時間
 		const queryResultForList = ref([]) // 用於儲存已查詢到的課程列表
 		const modalCourse = ref({}) // 用於儲存點擊的 Course Info 並顯示於 Modal 中
-		const QueryCourseList = ref([]);
+		const QueryCourseList = ref([]); // 總課程列表
+		const dept_list = ref([]); // 總學校系級
 
 		/**
 		 * Functions
@@ -84,8 +85,10 @@ const app = Vue.createApp({
 			// apibackend.getCourseSchedule("109", 2)
 			apibackend.getCourseListFromYZUApi("109", "2").then((data) => {
 				QueryCourseList.value = data.course_list;
-
+				dept_list.value = data.dept_list;
 				console.log( data );
+				console.log( dept_list.value );
+				console.log( typeof(dept_list.value) );
 				var search = new JsSearch.Search("hashid");
 
 
@@ -117,6 +120,10 @@ const app = Vue.createApp({
 			})
 		}
 
+		function query(){
+			
+		}
+
 
 
 		onUpdated(() => {
@@ -131,7 +138,8 @@ const app = Vue.createApp({
 			std_account_infomation,
 			notify_list,
 			// UI controlling
-			isLoading, loading_text,
+			isLoading, loading_text, 
+			dept_list,
 
 
 			// School Timetable Query
