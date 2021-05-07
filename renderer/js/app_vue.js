@@ -144,6 +144,7 @@ const app = Vue.createApp({
 			}
 		}
 
+
 		watch([querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept,], ([newYear, newSmt, newDept], [prevYear, prevSmt, prevDept])=>{
 			console.log("[newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]", [newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]);
 			query(queryType.value, newYear, newSmt, newDept)
@@ -152,6 +153,22 @@ const app = Vue.createApp({
 		// watch([a, b], ([newA, newB], [prevA, prevB]) => {
 		// 	// do whatever you want
 		//   });
+
+		function addToSchedule(event, course){
+			
+			console.log("Add to schedule", course);
+
+
+            event.preventDefault()
+            event.stopPropagation()
+		}
+
+		function showCourseInfo(course){
+			console.log("show Course Info Modal", course);
+			modalCourse.value = course;
+			document.querySelector("#MHmodal").checked = true;
+		}
+
 
 
 
@@ -174,8 +191,10 @@ const app = Vue.createApp({
 
 
 			// School Timetable Query
+			addToSchedule, showCourseInfo,
 			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, 
 			queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
+
 		}
 
 	}

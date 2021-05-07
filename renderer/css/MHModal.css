@@ -1,0 +1,149 @@
+.MHmodal-btn {
+    position: relative;
+    display: table-cell;
+    width: 100px;
+    height: 100px;
+    background-color: #2c3e50;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    font-size: 36px;
+    color: black;
+    text-align: center;
+    line-height: 2.75;
+    transition: box-shadow 250ms ease;
+  }
+  
+  .MHmodal-btn:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .MHmodal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    visibility: hidden;
+    transition: background-color 250ms linear;
+  }
+  
+  .MHmodal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: auto;
+    margin-top: -18%;
+    margin-left: -25%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0);
+    transition: transform 250ms ease;
+    visibility: hidden;
+    z-index: 20;
+  
+    color: black;
+  }
+  
+  .MHmodal-content .close {
+    position: relative;
+    float: right;
+    font-size: 18px;
+    transition: transform 500ms ease;
+    z-index: 11;
+  }
+  
+  .MHmodal-content .close:hover {
+    color: #3498db;
+    transform: rotate(540deg);
+  }
+  
+  .MHmodal-content header {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .MHmodal-content header h2 {
+    margin: 0 0 10px;
+    padding: 0;
+    font-size: 28px;
+  }
+  
+  .MHmodal-content article {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  
+  .MHmodal-content footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0 0;
+  }
+  
+  .MHmodal-content footer .button {
+    position: relative;
+    padding: 10px 30px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+  
+  .MHmodal-content footer .button:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: width 250ms ease;
+    z-index: 0;
+  }
+  
+  .MHmodal-content footer .button:hover:before {
+    width: 100%;
+  }
+  
+  .MHmodal-content footer .button.success {
+    margin-right: 5px;
+    background-color: #2ecc71;
+  }
+  
+  .MHmodal-content footer .button.danger {
+    background-color: #e74c3c;
+    margin-bottom: 0;
+  }
+  
+  #MHmodal {
+    display: none;
+  }
+  
+  #MHmodal:checked~.MHmodal-bg {
+    visibility: visible;
+    background-color: black;
+    opacity: 0.7;
+    transition: background-color 250ms linear;
+  }
+  
+  #MHmodal:checked~.MHmodal-content {
+    visibility: visible;
+    transform: scale(1);
+    transition: transform 250ms ease;
+    z-index: 111;
+  }
