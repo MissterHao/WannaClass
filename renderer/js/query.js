@@ -1,4 +1,4 @@
-const Enumerable = require("./js/linq")
+
 var jsonArray = [
     { "user": { "id": 100, "screen_name": "d_linq" }, "text": "to objects" },
     { "user": { "id": 130, "screen_name": "c_bill" }, "text": "g" },

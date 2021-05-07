@@ -55,13 +55,13 @@
 
     <div id="app" class="section">
 
-
+        <!-- Loading Panel -->
         <div style="display: none;" v-show="isLoading" id="loading-panel" class="section">
             <img src="../assets/Blue Cat-1s-200px.svg" alt="">
             <h3>{{ loading_text }}</h3>
         </div>
 
-
+        <!-- Login Panel -->
         <div class="login-panel section">
             <div class="header"></div>
             <div class="middle wc-container">
@@ -97,13 +97,13 @@
                     <li><a><i class="fab fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
-        </div>
+        </div><!-- End of Login Panel -->
 
 
 
 
 
-
+        <!-- Content Panel -->
         <div class="content-panel section">
             <div class="sidebar">
                 <div class="header">
@@ -207,7 +207,7 @@
                                 <h2>課程關鍵字查詢</h2>
                                 <div class="row">
                                     <label for="queryInputQueryCourseName">課程關鍵字</label>
-                                    <input @change="queryResult" v-model="queryInputQueryCourseName" type="text"
+                                    <input v-model="queryInputQueryCourseName" type="text"
                                         class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
                                 </div>
                             </section>
@@ -217,7 +217,7 @@
                                 <h2>教師姓名</h2>
                                 <div class="row">
                                     <label for="queryInputQueryTeacherName">教師姓名</label>
-                                    <input @change="queryResult" v-model="queryInputQueryTeacherName" type="text"
+                                    <input v-model="queryInputQueryTeacherName" type="text"
                                         class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
                                 </div>
                             </section>
@@ -264,6 +264,9 @@
                             </section>
                         </div>
                     </div>
+                    <!-- <div :key="'course-list'+course.hashid" v-for="(course, index) in queryResultForList">
+                        {{ course }}
+                    </div> -->
 
                     <div class="courses-list">
                         <div class="col-lg-12">
@@ -279,28 +282,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr :key="'course-list'+course.hashid" v-for="(course, index) in queryResultForList">
+                                        <td>{{course.name}}</td>
+                                        <td>{{course.teacher_name}}</td>
+                                        <td>{{course.cos_type_name}}</td>
+                                        <td>{{course.credit}}</td>
+                                        <td>{{course.dept_name}}</td>
+                                        <td><span @click.capture.self="addToSchedule" class="btn hvr-bounce-to-right">加入選課清單</span> </td>
+                                    </tr>
                                     
-                                    <template>
-                                        <course-list-item 
-                                            v-for="(course, index) in queryResultForList" 
-                                            v-bind:key="course.hashid" 
-                                            v-bind:course="course" 
-                                            v-bind:index="index">
-                                        </course-list-item>
-                                        
-                                    </template>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> <!-- End of query section ( 查詢課程 ) -->
             </div>
 
 
-        </div>
-
-
-    </div>
+        </div> <!-- End of Content Panel -->
+    </div> <!-- End of app div -->
 
 
     <!-- Debug Use -->
@@ -311,7 +311,7 @@
     <script defer type="text/javascript" src="./js/query.js"></script>
     <script type="module" src="./js/app_vue.js"></script>
     <script src="./js/landing.js"></script>
-
+    <script src="./js/content.js"></script>
 </body>
 
 </html>

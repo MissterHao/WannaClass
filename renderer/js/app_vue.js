@@ -1,5 +1,5 @@
 const { BackendService } = require("./js/yzu_backend");
-// import * as JsSearch from 'js-search';
+const Enumerable = require("./js/linq")
 const JsSearch = require("js-search")
 const { ref, onMounted, onUpdated, computed, watch } = Vue;
 var apibackend = new BackendService()
@@ -13,6 +13,8 @@ const app = Vue.createApp({
 		 */
 		const sid = ref(sconfig.sid);
 		const spwd = ref(sconfig.spwd);
+
+		const greetings = ref("")
 
 		const isLoading = ref(false);  // 是否
 		const loading_text = ref("");
@@ -38,7 +40,7 @@ const app = Vue.createApp({
 
 		const queryResultForList = ref([]) // 用於儲存已查詢到的課程列表
 		const modalCourse = ref({}) // 用於儲存點擊的 Course Info 並顯示於 Modal 中
-		const QueryCourseList = ref([]); // 總課程列表
+		var CourseList = []; // 總課程列表
 
 		/**
 		 * Functions
@@ -88,13 +90,9 @@ const app = Vue.createApp({
 		function getCourseList() {
 			// apibackend.getCourseSchedule("109", 2)
 			apibackend.getCourseListFromYZUApi("109", "2").then((data) => {
-				QueryCourseList.value = data.course_list;
+				CourseList = data.course_list;
 				dept_list.value = data.dept_list;
-				console.log( data );
-				console.log( dept_list.value );
-				console.log( typeof(dept_list.value) );
 				var search = new JsSearch.Search("hashid");
-
 
 				/**
 				 * WeekandRoom: "506(體育場地),507(體育場地),"
@@ -111,7 +109,7 @@ const app = Vue.createApp({
 					teacher_name: "吳政文"
 					year: "109"
 				 */
-				search.addDocuments(QueryCourseList.value);
+				search.addDocuments(CourseList);
 			})
 
 		}
@@ -126,6 +124,16 @@ const app = Vue.createApp({
 
 		function query(qtype, ...args){
 			if(qtype == "dept"){
+				var a = Enumerable.from(CourseList)
+					.where((x)=>{ return  x.year == args[0] && x.smtr == args[1] && x.dept_name.includes(args[2])})
+					.select("$")
+					.toArray();
+
+				
+				console.log(a);
+				console.log(a.length);
+
+				queryResultForList.value = a;
 
 			}else if(qtype == "courseName"){
 
@@ -137,6 +145,7 @@ const app = Vue.createApp({
 		}
 
 		watch([querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept,], ([newYear, newSmt, newDept], [prevYear, prevSmt, prevDept])=>{
+			console.log("[newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]", [newYear, newSmt, newDept], [prevYear, prevSmt, prevDept]);
 			query(queryType.value, newYear, newSmt, newDept)
 		})
 
@@ -146,14 +155,16 @@ const app = Vue.createApp({
 
 
 
-		onUpdated(() => {
-
-		})
+		onUpdated(() => {})
 
 
 		return {
+			// Util UI variable 
+			greetings,
+
+
 			// student login infomation
-			sid, spwd, login,
+			sid, spwd, login, 
 			// student infomation
 			std_account_infomation,
 			notify_list,
@@ -163,7 +174,8 @@ const app = Vue.createApp({
 
 
 			// School Timetable Query
-			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
+			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, 
+			queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
 		}
 
 	}
@@ -171,52 +183,53 @@ const app = Vue.createApp({
 
 
 
-
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // tag name should be small case
-app.component("course-list-item", {
-    props: ['course', ],
-    template: `
-    <tr course="course" @click="showInfo" data-toggle="collapse" :data-target="'#demo-' +course.hashid" :data-hashid="course.hashid" class="accordion-toggle">
-        <td>{{course.name}}</td>
-        <td>{{course.teacher_name}}</td>
-        <td>{{course.cos_type_name}}</td>
-        <td>{{course.credit}}</td>
-        <td>{{course.dept_name}}</td>
-        <td> <span @click.capture.self="addToSchedule" class="btn hvr-bounce-to-right">加入選課清單</span> </td>
-    </tr>
-    `,
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// app.component("course-list-item", {
+//     props: ['course', ],
+//     template: `
+//     <tr course="course" @click="showInfo" data-toggle="collapse" :data-target="'#demo-' +course.hashid" :data-hashid="course.hashid" class="accordion-toggle">
+//         <td>{{course.name}}</td>
+//         <td>{{course.teacher_name}}</td>
+//         <td>{{course.cos_type_name}}</td>
+//         <td>{{course.credit}}</td>
+//         <td>{{course.dept_name}}</td>
+//         <td> <span @click.capture.self="addToSchedule" class="btn hvr-bounce-to-right">加入選課清單</span> </td>
+//     </tr>
+//     `,
 
-    data :function(){
-        return {
-            mcourse: this.course, 
-            index: 0,
-            hashid: "", 
-        }
-    },
+//     data :function(){
+//         return {
+//             mcourse: this.course, 
+//             index: 0,
+//             hashid: "", 
+//         }
+//     },
 
-    methods: {
-        showInfo(event){
-            console.log("showInfo");
-            this.$emit('showcourseinfotoparent', event.target.parentNode.dataset.hashid, this.course);
-        },
+//     methods: {
+//         showInfo(event){
+//             console.log("showInfo");
+//             this.$emit('showcourseinfotoparent', event.target.parentNode.dataset.hashid, this.course);
+//         },
         
-        addToSchedule(event){
-            console.log("Add to Schedule");
-            alertify.set({ delay: 1000 });
-            alertify.success("已加入選課清單！");
+//         addToSchedule(event){
+//             console.log("Add to Schedule");
+//             alertify.set({ delay: 1000 });
+//             alertify.success("已加入選課清單！");
             
-            ipcRenderer.send(CHANNEL_NAME.TELL_MAIN_ADD_SCHEDULE_ITEM, {
-                course: this.course,
-                status: 0,
-                time: 5
-            })
+//             ipcRenderer.send(CHANNEL_NAME.TELL_MAIN_ADD_SCHEDULE_ITEM, {
+//                 course: this.course,
+//                 status: 0,
+//                 time: 5
+//             })
 
 
-            event.preventDefault()
-            event.stopPropagation()
-        }
-    }
-})
+//             event.preventDefault()
+//             event.stopPropagation()
+//         }
+//     }
+// })
 
 
 app.mount('#app')

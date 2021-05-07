@@ -344,6 +344,7 @@ class BackendService {
                     var data = JSON.parse(body)
                     data.forEach(function(datum, index, theArray) {
                         dept_list.indexOf(datum["dept_name"]) === -1 ? dept_list.push(datum["dept_name"].trim()): "";
+                        theArray[index].smtr = datum["smtr"].trim();
                         theArray[index].hashid = crypto.createHash('md5').update(JSON.stringify(datum)).digest('hex');
                     });
 

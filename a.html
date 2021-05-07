@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <script src="./renderer/js/linq.js"></script>
+    <script>
+        var jsonArray = [
+            { "user": { "id": 100, "screen_name": "d_linq" }, "text": "to objects" },
+            { "user": { "id": 130, "screen_name": "c_bill" }, "text": "g" },
+            { "user": { "id": 155, "screen_name": "b_mskk" }, "text": "kabushiki kaisha" },
+            { "user": { "id": 301, "screen_name": "a_xbox" }, "text": "halo reach" }
+        ];
+
+        Enumerable.from(jsonArray).select("$.user")
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
