@@ -7,12 +7,6 @@
     <title>Wanna Class Application</title>
 
 
-    <!-- Import Section html -->
-    <!-- <link rel="import" href="./sections/main.html">
-    <link rel="import" href="./sections/school_timetable_query.html">
-    <link rel="import" href="./sections/schedule.html">
-    <link rel="import" href="./sections/setting.html"> -->
-
     <!-- Fontawesome -->
     <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
@@ -39,7 +33,9 @@
     <script src="./js/simple-scrollbar.js"></script>
 
     <!-- Vue 3 -->
-    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="./js/vue.global.js"></script>
+
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -47,6 +43,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+
+    
+    <!-- Import Linq -->
+    <script defer type="text/javascript" src="./js/linq.js"></script>
 
 
 </head>
@@ -279,6 +279,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    <template>
+                                        <course-list-item 
+                                            v-for="(course, index) in queryResultForList" 
+                                            v-bind:key="course.hashid" 
+                                            v-bind:course="course" 
+                                            v-bind:index="index">
+                                        </course-list-item>
+                                        
+                                    </template>
                                 </tbody>
                             </table>
                         </div>
@@ -297,8 +307,8 @@
     <script src="../config/dev.js"></script>
 
     <!-- Import js -->
-    <script src="./js/import_template.js"></script>
     <script src="./js/navigate.js"></script>
+    <script defer type="text/javascript" src="./js/query.js"></script>
     <script type="module" src="./js/app_vue.js"></script>
     <script src="./js/landing.js"></script>
 

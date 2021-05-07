@@ -55,9 +55,6 @@ class BackendService {
     loginService(sid, spwd) {
         this._setSidSpwd(sid, spwd)
 
-        console.log(this.sid, this.spwd);
-
-
         yzuService.getRSAKey()
             .then((service) => {
                 return service.encryptData(loginConfig.account, loginConfig.password)
@@ -176,7 +173,6 @@ class BackendService {
             }
 
             this.login_infomation = response.data;
-            console.log(response.data)
 
             this.ALLDATA["Token"] = response.data["Token"]
             this.ALLDATA["UserStatus"] = response.data["UserStatus"]
@@ -343,8 +339,6 @@ class BackendService {
         return new Promise(function (resolve, reject) {
             request.get(url, function (err, response, body) {
                 if (!err && response.statusCode == 200) {
-                    // console.log(JSON.parse(body));
-
                     var dept_list = []; // 所有科系名稱
 
                     var data = JSON.parse(body)
@@ -352,9 +346,6 @@ class BackendService {
                         dept_list.indexOf(datum["dept_name"]) === -1 ? dept_list.push(datum["dept_name"].trim()): "";
                         theArray[index].hashid = crypto.createHash('md5').update(JSON.stringify(datum)).digest('hex');
                     });
-
-
-                    console.log("before", dept_list);
 
                     return resolve({
                         course_list: data,
