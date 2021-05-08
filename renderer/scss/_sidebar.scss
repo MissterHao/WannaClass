@@ -1,3 +1,21 @@
+$background: white;
+
+
+// normal state
+$sidebar-item-normal-text-color: black;
+$sidebar-item-normal-background-color: white;
+
+// hover state
+$sidebar-item-hover-text-color: white;
+$sidebar-item-hover-background-color: rgb(124, 90, 124);
+$sidebar-item-hover-radius: 16px;
+
+// active state
+$sidebar-item-active-text-color: rgb(209, 135, 209);
+$sidebar-item-active-background-color: rgb(209, 135, 209);
+$sidebar-item-acitve-radius: 16px;
+
+
 .sidebar {
     width: 100%;
     height: 100vh;
@@ -6,52 +24,84 @@
 
     flex: 0 0 20%;
 
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(15, 1fr);
+    padding-bottom: 2rem;
+
+    background-color: $background;
 
 
     &.shrink {
         flex: 0 0 5%;
+
+        .sidebar-item {
+            padding-left: 0px;
+            padding-right: 0px;
+            justify-content: center;
+            
+            &:hover {
+                border-radius: 0;
+            }
+            > img {
+                margin: 0;
+            }
+            > span {
+                display: none;
+            }
+        }
     }
+
+
+    .sidebar-funcitonal-items {
+        width: 100%;
+    }
+
+
 
     &-item {
-        grid-column: 1 / 2;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        padding-left: 2rem;
+
+        display: flex;
+
+        color: $sidebar-item-normal-text-color;
+        background-color: sidebar-item-normal-background-color;
+
+        transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
         
-        background-image: url("../assets/ion-settings-outline.svg");
-        
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: unset;
-        background-clip: border-box;
-    }
+        &:hover {
+            color: $sidebar-item-hover-text-color;
+            background-color: $sidebar-item-hover-background-color;
+            fill: $sidebar-item-hover-text-color;
 
-    #home-sidebar-item {
-        background-image: url("../../assets/ion-home-outline.svg");
-    }
-    #courselist-sidebar-item {
-        background-image: url("../../assets/ion-search-outline.svg");
-    }
-    #tasklist-sidebar-item {
-        background-image: url("../../assets/ion-list-outline.svg");
-    }
-    #settings-sidebar-item {
-        background-image: url("../../assets/ion-settings-outline.svg");
-    }
-    #author-sidebar-item {
-        background-image: url("../../assets/ion-search-outline.svg");
-    }
+            border-top-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
+            border-bottom-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
 
+            img {
+                //white
+                // caculate by https://codepen.io/sosuke/pen/Pjoqqp
+                filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+            }
+        }
 
+        img {
+            width: 20px;
+            margin-right: 1rem;
+        }
+
+    }
 
 
 
     #author-sidebar-item {
-        grid-column: 1 / 2;
-        grid-row: 10 / 11;
-        background: yellow;
-        background-image: url("../assets/ion-settings-outline.svg");
+        // background-image: url("../assets/ion-settings-outline.svg");
+        margin-top: auto;
     }
 
 
@@ -62,10 +112,12 @@
 
 .header {
     flex: 0 0 10%;
+    padding: 10px 0px;
 
     width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
 }
 

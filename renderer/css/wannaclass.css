@@ -1056,12 +1056,21 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 20%;
           flex: 0 0 20%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-  -ms-grid-rows: (1fr)[15];
-      grid-template-rows: repeat(15, 1fr);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  padding-bottom: 2rem;
+  background-color: white;
 }
 
 .sidebar.shrink {
@@ -1070,59 +1079,79 @@ body {
           flex: 0 0 5%;
 }
 
+.sidebar.shrink .sidebar-item {
+  padding-left: 0px;
+  padding-right: 0px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sidebar.shrink .sidebar-item:hover {
+  border-radius: 0;
+}
+
+.sidebar.shrink .sidebar-item > img {
+  margin: 0;
+}
+
+.sidebar.shrink .sidebar-item > span {
+  display: none;
+}
+
+.sidebar .sidebar-funcitonal-items {
+  width: 100%;
+}
+
 .sidebar-item {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 1;
-  grid-column: 1 / 2;
-  background-image: url("../assets/ion-settings-outline.svg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: unset;
-  background-clip: border-box;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: black;
+  background-color: sidebar-item-normal-background-color;
+  -webkit-transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
-.sidebar #home-sidebar-item {
-  background-image: url("../../assets/ion-home-outline.svg");
+.sidebar-item:hover {
+  color: white;
+  background-color: #7c5a7c;
+  fill: white;
+  border-top-right-radius: 16px 16px;
+  border-bottom-right-radius: 16px 16px;
 }
 
-.sidebar #courselist-sidebar-item {
-  background-image: url("../../assets/ion-search-outline.svg");
+.sidebar-item:hover img {
+  -webkit-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+          filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
-.sidebar #tasklist-sidebar-item {
-  background-image: url("../../assets/ion-list-outline.svg");
-}
-
-.sidebar #settings-sidebar-item {
-  background-image: url("../../assets/ion-settings-outline.svg");
+.sidebar-item img {
+  width: 20px;
+  margin-right: 1rem;
 }
 
 .sidebar #author-sidebar-item {
-  background-image: url("../../assets/ion-search-outline.svg");
-}
-
-.sidebar #author-sidebar-item {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 1;
-  grid-column: 1 / 2;
-  -ms-grid-row: 10;
-  -ms-grid-row-span: 1;
-  grid-row: 10 / 11;
-  background: yellow;
-  background-image: url("../assets/ion-settings-outline.svg");
+  margin-top: auto;
 }
 
 .header {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 10%;
           flex: 0 0 10%;
+  padding: 10px 0px;
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
