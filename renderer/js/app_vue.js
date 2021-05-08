@@ -102,11 +102,6 @@ const app = Vue.createApp({
 
 		function showSection(id){
 			showSectionById(id)
-			// if(id === "School-timetable-Query"){
-			// 	queryType.value = "dept";
-			// }else {
-			// 	queryType.value = "";
-			// }
 		}
 
 		function getCourseList() {
@@ -120,8 +115,6 @@ const app = Vue.createApp({
 				
 				loading_text.value = "下載完成";
 				isLoading.value = false;
-
-				console.log("CourseList", CourseList);
 
 				var search = new JsSearch.Search("hashid");
 				search.addDocuments(CourseList);
@@ -172,7 +165,6 @@ const app = Vue.createApp({
 			}else if(qtype == "teacherName"){
 				var a = Enumerable.from(CourseList)
 				.where((x)=>{ 
-					console.log( x.teacher_name); 
 					if(x.teacher_name === null) return false;
 
 					return  x.teacher_name.includes(args[0])}
@@ -182,12 +174,9 @@ const app = Vue.createApp({
 				.toArray();
 				queryResultForList.value = a;
 			}else if(qtype == "courseTime"){
-
 				var time = args[0] + args[1];
-				console.log(args);
 				var a = Enumerable.from(CourseList)
 				.where((x)=>{ 
-					console.log(x.time);
 					if(x.time === null) return false;
 					return  x.time.includes(time)}
 				)
@@ -196,7 +185,6 @@ const app = Vue.createApp({
 				queryResultForList.value = a;
 			}
 
-			console.log(queryResultForList.value);
 		}
 		watch([querySelectQueryYear, querySelectQuerySmt], ([newYear, newSmt], [prevYear, prevSmt])=>{
 			console.log("Get Course List by watch");
@@ -212,7 +200,6 @@ const app = Vue.createApp({
 			query(queryType.value, newCN)
 		})
 		watch(queryInputQueryTeacherName, (newTN, prevTN)=>{
-			console.log(queryInputQueryTeacherName.value);
 			query(queryType.value, newTN)
 		})
 		watch(queryType, (newqueryType, prevqueryType)=>{
@@ -291,56 +278,5 @@ const app = Vue.createApp({
 
 	}
 });
-
-
-
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// tag name should be small case
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// app.component("course-list-item", {
-//     props: ['course', ],
-//     template: `
-//     <tr course="course" @click="showInfo" data-toggle="collapse" :data-target="'#demo-' +course.hashid" :data-hashid="course.hashid" class="accordion-toggle">
-//         <td>{{course.name}}</td>
-//         <td>{{course.teacher_name}}</td>
-//         <td>{{course.cos_type_name}}</td>
-//         <td>{{course.credit}}</td>
-//         <td>{{course.dept_name}}</td>
-//         <td> <span @click.capture.self="addToSchedule" class="btn hvr-bounce-to-right">加入選課清單</span> </td>
-//     </tr>
-//     `,
-
-//     data :function(){
-//         return {
-//             mcourse: this.course, 
-//             index: 0,
-//             hashid: "", 
-//         }
-//     },
-
-//     methods: {
-//         showInfo(event){
-//             console.log("showInfo");
-//             this.$emit('showcourseinfotoparent', event.target.parentNode.dataset.hashid, this.course);
-//         },
-        
-//         addToSchedule(event){
-//             console.log("Add to Schedule");
-//             alertify.set({ delay: 1000 });
-//             alertify.success("已加入選課清單！");
-            
-//             ipcRenderer.send(CHANNEL_NAME.TELL_MAIN_ADD_SCHEDULE_ITEM, {
-//                 course: this.course,
-//                 status: 0,
-//                 time: 5
-//             })
-
-
-//             event.preventDefault()
-//             event.stopPropagation()
-//         }
-//     }
-// })
-
 
 app.mount('#app')
