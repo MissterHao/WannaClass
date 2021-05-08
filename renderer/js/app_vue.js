@@ -4,6 +4,13 @@ const JsSearch = require("js-search")
 const { ref, onMounted, onUpdated, computed, watch } = Vue;
 var apibackend = new BackendService()
 
+const fs = require('fs');
+let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+
+
+var year_now = new Date().getFullYear() - 1911;
+var smtr_now  = new Date().getMonth() >= 7 ? 1:2;
+
 const app = Vue.createApp({
 	el: '#app',
 	//   delimiters: ['@{', '}'],
@@ -26,9 +33,9 @@ const app = Vue.createApp({
 
 
 		// School Timetable Query
-		const queryType = ref("")  // 欲搜尋的類型
-		const querySelectQueryYear = ref("")  // 欲搜尋的學年
-		const querySelectQuerySmt = ref("")  // 欲搜尋的學期
+		const queryType = ref("dept")  // 欲搜尋的類型
+		const querySelectQueryYear = ref(`${year_now}`)  // 欲搜尋的學年
+		const querySelectQuerySmt = ref(`${smtr_now}`)  // 欲搜尋的學期
 		const querySelectQueryDept = ref("")  // 欲搜尋的系級
 
 		const queryInputQueryCourseName = ref("")  // 欲搜尋的課程名稱
@@ -41,6 +48,9 @@ const app = Vue.createApp({
 		const queryResultForList = ref([]) // 用於儲存已查詢到的課程列表
 		const modalCourse = ref({}) // 用於儲存點擊的 Course Info 並顯示於 Modal 中
 		var CourseList = []; // 總課程列表
+
+		// Settings
+		const StealCourseInterval = ref(settings.interval); // 選課時間間隔
 
 		/**
 		 * Functions
@@ -61,9 +71,8 @@ const app = Vue.createApp({
 					.then((service) => {
 						return service._getUserAccessToken()
 					}).then((service) => {
-
-
 						login_infomation.value = service.login_infomation;
+						console.log(login_infomation.value);
 						return service._getAppLoginccount()
 					}).then((service) => {
 						std_account_infomation.value = service.std_account_infomation
@@ -75,6 +84,11 @@ const app = Vue.createApp({
 							isLoading.value = false;
 							loading_text.value = "";
 							document.querySelector(".login-panel").classList.add("slide-up")
+							
+							setTimeout(() => {
+								document.querySelector(".login-panel").style.display="none";
+								document.querySelector(".login-panel").classList.remove("slide-up")
+							}, 2000);
 
 							// 顯示首頁
 							showSectionById("Main")
@@ -88,19 +102,29 @@ const app = Vue.createApp({
 
 		function showSection(id){
 			showSectionById(id)
-			if(id === "School-timetable-Query"){
-				queryType.value = "dept";
-			}else {
-				queryType.value = "";
-			}
+			// if(id === "School-timetable-Query"){
+			// 	queryType.value = "dept";
+			// }else {
+			// 	queryType.value = "";
+			// }
 		}
 
 		function getCourseList() {
-			// apibackend.getCourseSchedule("109", 2)
-			apibackend.getCourseListFromYZUApi("109", "2").then((data) => {
+			
+			loading_text.value = "下載課程資料中~";
+			isLoading.value = true;
+			
+			apibackend.getCourseListFromYZUApi(`${querySelectQueryYear.value}`,`${querySelectQuerySmt.value}`).then((data) => {
 				CourseList = data.course_list;
 				dept_list.value = data.dept_list;
+				
+				loading_text.value = "下載完成";
+				isLoading.value = false;
+
+				console.log("CourseList", CourseList);
+
 				var search = new JsSearch.Search("hashid");
+				search.addDocuments(CourseList);
 
 				/**
 				 * WeekandRoom: "506(體育場地),507(體育場地),"
@@ -117,7 +141,6 @@ const app = Vue.createApp({
 					teacher_name: "吳政文"
 					year: "109"
 				 */
-				search.addDocuments(CourseList);
 			})
 
 		}
@@ -133,6 +156,7 @@ const app = Vue.createApp({
 
 
 		function query(qtype, ...args){
+			console.log("query", qtype, args);
 			if(qtype == "dept"){
 				var a = Enumerable.from(CourseList)
 					.where((x)=>{ return  x.year == args[0] && x.smtr == args[1] && x.dept_name.includes(args[2])})
@@ -171,9 +195,15 @@ const app = Vue.createApp({
 				.toArray();
 				queryResultForList.value = a;
 			}
+
+			console.log(queryResultForList.value);
 		}
-		watch([querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept,], ([newYear, newSmt, newDept], [prevYear, prevSmt, prevDept])=>{
-			query(queryType.value, newYear, newSmt, newDept)
+		watch([querySelectQueryYear, querySelectQuerySmt], ([newYear, newSmt], [prevYear, prevSmt])=>{
+			console.log("Get Course List by watch");
+			getCourseList()
+		})
+		watch(querySelectQueryDept,(newDept, prevDept)=>{
+			query(queryType.value, querySelectQueryYear.value, querySelectQuerySmt.value, newDept)
 		})
 		watch([querySelectQueryDay, querySelectQueryPeriod,], ([newDay, newPeriod], [prevDay, prevPeriod])=>{
 			query(queryType.value, newDay, newPeriod)
@@ -253,6 +283,9 @@ const app = Vue.createApp({
 			addToSchedule, showCourseInfo,
 			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, 
 			queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
+
+			// Settings
+			StealCourseInterval,
 
 		}
 

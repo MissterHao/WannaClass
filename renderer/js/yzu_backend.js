@@ -173,9 +173,11 @@ class BackendService {
             }
 
             this.login_infomation = response.data;
+            this.login_infomation["dept"] = response.data["UserStatus"].split('_')[2]
 
             this.ALLDATA["Token"] = response.data["Token"]
             this.ALLDATA["UserStatus"] = response.data["UserStatus"]
+
 
             var that = this;
             // 繼續 promise 的 chain
@@ -333,8 +335,10 @@ class BackendService {
      */
     getCourseListFromYZUApi(year, smtr) {
         console.log("Calling: " + this.portalOpenAPIurl + this.portalOpenAPI["CosList"]);
-
+        
         var url = this.portalOpenAPIurl + "/api/Open/CosList?year=" + year + "&smtr=" + smtr
+        console.log(year, smtr);
+        console.log(url);
 
         return new Promise(function (resolve, reject) {
             request.get(url, function (err, response, body) {

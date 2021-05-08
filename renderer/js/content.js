@@ -9,7 +9,7 @@
         for(var i in [...Array(5).keys()]){
             
             var option = document.createElement("option")
-            option.value = start-1 + parseInt(i);
+            option.value = `${start-1 + parseInt(i)}`;
             option.textContent = `${start-1 + parseInt(i)}`;
             
             document.querySelector(n).appendChild(option)
