@@ -963,18 +963,6 @@ body {
   display: flex;
 }
 
-.content-panel .sidebar {
-  width: 100%;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 20%;
-          flex: 0 0 20%;
-}
-
-.content-panel .header {
-  height: 10vh;
-  width: 100%;
-}
-
 .content-panel .content-panel__infogrid {
   display: -ms-grid;
   display: grid;
@@ -1059,6 +1047,85 @@ body {
 .courses-list {
   height: 100%;
   padding: 2rem;
+}
+
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: (1fr)[15];
+      grid-template-rows: repeat(15, 1fr);
+}
+
+.sidebar.shrink {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 5%;
+          flex: 0 0 5%;
+}
+
+.sidebar-item {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1 / 2;
+  background-image: url("../assets/ion-settings-outline.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: unset;
+  background-clip: border-box;
+}
+
+.sidebar #home-sidebar-item {
+  background-image: url("../../assets/ion-home-outline.svg");
+}
+
+.sidebar #courselist-sidebar-item {
+  background-image: url("../../assets/ion-search-outline.svg");
+}
+
+.sidebar #tasklist-sidebar-item {
+  background-image: url("../../assets/ion-list-outline.svg");
+}
+
+.sidebar #settings-sidebar-item {
+  background-image: url("../../assets/ion-settings-outline.svg");
+}
+
+.sidebar #author-sidebar-item {
+  background-image: url("../../assets/ion-search-outline.svg");
+}
+
+.sidebar #author-sidebar-item {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1 / 2;
+  -ms-grid-row: 10;
+  -ms-grid-row-span: 1;
+  grid-row: 10 / 11;
+  background: yellow;
+  background-image: url("../assets/ion-settings-outline.svg");
+}
+
+.header {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 10%;
+          flex: 0 0 10%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 /* Bounce To Right */

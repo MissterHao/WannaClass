@@ -2,18 +2,6 @@
     background    : rgb(188, 199, 218);
     display       : flex;
 
-    .sidebar {
-        width: 100%;
-        flex: 0 0 20%;
-    }
-
-    
-
-    .header {
-        height: 10vh;
-        width: 100%;
-    }
-
     .content-panel__infogrid {
         display: grid;
         grid-template-columns: 3fr;// 2fr;
