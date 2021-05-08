@@ -218,6 +218,11 @@ const app = Vue.createApp({
 			queryResultForList.value = []
 		})
 
+		watch(StealCourseInterval, (newInterval, prevInterval)=>{
+			settings["interval"] = newInterval
+			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
+		})
+
 
 
 		
