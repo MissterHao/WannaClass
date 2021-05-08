@@ -86,6 +86,9 @@ const app = Vue.createApp({
 			}
 		}
 
+		function showSection(id){
+			showSectionById(id)
+		}
 
 		function getCourseList() {
 			// apibackend.getCourseSchedule("109", 2)
@@ -222,7 +225,8 @@ const app = Vue.createApp({
 			notify_list,
 			// UI controlling
 			isLoading, loading_text, 
-			dept_list,
+			dept_list, 
+			showSection,
 
 
 			// School Timetable Query

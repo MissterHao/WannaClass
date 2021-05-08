@@ -27,19 +27,14 @@ document.addEventListener("DOMContentLoaded", (event)=>{
     ]
     var heroImageIndex = 0;
     setInterval(() => {
-        // heroImage.classList.toggle("hidden")
         heroImageIndex = (heroImageIndex + 1) % 3;
         heroImage.setAttribute("src", heroImageData[heroImageIndex].src)
         heroHeader.textContent = heroImageData[heroImageIndex].header
-        // heroImage.classList.toggle("hidden")
     }, 4000)
 
 
 
     // Login panel
-    // const login_btn = document.querySelector("#login-btn");
-    // const sid_input = document.querySelector("#student_id");
-    // const spwd_input = document.querySelector("#student_pwd");
 
 
     cta.onclick = function () {
@@ -55,15 +50,4 @@ document.addEventListener("DOMContentLoaded", (event)=>{
         cta.querySelector("i").classList.toggle("fa-arrow-right")
         cta.querySelector("i").classList.toggle("fa-arrow-left")
     }
-
-
-    // Login
-    // login_btn.onclick = function () {
-    //     if (backend.loginService(sid_input.value, spwd_input.value)) {
-    //         // 登入成功
-    //         console.log("成功");
-    //     } else {
-    //         // 登入失敗
-    //     }
-    // }
 })

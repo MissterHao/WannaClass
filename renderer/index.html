@@ -63,7 +63,7 @@
         </div>
 
         <!-- Login Panel -->
-        <div style="display: none;" class="login-panel section">
+        <div class="login-panel section">
             <div class="header"></div>
             <div class="middle wc-container">
                 <div class="hero-image">
@@ -112,19 +112,19 @@
                 </div>
                 
                 <div class="sidebar-funcitonal-items point-it">
-                    <div id="home-sidebar-item" class="sidebar-item">
+                    <div @click="showSection('Main')" id="home-sidebar-item" class="sidebar-item">
                         <img src="../assets/ion-home-outline.svg" alt="">
                         <span>Home</span>
                     </div>
-                    <div id="courselist-sidebar-item point-it" class="sidebar-item">
+                    <div @click="showSection('School-timetable-Query')" id="courselist-sidebar-item point-it" class="sidebar-item">
                         <img src="../assets/ion-search-outline.svg" alt="">
                         <span>Course List</span>
                     </div>
-                    <div id="tasklist-sidebar-item point-it" class="sidebar-item">
+                    <div @click="showSection('School-timetable-Query')" id="tasklist-sidebar-item point-it" class="sidebar-item">
                         <img src="../assets/ion-list-outline.svg" alt="">
                         <span>Task List</span>
                     </div>
-                    <div id="settings-sidebar-item point-it" class="sidebar-item">
+                    <div @click="showSection('School-timetable-Query')" id="settings-sidebar-item point-it" class="sidebar-item">
                         <img src="../assets/ion-settings-outline.svg" alt="">
                         <span>Settings</span>
                     </div>
