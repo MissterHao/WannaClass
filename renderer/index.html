@@ -63,7 +63,7 @@
         </div>
 
         <!-- Login Panel -->
-        <div class="login-panel section">
+        <div style="display: none;" class="login-panel section">
             <div class="header"></div>
             <div class="middle wc-container">
                 <div class="hero-image">
@@ -227,9 +227,28 @@
                             <section>
                                 <h2>課程關鍵字查詢</h2>
                                 <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forCourseName">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forCourseName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forCourseName">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forCourseName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div></div>
+                                <div class="row">
+                                    <div class="form-group col">
                                     <label for="queryInputQueryCourseName">課程關鍵字</label>
                                     <input v-model="queryInputQueryCourseName" type="text"
                                         class="form-control" id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
+                                    </div>
                                 </div>
                             </section>
 
@@ -237,15 +256,51 @@
                             <section>
                                 <h2>教師姓名</h2>
                                 <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forTeacherName">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forTeacherName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forTeacherName">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forTeacherName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div></div>
+                                <div class="row">
+                                    <div class="form-group col">
                                     <label for="queryInputQueryTeacherName">教師姓名</label>
                                     <input v-model="queryInputQueryTeacherName" type="text"
                                         class="form-control" id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
+                                        </div>
                                 </div>
                             </section>
 
                             <!-- 時間查詢 Section -->
                             <section>
                                 <h2>時間查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forQueryTime">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forQueryTime"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forQueryTime">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forQueryTime"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div></div>
                                 <div class="row">
                                     <div class="form-group col">
                                         <label for="querySelectQueryDay">星期</label>

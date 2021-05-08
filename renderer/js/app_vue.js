@@ -26,10 +26,10 @@ const app = Vue.createApp({
 
 
 		// School Timetable Query
-		const queryType = ref("dept")  // 欲搜尋的類型
-		const querySelectQueryYear = ref("109")  // 欲搜尋的學年
-		const querySelectQuerySmt = ref("2")  // 欲搜尋的學期
-		const querySelectQueryDept = ref("資訊工程學系學士班")  // 欲搜尋的系級
+		const queryType = ref("")  // 欲搜尋的類型
+		const querySelectQueryYear = ref("")  // 欲搜尋的學年
+		const querySelectQuerySmt = ref("")  // 欲搜尋的學期
+		const querySelectQueryDept = ref("")  // 欲搜尋的系級
 
 		const queryInputQueryCourseName = ref("")  // 欲搜尋的課程名稱
 
@@ -88,6 +88,11 @@ const app = Vue.createApp({
 
 		function showSection(id){
 			showSectionById(id)
+			if(id === "School-timetable-Query"){
+				queryType.value = "dept";
+			}else {
+				queryType.value = "";
+			}
 		}
 
 		function getCourseList() {
@@ -180,11 +185,26 @@ const app = Vue.createApp({
 			console.log(queryInputQueryTeacherName.value);
 			query(queryType.value, newTN)
 		})
+		watch(queryType, (newqueryType, prevqueryType)=>{
+			
+			// querySelectQueryYear.value = ""
+			// querySelectQuerySmt.value = ""
+			querySelectQueryDept.value = ""
+
+			queryInputQueryCourseName.value = ""
+
+			queryInputQueryTeacherName.value = ""
+
+			querySelectQueryDay.value = "1"
+			querySelectQueryPeriod.value = "01"
+
+			queryResultForList.value = []
+		})
 
 
 
 		
-		queryInputQueryTeacherName
+		
 
 		// watch([a, b], ([newA, newB], [prevA, prevB]) => {
 		// 	// do whatever you want
