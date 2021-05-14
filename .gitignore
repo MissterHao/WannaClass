@@ -1,5 +1,6 @@
 note.md
 dev.js
+build/*
 
 .DS_Store
 .env
