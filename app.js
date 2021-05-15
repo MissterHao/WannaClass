@@ -1,16 +1,32 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-
+const fs = require("fs")
 
 const renderer_dirpath = path.join("./", "renderer")
 
 
 let MainWindow = null
+let SelectCourseWorkerWindow = null
+var initConfigSettingJson = {"interval":"2"};
 
+function readOrcreateSettingJson() {
+    try {
+        const content = fs.readFileSync("config/settings.json", "utf-8")
+    } catch (error) {
+        
+        fs.writeFile("config/settings.json", JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) 
+        { 
+            
+        })
 
+    }
+
+}
 
 
 function createWindow() {
+    readOrcreateSettingJson()
+
     
     // 建立 Browser Window
     MainWindow = new BrowserWindow({
@@ -31,12 +47,32 @@ function createWindow() {
     MainWindow.webContents.openDevTools();
 
 
-    // 在主畫面關閉時 關閉 WorkerWindow
-    MainWindow.on("close", function(){
+
+
+
+    // 建立選課worker window
+    SelectCourseWorkerWindow = new BrowserWindow({
+        width: 0,
+        height: 0,
+        show: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    })
+    SelectCourseWorkerWindow.loadFile(path.join(renderer_dirpath, "CourseSelWorker.html"))
+    SelectCourseWorkerWindow.openDevTools()
+
+
+
+
+    // 在主畫面關閉時 關閉 Worker
+    MainWindow.on("close", function () {
+        SelectCourseWorkerWindow.close()
     })
 
 
-    
+
+
 }
 
 

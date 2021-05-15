@@ -232,16 +232,16 @@ class BackendService {
             // "Authorization": this.ALLDATA["Authorization"]
         }
 
+        var that = this;
 
         return Axios.post(url, payload, {
             headers: headers
         }).then((response) => {
 
             console.log(response.data)
-            this.std_account_infomation = response.data
+            that.std_account_infomation = response.data
 
 
-            var that = this;
             // 繼續 promise 的 chain
             return new Promise(function (resolve, reject) {
                 return resolve(that)

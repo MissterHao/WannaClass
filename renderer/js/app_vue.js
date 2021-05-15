@@ -75,7 +75,7 @@ const app = Vue.createApp({
 						console.log(login_infomation.value);
 						return service._getAppLoginccount()
 					}).then((service) => {
-						std_account_infomation.value = service.std_account_infomation
+						std_account_infomation.value = service.std_account_infomation[0]
 						getCourseList()
 						getNotifyList()
 
@@ -147,7 +147,7 @@ const app = Vue.createApp({
 		}
 
 
-
+		/*  */
 		function query(qtype, ...args){
 			console.log("query", qtype, args);
 			if(qtype == "dept"){
@@ -184,7 +184,6 @@ const app = Vue.createApp({
 				.toArray();
 				queryResultForList.value = a;
 			}
-
 		}
 		watch([querySelectQueryYear, querySelectQuerySmt], ([newYear, newSmt], [prevYear, prevSmt])=>{
 			console.log("Get Course List by watch");
