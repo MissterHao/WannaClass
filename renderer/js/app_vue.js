@@ -74,6 +74,8 @@ const app = Vue.createApp({
 					}).then((service) => {
 						login_infomation.value = service.login_infomation;
 						console.log(login_infomation.value);
+						settings["token"] = login_infomation.value["Token"]
+						fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
 						return service._getAppLoginccount()
 					}).then((service) => {
 						std_account_infomation.value = service.std_account_infomation[0]

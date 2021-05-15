@@ -3,7 +3,7 @@ const request = require("request")
 const { default: Axios } = require("axios")
 const NodeRSA = require('node-rsa');
 const moment = require("moment")
-
+const fs = require("fs")
 
 class BackendService {
     constructor(sid, spwd) {
@@ -391,6 +391,63 @@ class BackendService {
                     })
                 }
             })
+        })
+    }
+
+
+
+
+    
+
+    selCourseInline(course) {
+        
+        let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+
+        var url = "https://isdna1.yzu.edu.tw/StdSelWebAPI/api/SelCos/Get_AddCosCheck_Str"
+
+        var payload = new URLSearchParams()
+        payload.append("sYear", course["year"])
+        payload.append("sSmtr", course["smtr"])
+        payload.append("sStage", "1")
+
+        payload.append("sCos_id", course["cos_id"])
+        payload.append("sCos_class", course["cos_class"])
+        payload.append("sCosTerm_id", "1")
+        payload.append("sAcadType", "Y")
+        payload.append("sIPAddr", "APP")
+        payload.append("sApi", "Y")
+        payload.append("sBackDoor", "0")
+        payload.append("sLanguage", "TW")
+        payload.append("sToken", settings["token"])
+
+        // SelCos,CS572,A,1,D,3,Y,Chinese,CS572,A,3 軟體工程
+        // {
+        //     "sYear": "108",
+        //     "sSmtr": "2",
+        //     "sStage": "2",
+        //     "sCos_id": "CS554",
+        //     "sCos_class": "A",
+        //     "sCosTerm_id": "1",
+        //     "sAcadType": "Y",
+        //     "sIPAddr": "APP",
+        //     "sApi": "Y",
+        //     "sBackDoor": "0",
+        //     "sLanguage": "TW",
+        //     "sToken": ALLDATA["Token"],
+        // }
+
+        var headers = {
+            "Accept": this.ALLDATA["Accept"],
+        }
+
+        return Axios.post(url, payload, {
+            headers: headers
+        }).then((response) => {
+            // console.log(response);
+            return new Promise(function (resolve, reject) {
+                return resolve(response)
+            })
+
         })
     }
 
