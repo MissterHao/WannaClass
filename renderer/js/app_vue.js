@@ -5,6 +5,7 @@ const { ref, onMounted, onUpdated, computed, watch } = Vue;
 var apibackend = new BackendService()
 
 const fs = require('fs');
+const { ipcMain, ipcRenderer } = require("electron");
 let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
 
 
@@ -232,14 +233,16 @@ const app = Vue.createApp({
 		//   });
 
 		function addToSchedule(event, course){
+            event.preventDefault()
+            event.stopPropagation()
 			
 			console.log("Add to schedule", course);
 
-			// TODO: IPC 通知 worker 加入搶課列表
+			// 通知 worker 加入搶課列表
+			// window.tasks.addTaskList("addTaskList:toMain", course)
+			var course_obj = JSON.parse(JSON.stringify(course))
+			ipcRenderer.send("addTaskCourse", course_obj)
 
-
-            event.preventDefault()
-            event.stopPropagation()
 		}
 
 		function showCourseInfo(course){
@@ -253,6 +256,12 @@ const app = Vue.createApp({
 
 		onUpdated(() => {})
 
+
+
+		// --------------------------------------------
+		// Debug
+		// --------------------------------------------
+		querySelectQueryYear.value = querySelectQueryYear.value - 1;
 
 		return {
 			// Util UI variable 

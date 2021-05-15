@@ -1,6 +1,8 @@
 note.md
 dev.js
 build/*
+*.sqlite
+
 
 .DS_Store
 .env

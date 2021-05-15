@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Course Window</title>
+</head>
+
+<body>
+    <script>
+        const { ipcRenderer } = require("electron");
+        const { default: Axios } = require("axios")
+        var sqlite3 = require('sqlite3').verbose();
+        const path = require("path");
+
+        var yzuService = null;
+        var TODAYYEAR = new Date().getFullYear() - 1911;
+        var TODAYSMT = new Date().getMonth() >= 7 ? 1 : 2;
+
+
+
+
+        // const database = new Database("db.sqlite");
+        const database = new sqlite3.Database('db.sqlite');
+
+        database.run(
+            `CREATE TABLE IF NOT EXISTS  tasks (
+                "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+                "year" TEXT,
+                "smtr" TEXT,
+                "stage" TEXT,
+                "cos_id" TEXT,
+                "cos_class" TEXT,
+                "cos_type_name" TEXT,
+                "credit" INTEGER,
+                "room" TEXT,
+                "name" TEXT,
+                "teacher_name" TEXT,
+                "dept_name" TEXT
+                );`
+        );
+
+        /** 
+         * 
+         * 
+        */
+
+        function insertTaskList(course) {
+            database.run(`INSERT INTO 
+            tasks(year, smtr, stage, cos_id, cos_class, cos_type_name, credit, room, name, teacher_name, dept_name)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [course["year"], course["smtr"], "1", course["cos_id"], course["cos_class"], course["cos_type_name"], course["credit"], course["room"], course["name"], course["teacher_name"], course["dept_name"]],
+            function (err) {
+                if (err) {
+                    return console.log(err.message);
+                }
+                // get the last insert id
+                console.log(`A row has been inserted with rowid ${this.lastID}`);
+            });
+        }
+
+        // // 被通知又有一個 Schedule 加入
+        ipcRenderer.on("addTaskCourse", (event, data) => {
+            console.log(data);
+            insertTaskList(data)
+        })
+        /*
+            WeekandRoom: "307(2621),308(2621),309(2621),"
+            cd_prompt: null
+            ci_prompt: "服務類課程、品質類課程"
+            cos_class: "A "
+            cos_id: "IE376 "
+            cos_type_name: "選修"
+            credit: 3
+            dept_name: "工業工程與管理學系學士班"
+            hashid: "ea9aa758f6b5dbdbbb8a7116e53d3619"
+            name: "醫療品質管理"
+            room: "2621"
+            smtr: "2"
+            teacher_id: "houtai38"
+            teacher_name: "張厚台"
+            time: "307,308,309"
+            year: "109"
+        */
+
+
+        function selCourseInline(course) {
+            var url = "https://isdna1.yzu.edu.tw/StdSelWebAPI/api/SelCos/Get_AddCosCheck_Str"
+
+            var payload = new URLSearchParams()
+            payload.append("sYear", course["year"])
+            payload.append("sSmtr", course["smtr"])
+            payload.append("sStage", "1")
+
+            payload.append("sCos_id", course["cos_id"])
+            payload.append("sCos_class", course["cos_class"])
+            payload.append("sCosTerm_id", "1")
+            payload.append("sAcadType", "Y")
+            payload.append("sIPAddr", "APP")
+            payload.append("sApi", "Y")
+            payload.append("sBackDoor", "0")
+            payload.append("sLanguage", "TW")
+            payload.append("sToken", this.ALLDATA["Token"])
+
+            // SelCos,CS572,A,1,D,3,Y,Chinese,CS572,A,3 軟體工程
+            // {
+            //     "sYear": "108",
+            //     "sSmtr": "2",
+            //     "sStage": "2",
+            //     "sCos_id": "CS554",
+            //     "sCos_class": "A",
+            //     "sCosTerm_id": "1",
+            //     "sAcadType": "Y",
+            //     "sIPAddr": "APP",
+            //     "sApi": "Y",
+            //     "sBackDoor": "0",
+            //     "sLanguage": "TW",
+            //     "sToken": ALLDATA["Token"],
+            // }
+
+            var headers = {
+                "Accept": this.ALLDATA["Accept"],
+            }
+
+            return Axios.post(url, payload, {
+                headers: headers
+            }).then((response) => {
+                // console.log(response);
+                return new Promise(function (resolve, reject) {
+                    return resolve(response)
+                })
+
+            })
+        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

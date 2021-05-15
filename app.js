@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs")
 
@@ -37,9 +37,9 @@ function createWindow() {
         // Remove the frame of the window
         frame: true, // 控制有沒有外框
         webPreferences: {
-            // preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
-            contextIsolation: false,
+            contextIsolation: false, // 預設為 true 必須設為 false
+            // preload: path.join(renderer_dirpath, "js", "preload_main.html"),
         }
     })
 
@@ -52,11 +52,12 @@ function createWindow() {
 
     // 建立選課worker window
     SelectCourseWorkerWindow = new BrowserWindow({
-        width: 0,
-        height: 0,
-        show: false,
+        width: 1200,
+        height: 800,
+        show: true,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false, // 預設為 true 必須設為 false
         }
     })
     SelectCourseWorkerWindow.loadFile(path.join(renderer_dirpath, "CourseSelWorker.html"))
@@ -99,3 +100,17 @@ app.on('activate', () => {
     }
 })
 
+
+
+
+
+
+
+
+
+
+
+// IPC 
+ipcMain.on("addTaskCourse", (event, data)=>{
+    SelectCourseWorkerWindow.webContents.send("addTaskCourse", data);
+})
