@@ -35,15 +35,16 @@
 
         function insertTaskList(course) {
             database.run(`INSERT INTO 
-            tasks(year, smtr, stage, cos_id, cos_class, cos_type_name, credit, room, name, teacher_name, dept_name)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [course["year"], course["smtr"], "1", course["cos_id"], course["cos_class"], course["cos_type_name"], course["credit"], course["room"], course["name"], course["teacher_name"], course["dept_name"]],
+            tasks(year, smtr, stage, cos_id, cos_class, cos_type_name, credit, room, name, teacher_name, dept_name, done)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [course["year"], course["smtr"], "1", course["cos_id"], course["cos_class"], course["cos_type_name"], course["credit"], course["room"], course["name"], course["teacher_name"], course["dept_name"], 0],
                 function (err) {
                     if (err) {
                         return console.log(err.message);
                     }
                     // get the last insert id
                     console.log(`A row has been inserted with rowid ${this.lastID}`);
+                    tasks.push(course)
                 });
         }
 
@@ -91,25 +92,27 @@
                     "room" TEXT,
                     "name" TEXT,
                     "teacher_name" TEXT,
-                    "dept_name" TEXT
-                    );`
-            );
-            console.log("SELECT ALL");
+                    "dept_name" TEXT,
+                    "done" INTEGER
+                    );`, [], function(){
+                        console.log("SELECT ALL");
+            
+                        database.all(`SELECT * FROM tasks where done=0`, [], (err, rows) => {
+                            if (err) {
+                                throw err;
+                            }
+                            rows.forEach((row) => {
+                                console.log(row);
+                                tasks.push(row);
+                            });
+            
+            
+                            setInterval(getCourses, 3000)
+            
+            
+                        });
 
-            database.all(`SELECT * FROM tasks`, [], (err, rows) => {
-                if (err) {
-                    throw err;
-                }
-                rows.forEach((row) => {
-                    console.log(row);
-                    tasks.push(row);
-                });
-
-
-                setInterval(getCourses, 3000)
-
-
-            });
+                    });
         }
 
         
@@ -117,7 +120,10 @@
             tasks.forEach((element)=>{
 
                 apibackend.selCourseInline(element).then((res)=>{
-                    console.log(res);
+                    
+                    if(res["data"] === "選課系統尚未開放！"){
+                        console.log(res);
+                    }
                 })
                 
             })
