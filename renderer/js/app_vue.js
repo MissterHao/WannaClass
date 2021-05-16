@@ -1,3 +1,4 @@
+const { ipcRenderer } = require("electron");
 const { BackendService } = require("./js/yzu_backend");
 const Enumerable = require("./js/linq")
 const JsSearch = require("js-search")
@@ -5,7 +6,6 @@ const { ref, onMounted, onUpdated, computed, watch } = Vue;
 var apibackend = new BackendService()
 
 const fs = require('fs');
-const { ipcMain, ipcRenderer } = require("electron");
 let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
 
 var sqlite3 = require('sqlite3').verbose();
@@ -13,7 +13,7 @@ const database = new sqlite3.Database('db.sqlite');
 
 
 var year_now = new Date().getFullYear() - 1911;
-var smtr_now  = new Date().getMonth() >= 7 ? 1:2;
+var smtr_now = new Date().getMonth() >= 7 ? 1 : 2;
 
 const app = Vue.createApp({
 	el: '#app',
@@ -65,7 +65,6 @@ const app = Vue.createApp({
 		// 登入並取得學生名字
 		function login() {
 			if (sid.value !== "" && spwd.value !== "") {
-				console.log(sid.value, spwd.value);
 
 				loading_text.value = "登入中";
 				isLoading.value = true;
@@ -79,7 +78,6 @@ const app = Vue.createApp({
 						return service._getUserAccessToken()
 					}).then((service) => {
 						login_infomation.value = service.login_infomation;
-						console.log(login_infomation.value);
 						settings["token"] = login_infomation.value["Token"]
 						fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
 						return service._getAppLoginccount()
@@ -93,15 +91,14 @@ const app = Vue.createApp({
 							isLoading.value = false;
 							loading_text.value = "";
 							document.querySelector(".login-panel").classList.add("slide-up")
-							
+
 							setTimeout(() => {
-								document.querySelector(".login-panel").style.display="none";
+								document.querySelector(".login-panel").style.display = "none";
 								document.querySelector(".login-panel").classList.remove("slide-up")
 							}, 2000);
 
 							// 顯示首頁
 							showSectionById("Main")
-							showSectionById("School-timetable-Query")
 
 						}, 2000)
 
@@ -109,19 +106,19 @@ const app = Vue.createApp({
 			}
 		}
 
-		function showSection(id){
+		function showSection(id) {
 			showSectionById(id)
 		}
 
 		function getCourseList() {
-			
+
 			loading_text.value = "下載課程資料中~";
 			isLoading.value = true;
-			
-			apibackend.getCourseListFromYZUApi(`${querySelectQueryYear.value}`,`${querySelectQuerySmt.value}`).then((data) => {
+
+			apibackend.getCourseListFromYZUApi(`${querySelectQueryYear.value}`, `${querySelectQuerySmt.value}`).then((data) => {
 				CourseList = data.course_list;
 				dept_list.value = data.dept_list;
-				
+
 				loading_text.value = "下載完成";
 				isLoading.value = false;
 
@@ -155,63 +152,62 @@ const app = Vue.createApp({
 			})
 		}
 
-
-		/*  */
-		function query(qtype, ...args){
-			console.log("query", qtype, args);
-			if(qtype == "dept"){
+		function query(qtype, ...args) {
+			if (qtype == "dept") {
 				var a = Enumerable.from(CourseList)
-					.where((x)=>{ return  x.year == args[0] && x.smtr == args[1] && x.dept_name.includes(args[2])})
+					.where((x) => { return x.year == args[0] && x.smtr == args[1] && x.dept_name.includes(args[2]) })
 					.select("$")
 					.toArray();
 				queryResultForList.value = a;
-			}else if(qtype == "courseName"){
+			} else if (qtype == "courseName") {
 				var a = Enumerable.from(CourseList)
-					.where((x)=>{ return  x.name == args[0]})
+					.where((x) => { return x.name == args[0] })
 					.select("$")
 					.toArray();
 				queryResultForList.value = a;
-			}else if(qtype == "teacherName"){
+			} else if (qtype == "teacherName") {
 				var a = Enumerable.from(CourseList)
-				.where((x)=>{ 
-					if(x.teacher_name === null) return false;
+					.where((x) => {
+						if (x.teacher_name === null) return false;
 
-					return  x.teacher_name.includes(args[0])}
-					
-				)
-				.select("$")
-				.toArray();
+						return x.teacher_name.includes(args[0])
+					}
+
+					)
+					.select("$")
+					.toArray();
 				queryResultForList.value = a;
-			}else if(qtype == "courseTime"){
+			} else if (qtype == "courseTime") {
 				var time = args[0] + args[1];
 				var a = Enumerable.from(CourseList)
-				.where((x)=>{ 
-					if(x.time === null) return false;
-					return  x.time.includes(time)}
-				)
-				.select("$")
-				.toArray();
+					.where((x) => {
+						if (x.time === null) return false;
+						return x.time.includes(time)
+					}
+					)
+					.select("$")
+					.toArray();
 				queryResultForList.value = a;
 			}
 		}
-		watch([querySelectQueryYear, querySelectQuerySmt], ([newYear, newSmt], [prevYear, prevSmt])=>{
-			console.log("Get Course List by watch");
+
+		watch([querySelectQueryYear, querySelectQuerySmt], ([newYear, newSmt], [prevYear, prevSmt]) => {
 			getCourseList()
 		})
-		watch(querySelectQueryDept,(newDept, prevDept)=>{
+		watch(querySelectQueryDept, (newDept, prevDept) => {
 			query(queryType.value, querySelectQueryYear.value, querySelectQuerySmt.value, newDept)
 		})
-		watch([querySelectQueryDay, querySelectQueryPeriod,], ([newDay, newPeriod], [prevDay, prevPeriod])=>{
+		watch([querySelectQueryDay, querySelectQueryPeriod,], ([newDay, newPeriod], [prevDay, prevPeriod]) => {
 			query(queryType.value, newDay, newPeriod)
 		})
-		watch(queryInputQueryCourseName, (newCN, prevCN)=>{
+		watch(queryInputQueryCourseName, (newCN, prevCN) => {
 			query(queryType.value, newCN)
 		})
-		watch(queryInputQueryTeacherName, (newTN, prevTN)=>{
+		watch(queryInputQueryTeacherName, (newTN, prevTN) => {
 			query(queryType.value, newTN)
 		})
-		watch(queryType, (newqueryType, prevqueryType)=>{
-			
+		watch(queryType, (newqueryType, prevqueryType) => {
+
 			// querySelectQueryYear.value = ""
 			// querySelectQuerySmt.value = ""
 			querySelectQueryDept.value = ""
@@ -226,26 +222,14 @@ const app = Vue.createApp({
 			queryResultForList.value = []
 		})
 
-		watch(StealCourseInterval, (newInterval, prevInterval)=>{
+		watch(StealCourseInterval, (newInterval, prevInterval) => {
 			settings["interval"] = newInterval
 			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
 		})
 
-
-
-		
-		
-
-		// watch([a, b], ([newA, newB], [prevA, prevB]) => {
-		// 	// do whatever you want
-		//   });
-
-		function addToSchedule(event, course){
-            event.preventDefault()
-            event.stopPropagation()
-			
-			console.log("Add to schedule", course);
-
+		function addToSchedule(event, course) {
+			event.preventDefault()
+			event.stopPropagation()
 			// 通知 worker 加入搶課列表
 			// window.tasks.addTaskList("addTaskList:toMain", course)
 			var course_obj = JSON.parse(JSON.stringify(course))
@@ -253,77 +237,57 @@ const app = Vue.createApp({
 
 		}
 
-		function showCourseInfo(course){
-			console.log("show Course Info Modal", course);
+		function showCourseInfo(course) {
 			modalCourse.value = course;
 			document.querySelector("#MHmodal").checked = true;
 		}
 
-
-
-		function status(s){
-			if(s == 0){
+		function status(s) {
+			if (s == 0) {
 				return "尚未搶到"
-			}else if(s == 1){
+			} else if (s == 1) {
 				return "尚未搶到"
-			}else if(s == 2){
+			} else if (s == 2) {
 				return "尚未搶到"
-			}else {
+			} else {
 				return `其他未明狀態 狀態碼 ${s}`
 			}
 		}
 
-
-
-
-		onUpdated(() => {})
+		onUpdated(() => { })
 
 		onMounted(() => {
-			setInterval(()=>{
+			setInterval(() => {
 				database.all(`SELECT * FROM tasks where status!=0`, [], (err, rows) => {
 					if (err) {
 						throw err;
 					}
-					console.log("Database Task List", rows);
 					tasks.value = rows
 				});
 			}, 5000)
 		})
 
-		// --------------------------------------------
-		// Debug
-		// --------------------------------------------
-		// querySelectQueryYear.value = querySelectQueryYear.value - 1;
-
 		return {
 			// Util UI variable 
 			greetings,
-
-
 			// student login infomation
-			sid, spwd, login, 
+			sid, spwd, login,
 			// student infomation
 			std_account_infomation,
 			notify_list,
 			// UI controlling
-			isLoading, loading_text, 
-			dept_list, 
+			isLoading, loading_text,
+			dept_list,
 			showSection,
-
-
 			// School Timetable Query
 			addToSchedule, showCourseInfo,
-			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, 
+			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName,
 			queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
-
 			// Task List 
 			tasks, status,
-
 			// Settings
 			StealCourseInterval,
-
 		}
-
 	}
 });
 

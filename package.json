@@ -1,6 +1,6 @@
 {
   "name": "wannaclass",
-  "version": "0.0.1",
+  "version": "0.8.0",
   "description": "Get class from yzu course api.",
   "main": "app.js",
   "scripts": {

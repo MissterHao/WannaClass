@@ -2,7 +2,7 @@ note.md
 dev.js
 build/*
 *.sqlite
-settings.json
+config/settings.json
 
 
 .DS_Store

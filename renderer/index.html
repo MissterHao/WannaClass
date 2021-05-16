@@ -65,7 +65,9 @@
 
         <!-- Login Panel -->
         <div class="login-panel section">
-            <div class="header"><h4>Wanna Class</h4><span>專屬於元智人的搶課程式</span></div>
+            <div class="header">
+                <h4>Wanna Class</h4><span>專屬於元智人的搶課程式</span>
+            </div>
             <div class="middle wc-container">
                 <div class="hero-image">
                     <img class="" src="../assets/undraw_programming_2svr.svg" alt="">
@@ -95,8 +97,10 @@
             <div class="footer wc-container">
                 <ul>
                     <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a target="_blank" href="https://github.com/MissterHao/WannaClass"><i class="fab fa-github"></i></a></li>
-                    <li><a target="_blank" href="https://www.linkedin.com/in/haowei526/"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a target="_blank" href="https://github.com/MissterHao/WannaClass"><i
+                                class="fab fa-github"></i></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/haowei526/"><i
+                                class="fab fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
 
@@ -120,8 +124,7 @@
                         <img src="../assets/ion-search-outline.svg" alt="">
                         <span>課程查詢</span>
                     </div>
-                    <div @click="showSection('Task-List')" id="tasklist-sidebar-item point-it"
-                        class="sidebar-item">
+                    <div @click="showSection('Task-List')" id="tasklist-sidebar-item point-it" class="sidebar-item">
                         <img src="../assets/ion-list-outline.svg" alt="">
                         <span>搶課任務列表</span>
                     </div>
@@ -163,7 +166,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div><!-- End of Main ( 首頁 ) -->
 
                 <!-- 查詢課程 -->
                 <div ss-container id="section-School-timetable-Query" class="inner-section">
@@ -399,7 +402,6 @@
                     </div>
                 </div> <!-- End of query section ( 查詢課程 ) -->
 
-
                 <!-- 任務列表 -->
                 <div ss-container id="section-Task-List" class="inner-section">
                     <h4>課程查詢</h4>
@@ -421,8 +423,7 @@
                                 </thead>
                                 <tbody>
                                     <tr :key="'task-list-item'+task.id" v-for="(task, index) in tasks"
-                                         data-toggle="collapse"
-                                        class="accordion-toggle point-it">
+                                        data-toggle="collapse" class="accordion-toggle point-it">
                                         <td class="point-it">{{task.id}}</td>
                                         <td class="point-it">{{task.dept_name}}</td>
                                         <td class="point-it">{{task.name}}</td>
@@ -446,44 +447,44 @@
                                 <h5>個人資訊</h5>
                                 <div class="card">
                                     <div class="card-body">
-                                        
+
                                         <div class="mb-3">
                                             <label for="studentnameforreadonly" class="form-label">妳/你的名字</label>
-                                            <input id="studentnameforreadonly" :value="std_account_infomation.CName" class="form-control" type="text" placeholder="妳/你的名字" aria-label="Student Name" disabled readonly>
+                                            <input id="studentnameforreadonly" :value="std_account_infomation.CName"
+                                                class="form-control" type="text" placeholder="妳/你的名字"
+                                                aria-label="Student Name" disabled readonly>
                                         </div>
-        
+
                                         <div class="mb-3">
                                             <label for="studentidforreadonly" class="form-label">妳/你的學號</label>
-                                            <input id='studentidforreadonly' :value="std_account_infomation.StdNo" class="form-control" type="text" placeholder="妳/你的學號" aria-label="Student ID Number" disabled readonly>
+                                            <input id='studentidforreadonly' :value="std_account_infomation.StdNo"
+                                                class="form-control" type="text" placeholder="妳/你的學號"
+                                                aria-label="Student ID Number" disabled readonly>
                                         </div>
-        
+
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                             <div class="col">
                                 <h5>Settings</h5>
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <label for="StealCourseIntervalInput" class="form-label">檢查時間間隔({{ StealCourseInterval }}秒/選課一次)</label>
-                                            <input v-model="StealCourseInterval" type="range" class="form-range" min="2" max="60" step="1" id="StealCourseIntervalInput">
+                                            <label for="StealCourseIntervalInput" class="form-label">檢查時間間隔({{
+                                                StealCourseInterval }}秒/選課一次)</label>
+                                            <input v-model="StealCourseInterval" type="range" class="form-range" min="2"
+                                                max="60" step="1" id="StealCourseIntervalInput">
                                         </div>
                                     </div>
-                                  </div>
+                                </div>
 
                             </div>
                         </div>
                     </div>
                 </div> <!-- End of settings section ( 設定 ) -->
             </div>
-
-
         </div> <!-- End of Content Panel -->
     </div> <!-- End of app div -->
-
-
-    <!-- Debug Use -->
-    <script src="../config/dev.js"></script>
 
     <!-- Import js -->
     <script src="./js/navigate.js"></script>
