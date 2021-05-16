@@ -54,7 +54,7 @@ function createWindow() {
     SelectCourseWorkerWindow = new BrowserWindow({
         width: 1200,
         height: 800,
-        show: true,
+        show: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false, // 預設為 true 必須設為 false

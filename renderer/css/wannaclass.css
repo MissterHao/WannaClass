@@ -647,7 +647,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   z-index: 1000;
-  background: white;
+  background: rgba(255, 255, 255, 0.884);
 }
 
 .point-it {
@@ -655,7 +655,7 @@ body {
 }
 
 .login-panel {
-  background: #bcc7da;
+  background: #F5F5FC;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -663,18 +663,28 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  position: relative;
 }
 
 .login-panel .header {
+  padding: 0 5rem;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 10%;
           flex: 1 1 10%;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #3c537b;
 }
 
 .login-panel .middle {
@@ -752,7 +762,7 @@ body {
       -ms-flex-align: start;
           align-items: start;
   padding: 10em 1rem 0 3rem;
-  color: white;
+  color: #3c537b;
   -webkit-transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
@@ -782,7 +792,7 @@ body {
   margin-top: 2rem;
   padding: 1em 4em;
   border-radius: 50px;
-  color: black;
+  color: #3c537b;
 }
 
 .login-panel .middle .cta .fas {
@@ -829,7 +839,7 @@ body {
 }
 
 .login-panel .middle .login-block .login-block-inner {
-  height: 60%;
+  height: 80%;
   margin-top: auto;
   margin-bottom: auto;
   background: white;
@@ -911,8 +921,8 @@ body {
   height: 50px;
   margin: 0 5px;
   text-decoration: none;
-  color: #3e454e;
-  background: lightsteelblue;
+  color: #F5F5FC;
+  background: #3c537b;
   border-radius: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -925,8 +935,8 @@ body {
           align-items: center;
   position: relative;
   cursor: pointer;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .login-panel .footer ul li a .fab {
@@ -948,7 +958,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #113a70;
+  background: #8aa0c6;
   border-radius: 50%;
   -webkit-transform: scale(0);
           transform: scale(0);
@@ -957,7 +967,7 @@ body {
 }
 
 .content-panel {
-  background: #bcc7da;
+  background: #5776ad;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1044,6 +1054,10 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+.inner-section h4 {
+  padding: 0 2rem;
+}
+
 .courses-list {
   height: 100%;
   padding: 2rem;
@@ -1089,6 +1103,7 @@ body {
 
 .sidebar.shrink .sidebar-item:hover {
   border-radius: 0;
+  color: #3c537b;
 }
 
 .sidebar.shrink .sidebar-item > img {

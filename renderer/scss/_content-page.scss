@@ -1,5 +1,5 @@
 .content-panel {
-    background    : rgb(188, 199, 218);
+    background    : $primary-color;
     display       : flex;
 
     .content-panel__infogrid {
@@ -76,6 +76,10 @@
         visibility: visible;
         opacity: 1;
         transition: all 0.3s ease-in-out;
+    }
+
+    h4 {
+        padding: 0 2rem;
     }
 }
 

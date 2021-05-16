@@ -293,7 +293,7 @@ const app = Vue.createApp({
 		// --------------------------------------------
 		// Debug
 		// --------------------------------------------
-		querySelectQueryYear.value = querySelectQueryYear.value - 1;
+		// querySelectQueryYear.value = querySelectQueryYear.value - 1;
 
 		return {
 			// Util UI variable 
