@@ -119,7 +119,7 @@
                         <img src="../assets/ion-search-outline.svg" alt="">
                         <span>Course List</span>
                     </div>
-                    <div @click="showSection('School-timetable-Query')" id="tasklist-sidebar-item point-it"
+                    <div @click="showSection('Task-List')" id="tasklist-sidebar-item point-it"
                         class="sidebar-item">
                         <img src="../assets/ion-list-outline.svg" alt="">
                         <span>Task List</span>
@@ -419,9 +419,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr :key="'course-list'+course.hashid" v-for="(course, index) in queryResultForList"
-                                        @click="showCourseInfo(course)" data-toggle="collapse"
-                                        :data-target="'#demo-' +course.hashid" :data-hashid="course.hashid"
+                                    <tr :key="'task-list-item'+task.id" v-for="(task, index) in tasks"
+                                         data-toggle="collapse"
                                         class="accordion-toggle point-it">
                                         <td class="point-it">{{task.id}}</td>
                                         <td class="point-it">{{task.dept_name}}</td>
@@ -429,15 +428,13 @@
                                         <td class="point-it">{{task.cos_type_name}}</td>
                                         <td class="point-it">{{task.credit}}</td>
                                         <td class="point-it">{{ status(task.status) }}</td>
-                                        <td class="point-it"><span @click.capture.self="addToSchedule($event, course)"
-                                                class="btn hvr-bounce-to-right">加入選課清單</span> </td>
-                                    </tr> -->
+                                    </tr>
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div> <!-- End of query section ( 查詢課程 ) -->
+                </div> <!-- End of query section ( 任務列表 ) -->
 
                 <!-- 設定 -->
                 <div ss-container id="section-Settings" class="inner-section">

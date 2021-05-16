@@ -8,6 +8,9 @@ const fs = require('fs');
 const { ipcMain, ipcRenderer } = require("electron");
 let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
 
+var sqlite3 = require('sqlite3').verbose();
+const database = new sqlite3.Database('db.sqlite');
+
 
 var year_now = new Date().getFullYear() - 1911;
 var smtr_now  = new Date().getMonth() >= 7 ? 1:2;
@@ -49,6 +52,9 @@ const app = Vue.createApp({
 		const queryResultForList = ref([]) // 用於儲存已查詢到的課程列表
 		const modalCourse = ref({}) // 用於儲存點擊的 Course Info 並顯示於 Modal 中
 		var CourseList = []; // 總課程列表
+
+		// Task List
+		const tasks = ref([]);
 
 		// Settings
 		const StealCourseInterval = ref(settings.interval); // 選課時間間隔
@@ -255,10 +261,34 @@ const app = Vue.createApp({
 
 
 
+		function status(s){
+			if(s == 0){
+				return "尚未搶到"
+			}else if(s == 1){
+				return "尚未搶到"
+			}else if(s == 2){
+				return "尚未搶到"
+			}else {
+				return `其他未明狀態 狀態碼 ${s}`
+			}
+		}
+
+
+
 
 		onUpdated(() => {})
 
-
+		onMounted(() => {
+			setInterval(()=>{
+				database.all(`SELECT * FROM tasks where status!=0`, [], (err, rows) => {
+					if (err) {
+						throw err;
+					}
+					console.log("Database Task List", rows);
+					tasks.value = rows
+				});
+			}, 5000)
+		})
 
 		// --------------------------------------------
 		// Debug
@@ -285,6 +315,9 @@ const app = Vue.createApp({
 			addToSchedule, showCourseInfo,
 			queryType, querySelectQueryYear, querySelectQuerySmt, querySelectQueryDept, queryInputQueryCourseName, 
 			queryInputQueryTeacherName, querySelectQueryDay, querySelectQueryPeriod, queryResultForList, modalCourse,
+
+			// Task List 
+			tasks, status,
 
 			// Settings
 			StealCourseInterval,
