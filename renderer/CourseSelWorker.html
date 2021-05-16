@@ -26,16 +26,9 @@
 
 
 
-
-
-        /** 
-         * 
-         * 
-        */
-
         function insertTaskList(course) {
             database.run(`INSERT INTO 
-            tasks(year, smtr, stage, cos_id, cos_class, cos_type_name, credit, room, name, teacher_name, dept_name, done)
+            tasks(year, smtr, stage, cos_id, cos_class, cos_type_name, credit, room, name, teacher_name, dept_name, status)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [course["year"], course["smtr"], "1", course["cos_id"], course["cos_class"], course["cos_type_name"], course["credit"], course["room"], course["name"], course["teacher_name"], course["dept_name"], 0],
                 function (err) {
@@ -46,6 +39,18 @@
                     console.log(`A row has been inserted with rowid ${this.lastID}`);
                     tasks.push(course)
                 });
+        }
+
+
+        function setStatus(id, status){
+            
+            database.run(`UPDATE tasks SET status=?  where id = ?`, [status, id], function (err) {
+                if (err) {
+                    return console.log(err.message);
+                }
+                // get the last insert id
+                console.log(`Rowid ${this.lastID} status updated to ${status}`);
+            });
         }
 
         // // 被通知又有一個 Schedule 加入
@@ -93,40 +98,52 @@
                     "name" TEXT,
                     "teacher_name" TEXT,
                     "dept_name" TEXT,
-                    "done" INTEGER
+                    "status" INTEGER
                     );`, [], function(){
-                        console.log("SELECT ALL");
+                        console.log("SET INTERVAL");
+                        setInterval(getCourses, 3000)
             
-                        database.all(`SELECT * FROM tasks where done=0`, [], (err, rows) => {
-                            if (err) {
-                                throw err;
-                            }
-                            rows.forEach((row) => {
-                                console.log(row);
-                                tasks.push(row);
-                            });
-            
-            
-                            setInterval(getCourses, 3000)
-            
-            
-                        });
+                        // database.all(`SELECT * FROM tasks where status=0`, [], (err, rows) => {
+                        //     if (err) {
+                        //         throw err;
+                        //     }
+                        //     rows.forEach((row) => {
+                        //         console.log(row);
+                        //         tasks.push(row);
+                        //     });
+                        //     setInterval(getCourses, 3000)
+                        // });
 
                     });
         }
 
         
         function getCourses(){
-            tasks.forEach((element)=>{
 
-                apibackend.selCourseInline(element).then((res)=>{
-                    
-                    if(res["data"] === "選課系統尚未開放！"){
-                        console.log(res);
-                    }
-                })
-                
-            })
+            database.all(`SELECT * FROM tasks where status=0`, [], (err, rows) => {
+                if (err) {
+                    throw err;
+                }
+                rows.forEach((row) => {
+                    apibackend.selCourseInline(element).then((res)=>{
+                        if(res["data"] === "選課系統尚未開放！"){
+                            setStatus(element.id, Math.floor(Math.random() * 10))
+                            console.log(res);
+                        }else if(res["data"].indexOf("已選過")){
+                            // 2 => 已選過
+                            setStatus(element.id, 2)
+                        }else if(res["data"].indexOf("加選訊息")){
+                            // 1 => 已選 任務完成
+                            setStatus(element.id, 1)
+                        }
+                    }).catch((error) => {
+                        console.error(error)
+                    })
+                });
+            });
+            
+            // tasks.forEach((element)=>{
+            // })
         }
 
 
