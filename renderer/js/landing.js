@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", (event)=>{
 
     // Hero text and image
     const heroHeader = document.querySelector(".login-panel .hero-text h2")
+    const heroDesc = document.querySelector(".login-panel .hero-text .hero-desc")
     const heroContent = document.querySelector(".login-panel .hero-text")
 
     // 
@@ -13,15 +14,18 @@ document.addEventListener("DOMContentLoaded", (event)=>{
     const heroImageData = [
         {
             src: "../assets/undraw_programming_2svr.svg",
-            header: "半夜還在電腦前守著?"
+            header: "半夜依舊在電腦前守著?",
+            content: "黑眼圈熬出來也不一定搶得到課R！"
         },
         {
             src: "../assets/undraw_education_f8ru.svg",
-            header: "給自己的學分一點機會"
+            header: "給自己的學分一點機會",
+            content: ""
         },
         {
             src: "../assets/undraw_schedule_pnbk.svg",
-            header: "還在上網查下學期課表?"
+            header: "還不知道下學期課表?",
+            content: "查課表不想再輸入驗證碼?"
         },
         
     ]
@@ -30,6 +34,7 @@ document.addEventListener("DOMContentLoaded", (event)=>{
         heroImageIndex = (heroImageIndex + 1) % 3;
         heroImage.setAttribute("src", heroImageData[heroImageIndex].src)
         heroHeader.textContent = heroImageData[heroImageIndex].header
+        heroDesc.textContent = heroImageData[heroImageIndex].content
     }, 4000)
 
 
