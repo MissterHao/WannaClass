@@ -1,5 +1,5 @@
 .login-panel {
-    background            : #F5F5FC;
+    background            : $background-color;
     // background: url('https://images.pexels.com/photos/2922672/pexels-photo-2922672.jpeg') no-repeat;
     // background-position: center bottom;
     // background    : url(../assets/programmer-transparent-bg.png);
@@ -196,7 +196,7 @@
                     margin: 0 5px;
 
                     text-decoration: none;
-                    color          : #F5F5FC;
+                    color          : $background-color;
                     background     : $primary-color-dark;
                     border-radius  : 50%;
 
