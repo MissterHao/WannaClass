@@ -25,6 +25,8 @@
         let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
         const database = new sqlite3.Database('db.sqlite');
 
+        var getCoursesIntervalController = null
+
 
         function insertTaskList(course) {
             database.run(`INSERT INTO 
@@ -47,9 +49,18 @@
             });
         }
 
+        function regetSettings(){
+            settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+        }
+
         // // 被通知又有一個 Schedule 加入
         ipcRenderer.on("addTaskCourse", (event, data) => {
             insertTaskList(data)
+        })
+        ipcRenderer.on("regetSettings", (event, data) => {
+            regetSettings()
+            clearInterval(getCoursesIntervalController);
+            getCoursesIntervalController = setInterval(getCourses, settings.interval * 1000)
         })
 
 
@@ -71,11 +82,18 @@
                     "dept_name" TEXT,
                     "status" INTEGER
                     );`, [], function () {
-                setInterval(getCourses, settings.interval)
+                getCoursesIntervalController = setInterval(getCourses, settings.interval * 1000)
             });
         }
 
         function getCourses() {
+
+            if(settings.token === undefined){
+                regetSettings()
+                return
+            }
+
+
             database.all(`SELECT * FROM tasks where status = 0`, [], (err, rows) => {
                 if (err) {
                     throw err;

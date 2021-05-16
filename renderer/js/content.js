@@ -18,7 +18,3 @@
         
     })
 }
-// document.querySelector("#querySelectQueryYear").appendChild(option)
-// document.querySelector("#querySelectQueryYear_forCourseName").appendChild(option)
-// document.querySelector("#querySelectQueryYear_forTeacherName").appendChild(option)
-// document.querySelector("#querySelectQueryYear_forQueryTime").appendChild(option)

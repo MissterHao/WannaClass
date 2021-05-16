@@ -7,7 +7,7 @@ const renderer_dirpath = path.join("./", "renderer")
 
 let MainWindow = null
 let SelectCourseWorkerWindow = null
-var initConfigSettingJson = {"interval":"2"};
+var initConfigSettingJson = {"interval":2, "stage": "1"};
 
 function readOrcreateSettingJson() {
     try {
@@ -113,4 +113,8 @@ app.on('activate', () => {
 // IPC 
 ipcMain.on("addTaskCourse", (event, data)=>{
     SelectCourseWorkerWindow.webContents.send("addTaskCourse", data);
+})
+// IPC 重讀設定檔
+ipcMain.on("regetSettings", (event, data)=>{
+    SelectCourseWorkerWindow.webContents.send("regetSettings", data);
 })

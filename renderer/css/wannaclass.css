@@ -1134,13 +1134,26 @@ body {
 
 .sidebar-item:hover {
   color: white;
-  background-color: #7c5a7c;
+  background-color: #8aa0c6;
   fill: white;
-  border-top-right-radius: 16px 16px;
-  border-bottom-right-radius: 16px 16px;
+  border-top-right-radius: 0 0;
+  border-bottom-right-radius: 0 0;
 }
 
 .sidebar-item:hover img {
+  -webkit-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+          filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.sidebar-item.active {
+  color: white;
+  background-color: #3c537b;
+  fill: white;
+  border-top-right-radius: 0 0;
+  border-bottom-right-radius: 0 0;
+}
+
+.sidebar-item.active img {
   -webkit-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
           filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }

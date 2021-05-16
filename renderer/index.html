@@ -74,8 +74,8 @@
 
                 </div>
                 <div class="hero-text">
-                    <h2>半夜還在電腦前守著</h2>
-                    <span class="hero-desc">還在乖乖等在電腦前面撿課嘛?</span>
+                    <h2>半夜依舊在電腦前守著?</h2>
+                    <span class="hero-desc">黑眼圈熬出來也不一定搶得到課R?</span>
 
                     <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
                 </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="footer wc-container">
                 <ul>
-                    <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a target="_blank" href="https://missterhao.me"><i class="fab fab fa-wordpress-simple"></i></a></li>
                     <li><a target="_blank" href="https://github.com/MissterHao/WannaClass"><i
                                 class="fab fa-github"></i></a></li>
                     <li><a target="_blank" href="https://www.linkedin.com/in/haowei526/"><i
@@ -115,20 +115,20 @@
                 </div>
 
                 <div class="sidebar-funcitonal-items point-it">
-                    <div @click="showSection('Main')" id="home-sidebar-item" class="sidebar-item">
+                    <div @click="showSection('Main')" id="Main-sidebar-item" class="sidebar-item">
                         <img src="../assets/ion-home-outline.svg" alt="">
                         <span>首頁</span>
                     </div>
-                    <div @click="showSection('School-timetable-Query')" id="courselist-sidebar-item point-it"
-                        class="sidebar-item">
+                    <div @click="showSection('School-timetable-Query')" id="School-timetable-Query-sidebar-item"
+                        class="sidebar-item point-it">
                         <img src="../assets/ion-search-outline.svg" alt="">
                         <span>課程查詢</span>
                     </div>
-                    <div @click="showSection('Task-List')" id="tasklist-sidebar-item point-it" class="sidebar-item">
+                    <div @click="showSection('Task-List')" id="Task-List-sidebar-item" class="sidebar-item point-it">
                         <img src="../assets/ion-list-outline.svg" alt="">
                         <span>搶課任務列表</span>
                     </div>
-                    <div @click="showSection('Settings')" id="settings-sidebar-item point-it" class="sidebar-item">
+                    <div @click="showSection('Settings')" id="Settings-sidebar-item" class="sidebar-item point-it">
                         <img src="../assets/ion-settings-outline.svg" alt="">
                         <span>設定</span>
                     </div>
@@ -474,6 +474,14 @@
                                                 StealCourseInterval }}秒/選課一次)</label>
                                             <input v-model="StealCourseInterval" type="range" class="form-range" min="2"
                                                 max="60" step="1" id="StealCourseIntervalInput">
+                                                
+                                            <label for="StealCourseStageID" class="form-label">選擇選課階段</label>
+                                            <select v-model="StealCourseStage" id="StealCourseStageID" class="form-select" aria-label="選課階段">
+                                                <option value="" selected disabled>選擇選課階段</option>
+                                                <option value="1">第一階段選課</option>
+                                                <option value="2">第二階段選課</option>
+                                                <option value="3">第三階段選課</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

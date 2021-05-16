@@ -7,13 +7,13 @@ $sidebar-item-normal-background-color: white;
 
 // hover state
 $sidebar-item-hover-text-color: white;
-$sidebar-item-hover-background-color: rgb(124, 90, 124);
-$sidebar-item-hover-radius: 16px;
+$sidebar-item-hover-background-color: $primary-color-light;
+$sidebar-item-hover-radius: 0;
 
 // active state
-$sidebar-item-active-text-color: rgb(209, 135, 209);
-$sidebar-item-active-background-color: rgb(209, 135, 209);
-$sidebar-item-acitve-radius: 16px;
+$sidebar-item-active-text-color: white;
+$sidebar-item-active-background-color: $primary-color-dark;
+$sidebar-item-active-radius: 0;
 
 
 .sidebar {
@@ -83,6 +83,21 @@ $sidebar-item-acitve-radius: 16px;
 
             border-top-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
             border-bottom-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
+
+            img {
+                //white
+                // caculate by https://codepen.io/sosuke/pen/Pjoqqp
+                filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+            }
+        }
+
+        &.active {
+            color: $sidebar-item-active-text-color;
+            background-color: $sidebar-item-active-background-color;
+            fill: $sidebar-item-active-text-color;
+
+            border-top-right-radius: $sidebar-item-active-radius $sidebar-item-active-radius;
+            border-bottom-right-radius: $sidebar-item-active-radius $sidebar-item-active-radius;
 
             img {
                 //white

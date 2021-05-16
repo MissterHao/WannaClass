@@ -22,8 +22,8 @@ const app = Vue.createApp({
 		/**
 		 * Variables
 		 */
-		const sid = ref(sconfig.sid);
-		const spwd = ref(sconfig.spwd);
+		const sid = ref("");
+		const spwd = ref("");
 
 		const greetings = ref("")
 
@@ -58,6 +58,7 @@ const app = Vue.createApp({
 
 		// Settings
 		const StealCourseInterval = ref(settings.interval); // 選課時間間隔
+		const StealCourseStage = ref(settings.stage); // 選課時間間隔
 
 		/**
 		 * Functions
@@ -223,8 +224,16 @@ const app = Vue.createApp({
 		})
 
 		watch(StealCourseInterval, (newInterval, prevInterval) => {
-			settings["interval"] = newInterval
+			settings["interval"] = parseInt(newInterval)
 			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
+			ipcRenderer.send("regetSettings", {})
+		})
+		
+		watch(StealCourseStage, (newStage, prevStage) => {
+			settings["stage"] = newStage
+			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
+			
+			ipcRenderer.send("regetSettings", {})
 		})
 
 		function addToSchedule(event, course) {
@@ -286,7 +295,7 @@ const app = Vue.createApp({
 			// Task List 
 			tasks, status,
 			// Settings
-			StealCourseInterval,
+			StealCourseInterval,StealCourseStage,
 		}
 	}
 });
