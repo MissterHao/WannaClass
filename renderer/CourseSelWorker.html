@@ -21,8 +21,10 @@
 
         var tasks = [];
 
+        var settingFilePath = "settings.json"
+
         const fs = require('fs');
-        let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+        let settings = JSON.parse(fs.readFileSync(settingFilePath))
         const database = new sqlite3.Database('db.sqlite');
 
         var getCoursesIntervalController = null
@@ -50,7 +52,7 @@
         }
 
         function regetSettings(){
-            settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+            settings = JSON.parse(fs.readFileSync(settingFilePath))
         }
 
         // // 被通知又有一個 Schedule 加入
@@ -100,6 +102,7 @@
                     throw err;
                 }
                 rows.forEach((element) => {
+                    console.log(element);
                     apibackend.selCourseInline(element).then((res) => {
                         console.log(res);
                         if (res["data"] === "選課系統尚未開放！") {

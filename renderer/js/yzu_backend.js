@@ -401,7 +401,7 @@ class BackendService {
 
     selCourseInline(course) {
         
-        let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+        let settings = JSON.parse(fs.readFileSync('settings.json'))
 
         var url = "https://isdna1.yzu.edu.tw/StdSelWebAPI/api/SelCos/Get_AddCosCheck_Str"
 

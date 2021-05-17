@@ -4,6 +4,7 @@ const fs = require("fs")
 
 const renderer_dirpath = path.join("./", "renderer")
 
+var settingFilePath = "settings.json"
 
 let MainWindow = null
 let SelectCourseWorkerWindow = null
@@ -11,16 +12,10 @@ var initConfigSettingJson = {"interval":2, "stage": "1"};
 
 function readOrcreateSettingJson() {
     try {
-        const content = fs.readFileSync("config/settings.json", "utf-8")
+        const content = fs.readFileSync(settingFilePath, "utf-8")
     } catch (error) {
-        
-        fs.writeFile("config/settings.json", JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) 
-        { 
-            
-        })
-
+        fs.writeFile(settingFilePath, JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) {})
     }
-
 }
 
 

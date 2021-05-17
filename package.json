@@ -1,6 +1,6 @@
 {
   "name": "wannaclass",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Get class from yzu course api.",
   "main": "app.js",
   "scripts": {
@@ -9,6 +9,11 @@
   "keywords": [
     "electron"
   ],
+  "homepage": "https://github.com/MissterHao/WannaClass/",
+  "bugs": {
+    "url" : "https://github.com/MissterHao/WannaClass/issues",
+    "email" : "henryliking@gmail.com"
+  },
   "author": {
     "name": "Hao-Wei, Li",
     "email": "henryliking@gmail.com"
@@ -21,7 +26,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "axios": "^0.21.1",
-    "js-search": "^2.0.0",
     "moment": "^2.29.1",
     "node-rsa": "^1.1.1",
     "request": "^2.88.2",
