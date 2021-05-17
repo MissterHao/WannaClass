@@ -1,9 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Main } = require("electron");
 const path = require("path");
 const fs = require("fs")
 
 const renderer_dirpath = path.join("./", "renderer")
 
+var settingFilePath = "settings.json"
 
 let MainWindow = null
 let SelectCourseWorkerWindow = null
@@ -11,16 +12,10 @@ var initConfigSettingJson = {"interval":2, "stage": "1"};
 
 function readOrcreateSettingJson() {
     try {
-        const content = fs.readFileSync("config/settings.json", "utf-8")
+        const content = fs.readFileSync(settingFilePath, "utf-8")
     } catch (error) {
-        
-        fs.writeFile("config/settings.json", JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) 
-        { 
-            
-        })
-
+        fs.writeFile(settingFilePath, JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) {})
     }
-
 }
 
 
@@ -32,6 +27,8 @@ function createWindow() {
     MainWindow = new BrowserWindow({
         width: 1200,
         height: 900,
+        winWidth: 1000,
+        winHeight: 800,
         transparent: false,
 
         // Remove the frame of the window
@@ -43,8 +40,9 @@ function createWindow() {
         }
     })
 
+    MainWindow.setMenuBarVisibility(false)
     MainWindow.loadFile(path.join(renderer_dirpath, "index.html"))
-    MainWindow.webContents.openDevTools();
+    // MainWindow.webContents.openDevTools();
 
 
 
@@ -52,16 +50,16 @@ function createWindow() {
 
     // 建立選課worker window
     SelectCourseWorkerWindow = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        show: true,
+        width: 0,
+        height: 0,
+        show: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false, // 預設為 true 必須設為 false
         }
     })
     SelectCourseWorkerWindow.loadFile(path.join(renderer_dirpath, "CourseSelWorker.html"))
-    SelectCourseWorkerWindow.openDevTools()
+    // SelectCourseWorkerWindow.openDevTools()
 
 
 

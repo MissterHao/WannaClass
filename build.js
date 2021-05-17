@@ -9,11 +9,12 @@ builder.build({
     config: {
         "appId": "com.missterhao.wannaclass",
         "productName": "Wanna Class", // 應用程式名稱 ( 顯示在應用程式與功能 )
+        // "copyright": "Copyright © year ${author} "
         "directories": {
             "output": "build/win"
         },
         "win": {
-            // "icon": path.resolve(__dirname, 'cat.png'),
+            "icon": path.resolve(__dirname, 'icon-512x512.png'),
         }
     },
 })

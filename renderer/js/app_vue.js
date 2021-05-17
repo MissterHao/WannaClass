@@ -1,12 +1,12 @@
 const { ipcRenderer } = require("electron");
 const { BackendService } = require("./js/yzu_backend");
 const Enumerable = require("./js/linq")
-const JsSearch = require("js-search")
 const { ref, onMounted, onUpdated, computed, watch } = Vue;
 var apibackend = new BackendService()
 
 const fs = require('fs');
-let settings = JSON.parse(fs.readFileSync('./config/settings.json'))
+var settingFilePath = "settings.json"
+let settings = JSON.parse(fs.readFileSync(settingFilePath))
 
 var sqlite3 = require('sqlite3').verbose();
 const database = new sqlite3.Database('db.sqlite');
@@ -14,6 +14,10 @@ const database = new sqlite3.Database('db.sqlite');
 
 var year_now = new Date().getFullYear() - 1911;
 var smtr_now = new Date().getMonth() >= 7 ? 1 : 2;
+
+function saveSettingFile(){
+	fs.writeFileSync(settingFilePath, JSON.stringify(settings))
+}
 
 const app = Vue.createApp({
 	el: '#app',
@@ -80,7 +84,7 @@ const app = Vue.createApp({
 					}).then((service) => {
 						login_infomation.value = service.login_infomation;
 						settings["token"] = login_infomation.value["Token"]
-						fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
+						saveSettingFile()
 						return service._getAppLoginccount()
 					}).then((service) => {
 						std_account_infomation.value = service.std_account_infomation[0]
@@ -122,25 +126,6 @@ const app = Vue.createApp({
 
 				loading_text.value = "下載完成";
 				isLoading.value = false;
-
-				var search = new JsSearch.Search("hashid");
-				search.addDocuments(CourseList);
-
-				/**
-				 * WeekandRoom: "506(體育場地),507(體育場地),"
-					cd_prompt: null
-					ci_prompt: "中語一配班授課 (限一年級該班學生)。第三階段開放選課，退選請洽體育室。"
-					cos_class: "J "
-					cos_id: "PL101 "
-					cos_type_name: "共同必修"
-					credit: 0
-					dept_name: "體育室                        "
-					name: "體育"
-					smtr: "2  "
-					teacher_id: "wu1968"
-					teacher_name: "吳政文"
-					year: "109"
-				 */
 			})
 
 		}
@@ -225,14 +210,13 @@ const app = Vue.createApp({
 
 		watch(StealCourseInterval, (newInterval, prevInterval) => {
 			settings["interval"] = parseInt(newInterval)
-			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
+			saveSettingFile()
 			ipcRenderer.send("regetSettings", {})
 		})
 
 		watch(StealCourseStage, (newStage, prevStage) => {
 			settings["stage"] = newStage
-			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
-
+			saveSettingFile()
 			ipcRenderer.send("regetSettings", {})
 		})
 
@@ -241,6 +225,7 @@ const app = Vue.createApp({
 			event.stopPropagation()
 			// 通知 worker 加入搶課列表
 			var course_obj = JSON.parse(JSON.stringify(course))
+			console.log(course_obj);
 			ipcRenderer.send("addTaskCourse", course_obj)
 
 		}
