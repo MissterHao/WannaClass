@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Main } = require("electron");
 const path = require("path");
 const fs = require("fs")
 
@@ -32,6 +32,8 @@ function createWindow() {
     MainWindow = new BrowserWindow({
         width: 1200,
         height: 900,
+        winWidth: 1000,
+        winHeight: 800,
         transparent: false,
 
         // Remove the frame of the window
@@ -43,8 +45,9 @@ function createWindow() {
         }
     })
 
+    MainWindow.setMenuBarVisibility(false)
     MainWindow.loadFile(path.join(renderer_dirpath, "index.html"))
-    MainWindow.webContents.openDevTools();
+    // MainWindow.webContents.openDevTools();
 
 
 
@@ -52,16 +55,16 @@ function createWindow() {
 
     // 建立選課worker window
     SelectCourseWorkerWindow = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        show: true,
+        width: 0,
+        height: 0,
+        show: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false, // 預設為 true 必須設為 false
         }
     })
     SelectCourseWorkerWindow.loadFile(path.join(renderer_dirpath, "CourseSelWorker.html"))
-    SelectCourseWorkerWindow.openDevTools()
+    // SelectCourseWorkerWindow.openDevTools()
 
 
 
