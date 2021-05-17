@@ -1,4 +1,9 @@
 note.md
+dev.js
+build/*
+*.sqlite
+config/settings.json
+
 
 .DS_Store
 .env
