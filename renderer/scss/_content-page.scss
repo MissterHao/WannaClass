@@ -1,0 +1,106 @@
+.content-panel {
+    
+    background    : $background-color;
+    display       : flex;
+
+    .content-panel__infogrid {
+        display: grid;
+        grid-template-columns: 3fr;// 2fr;
+        grid-template-rows: 1fr 3fr;
+        height:0%;
+        width: 0%;
+    }
+
+    .content-panel__notifylist {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+
+        padding: 1rem 1rem;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+
+        &-item {
+            height: 30px;
+            transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100%;
+            overflow-x: hidden;
+        }
+    }
+
+    // .content-panel__coursetable {
+        // grid-column: 1 / 3;
+        // grid-row: 2 / 3;
+        // background: burlywood;
+    // }
+
+
+
+
+
+
+
+
+}
+
+#inner-content-panel {
+    width: 100%;
+    height: 100%;
+    flex: 1 0 80%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.inner-section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow-y: auto;
+
+    visibility: hidden;
+    opacity: 0;
+
+    &.is-shown {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.3s ease-in-out;
+    }
+
+    h4 {
+        padding: 0 2rem;
+    }
+}
+
+
+
+
+
+
+.courses-list {
+    height: 100%;
+    // overflow-y: scroll;
+    padding: 2rem;
+}
+
+
+#section-Main {
+    overflow: hidden;
+
+    .header {
+        height: 100%;
+        width: 100%;
+    }
+}

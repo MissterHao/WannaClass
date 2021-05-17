@@ -1,0 +1,139 @@
+$background: white;
+
+
+// normal state
+$sidebar-item-normal-text-color: black;
+$sidebar-item-normal-background-color: white;
+
+// hover state
+$sidebar-item-hover-text-color: white;
+$sidebar-item-hover-background-color: $primary-color-light;
+$sidebar-item-hover-radius: 0;
+
+// active state
+$sidebar-item-active-text-color: white;
+$sidebar-item-active-background-color: $primary-color-dark;
+$sidebar-item-active-radius: 0;
+
+
+.sidebar {
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    flex: 0 0 20%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+
+    padding-bottom: 2rem;
+
+    background-color: $background;
+
+
+    &.shrink {
+        flex: 0 0 5%;
+
+        .sidebar-item {
+            padding-left: 0px;
+            padding-right: 0px;
+            justify-content: center;
+            
+            &:hover {
+                border-radius: 0;
+                color: $primary-color-dark;
+            }
+            > img {
+                margin: 0;
+            }
+            > span {
+                display: none;
+            }
+        }
+    }
+
+
+    .sidebar-funcitonal-items {
+        width: 100%;
+    }
+
+
+
+    &-item {
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        padding-left: 2rem;
+
+        display: flex;
+
+        color: $sidebar-item-normal-text-color;
+        background-color: sidebar-item-normal-background-color;
+
+        transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        
+        &:hover {
+            color: $sidebar-item-hover-text-color;
+            background-color: $sidebar-item-hover-background-color;
+            fill: $sidebar-item-hover-text-color;
+
+            border-top-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
+            border-bottom-right-radius: $sidebar-item-hover-radius $sidebar-item-hover-radius;
+
+            img {
+                //white
+                // caculate by https://codepen.io/sosuke/pen/Pjoqqp
+                filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+            }
+        }
+
+        &.active {
+            color: $sidebar-item-active-text-color;
+            background-color: $sidebar-item-active-background-color;
+            fill: $sidebar-item-active-text-color;
+
+            border-top-right-radius: $sidebar-item-active-radius $sidebar-item-active-radius;
+            border-bottom-right-radius: $sidebar-item-active-radius $sidebar-item-active-radius;
+
+            img {
+                //white
+                // caculate by https://codepen.io/sosuke/pen/Pjoqqp
+                filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+            }
+        }
+
+        img {
+            width: 20px;
+            margin-right: 1rem;
+        }
+
+    }
+
+
+
+    #author-sidebar-item {
+        // background-image: url("../assets/ion-settings-outline.svg");
+        margin-top: auto;
+    }
+
+
+
+}
+
+
+
+.header {
+    flex: 0 0 10%;
+    padding: 10px 0px;
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

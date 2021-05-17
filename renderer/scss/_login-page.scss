@@ -1,0 +1,243 @@
+.login-panel {
+    background            : $background-color;
+    // background: url('https://images.pexels.com/photos/2922672/pexels-photo-2922672.jpeg') no-repeat;
+    // background-position: center bottom;
+    // background    : url(../assets/programmer-transparent-bg.png);
+    display               : flex;
+    flex-direction        : column;
+    position              : relative;
+
+    .header {
+        padding        : 0 5rem;
+        flex           : 1 1 10%;
+        justify-content: start;
+        align-items    : flex-start;
+        display        : flex;
+        flex-direction : column;
+        color: $primary-color-dark;
+    }
+
+    .middle {
+        flex          : 1 1 100%;
+        display       : flex;
+        flex-direction: row;
+        align-content : center;
+
+
+        .hero-image {
+            z-index        : 100;
+            max-height     : 80vh;
+            overflow-y     : hidden;
+            display        : flex;
+            flex-direction : column;
+            align-items    : center;
+            justify-content: center;
+
+            img {
+                animation : hidden-onshown-anim 2s normal forwards ease-in-out;
+                margin    : auto 0;
+                max-width : 100%;
+                transition: all 1s cubic-bezier(0.23, 1, 0.320, 1);
+                opacity   : 1;
+
+                &.hidden {
+                    opacity: 0;
+                }
+
+            }
+
+            flex: 0 0 60%;
+
+            transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+
+            &.move-to-hidden {
+                // flex     : 0 0 0%;
+                flex-basis: 0%;
+                transform : translateX(-100%);
+            }
+
+        }
+
+        .hero-text {
+            flex          : 0 0 40%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : start;
+            padding       : 10em 1rem 0 3rem;
+
+            color     : $primary-color-dark;
+            transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+
+
+            h2 {
+                word-wrap: break-word;
+            }
+
+            &.move-to-hidden {
+                flex       : 0 0 50%;
+                align-items: start;
+            }
+        }
+
+        .hero-desc {
+            font-weight: 300;
+        }
+
+        .cta {
+            background: white;
+            box-shadow: rgb(145, 140, 140) 2px 2px;
+            cursor    : pointer;
+            margin-top: 2rem;
+            padding   : 1em 4em;
+
+            border-radius: 50px;
+            color        : $primary-color-dark;
+
+            .fas {
+                margin-left: 1rem;
+            }
+        }
+
+
+
+        .login-block {
+            flex           : 0 0 40%;
+            display        : flex;
+            flex-direction : column;
+            justify-content: center;
+            align-items    : center;
+
+            transform : scale(1);
+            transition: all 1.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+            &.move-to-hidden {
+                flex     : 0 0 0%;
+                transform: scale(0);
+            }
+
+            .login-block-lockimg {
+                // width: 10rem;
+                // height: 10rem;
+                position : absolute;
+                top      : 0rem;
+                right    : 20px;
+                font-size: 5rem;
+                color    : rgb(207, 205, 205);
+            }
+
+            .login-block-inner {
+                height       : 80%;
+                margin-top   : auto;
+                margin-bottom: auto;
+                background   : white;
+
+                border-radius: 5px;
+
+                display       : flex;
+                flex-direction: column;
+                padding       : 2rem;
+                padding-top   : 3.5rem;
+
+                position: relative;
+            }
+
+            .login-block-inner-input-group {
+                width         : 100%;
+                height        : 100%;
+                display       : flex;
+                flex-direction: column;
+            }
+
+            .login-block-input-element {
+                width     : 100%;
+                background: #eff0f2;
+
+                margin     : .8em 0;
+                padding    : .8em 0;
+                line-height: 1.5;
+                transition : border-color calc(1 * 1s) ease;
+                text-align : center;
+
+                outline      : transparent;
+                border       : 0px;
+                border-style : solid;
+                border-radius: 28px;
+            }
+
+            #login-btn {
+                cursor    : pointer;
+                background: hsl(359, 96%, 78%);
+
+                &:hover {
+                    background: hsl(359, 96%, 68%);
+                }
+            }
+        }
+    }
+
+    .footer {
+        flex           : 1 1 10%;
+        display        : flex;
+        justify-content: flex-end;
+
+        ul {
+            display  : flex;
+            font-size: 2rem;
+
+            li {
+                text-decoration: none;
+                list-style     : none;
+
+                a {
+                    width : 50px;
+                    height: 50px;
+                    margin: 0 5px;
+
+                    text-decoration: none;
+                    color          : $background-color;
+                    background     : $primary-color-dark;
+                    border-radius  : 50%;
+
+                    display        : flex;
+                    justify-content: center;
+                    align-items    : center;
+
+                    position: relative;
+
+                    cursor: pointer;
+
+                    transition: 0.3s;
+
+                    .fab {
+                        position: relative;
+                        z-index : 100;
+                    }
+
+                    &:hover {
+                        color: white;
+                    }
+
+                    &:hover:before {
+                        transform: scale(1);
+                    }
+
+                    &:before {
+                        content      : '';
+                        position     : absolute;
+                        width        : 100%;
+                        height       : 100%;
+                        background   : $primary-color-light;
+                        border-radius: 50%;
+                        transform    : scale(0);
+                        transition   : .5s;
+                    }
+
+                }
+            }
+        }
+
+
+    }
+}

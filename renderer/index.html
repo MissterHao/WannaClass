@@ -1,92 +1,557 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Wanna Class Application</title>
 
 
-    <!-- Import Section html -->
-    <link rel="import" href="./sections/main.html">
-    <link rel="import" href="./sections/school_timetable_query.html">
-    <link rel="import" href="./sections/schedule.html">
-    <link rel="import" href="./sections/setting.html">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <!-- Compile css -->
+    <link rel="stylesheet" href="./css/wannaclass.css">
+    <!-- Tabs css -->
+    <link rel="stylesheet" href="./css/tabs.css">
+
+    <!-- Simple Scrollbar -->
+    <link rel="stylesheet" href="./css/simple-scrollbar.css">
+
+    <!-- MH Modal -->
+    <link rel="stylesheet" href="./css/MHModal.css">
+
+
+    <!-- YZU Backend api module -->
+    <script type="module" src="./js/yzu_backend.js"></script>
+
+    <!-- Simple Scrollbar -->
+    <script src="./js/simple-scrollbar.js"></script>
+
+    <!-- Vue 3 -->
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="./js/vue.global.js"></script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Import Linq -->
+    <script defer type="text/javascript" src="./js/linq.js"></script>
+
 
 </head>
-<body>
-    
 
-        <div id="Login-section" class="is-shown">
-            <div class="loginPanel">
-                <div class="LoginContent" id="loginForm">
-                        <h1 class="logo">Title</h1>
-                        
-                        <div id="AccountInputOuter" class="input-group mdig">
-                            <input v-model="account" type="text" name="account" id="AccountInput" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Account</label>
+<body>
+
+    <div id="app" class="section">
+
+        <!-- Loading Panel -->
+        <div style="display: none;" v-show="isLoading" id="loading-panel" class="section">
+            <img src="../assets/Blue Cat-1s-200px.svg" alt="">
+            <h3>{{ loading_text }}</h3>
+        </div>
+
+
+        <!-- Login Panel -->
+        <div class="login-panel section">
+            <div class="header">
+                <img style="height: 100px;" src="../assets/icon.png" alt="ICON">
+            </div>
+            <div class="middle wc-container">
+                <div class="hero-image">
+                    <img class="" src="../assets/undraw_programming_2svr.svg" alt="">
+
+                </div>
+                <div class="hero-text">
+                    <h2>半夜依舊在電腦前守著?</h2>
+                    <span class="hero-desc">黑眼圈熬出來也不一定搶得到課R?</span>
+                    <span>專屬於元智人的搶課程式幫助妳/你！</span>
+
+
+                    <span class="cta"><span>開始使用</span><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="login-block move-to-hidden">
+                    <div class="login-block-inner wc-container">
+                        <h2>登入</h2>
+                        <div class="login-block-inner-input-group">
+                            <input v-model="sid" class="login-block-input-element" placeholder="學號" type="text"
+                                id="student_id" pattern="s[0-9]{7}" required>
+                            <input v-model="spwd" class="login-block-input-element" placeholder="密碼" type="password"
+                                id="student_pwd" required>
+                            <button @click="login" class="login-block-input-element" id="login-btn">開始搶課！</button>
                         </div>
-                        
-                        <div id="PasswordInputOuter" class="input-group mdig">
-                            <input v-model="password" type="password" name="password" id="PasswordInput" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Password</label>
-                        </div>
-                        
-                        <button @click="login">Login</button>
+
+                        <div class="login-block-lockimg"><i class="fas fa-user-lock"></i></div>
+                    </div>
                 </div>
             </div>
-    
-            <div class="carouselPanel">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-    
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block fillWidth" src="../asset/yzu/pond.jpg" alt="A">
-                            <div class="carousel-caption d-none d-md-block ">
-                                <h2><b>絕對安全的選課系統</b></h2>
-                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+            <div class="footer wc-container">
+                <ul>
+                    <li><a target="_blank" href="https://missterhao.me"><i class="fab fab fa-wordpress-simple"></i></a>
+                    </li>
+                    <li><a target="_blank" href="https://github.com/MissterHao/WannaClass"><i
+                                class="fab fa-github"></i></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/haowei526/"><i
+                                class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+
+        </div><!-- End of Login Panel -->
+
+
+        <!-- Content Panel -->
+        <div class="content-panel section">
+            <div class="sidebar">
+                <div class="sidebar-header header">
+                    <img src="../assets/icon.png" alt="ICON">
+                </div>
+
+                <div class="sidebar-funcitonal-items point-it">
+                    <div @click="showSection('Main')" id="Main-sidebar-item" class="sidebar-item">
+                        <img src="../assets/ion-home-outline.svg" alt="">
+                        <span>首頁</span>
+                    </div>
+                    <div @click="showSection('School-timetable-Query')" id="School-timetable-Query-sidebar-item"
+                        class="sidebar-item point-it">
+                        <img src="../assets/ion-search-outline.svg" alt="">
+                        <span>課程查詢</span>
+                    </div>
+                    <div @click="showSection('Task-List')" id="Task-List-sidebar-item" class="sidebar-item point-it">
+                        <img src="../assets/ion-list-outline.svg" alt="">
+                        <span>選課任務列表</span>
+                    </div>
+                    <div @click="showSection('Settings')" id="Settings-sidebar-item" class="sidebar-item point-it">
+                        <img src="../assets/ion-settings-outline.svg" alt="">
+                        <span>設定</span>
+                    </div>
+                </div>
+
+                <div id="author-sidebar-item" class="sidebar-item point-it">
+                    <img src="../assets/ion-settings-outline.svg" alt="">
+                    <span><a id="author-sidebar-item-href" class="modal-trigger" href="#about-modal">Author</a></span>
+                </div>
+
+
+            </div> <!-- End of Sidebar -->
+
+            <div id="inner-content-panel">
+                <!-- 首頁 -->
+                <div id="section-Main" class="inner-section">
+                    <div class="header">
+                        <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
+                    </div>
+
+                    <div class="content-panel__infogrid">
+                        <div class="content-panel__notifylist">
+                            <div v-for="notify in notify_list" class="content-panel__notifylist-item">
+                                <span>{{notify.Title}}</span><span>{{ notify.SendDate }}</span>
                             </div>
+                            <!-- * Title
+                            * Body
+                            * ETitle
+                            * EBody
+                            * 
+                            * NotifyType
+                            * PostID
+                            * SendDate -->
                         </div>
-    
-                        <div class="carousel-item">
-                            <img class="d-block fillWidth" src="../asset/yzu/road.jpg" alt="Second slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h2><b>絕對安全的選課系統</b></h2>
-                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+                        <div class="content-panel__coursetable">
+
+                        </div>
+                    </div>
+                </div><!-- End of Main ( 首頁 ) -->
+
+                <!-- 查詢課程 -->
+                <div ss-container id="section-School-timetable-Query" class="inner-section">
+                    <h4>課程查詢 {{ }}</h4>
+
+                    <div class="btabs">
+                        <!-- https://codepen.io/woranov/pen/NRqLWK/ -->
+
+                        <input value="dept" type="radio" id="tab1" name="query-tab-control" v-model="queryType" checked>
+                        <input value="courseName" type="radio" id="tab2" name="query-tab-control" v-model="queryType">
+                        <input value="teacherName" type="radio" id="tab3" name="query-tab-control" v-model="queryType">
+                        <input value="courseTime" type="radio" id="tab4" name="query-tab-control" v-model="queryType">
+
+                        <ul>
+                            <li title="系所查詢"> <label for="tab1" role="button"><br><span>系所查詢</span></label></li>
+                            <li title="課程關鍵字查詢"><label for="tab2" role="button"><br><span>課程關鍵字查詢</span></label></li>
+                            <li title="教師姓名"> <label for="tab3" role="button"><br><span>教師姓名</span></label></li>
+                            <li title="時間查詢"> <label for="tab4" role="button"><br><span>時間查詢</span></label></li>
+                        </ul>
+
+                        <div class="slider">
+                            <div class="indicator"></div>
+                        </div>
+                        <div class="content">
+                            <!-- 系所查詢 Section -->
+                            <section>
+                                <h2>系所查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDept">系所</label>
+                                        <select v-model="querySelectQueryDept" id="querySelectQueryDept"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇系所...</option>
+                                            <option v-for="d in dept_list" :value="d">{{d}}</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <!-- 課程關鍵字查詢 Section -->
+                            <section>
+                                <h2>課程關鍵字查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forCourseName">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forCourseName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forCourseName">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forCourseName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="queryInputQueryCourseName">課程關鍵字</label>
+                                        <input v-model="queryInputQueryCourseName" type="text" class="form-control"
+                                            id="queryInputQueryCourseName" placeholder="請輸入課程關鍵字">
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 教師姓名 Section -->
+                            <section>
+                                <h2>教師姓名</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forTeacherName">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forTeacherName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forTeacherName">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forTeacherName"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="queryInputQueryTeacherName">教師姓名</label>
+                                        <input v-model="queryInputQueryTeacherName" type="text" class="form-control"
+                                            id="queryInputQueryTeacherName" placeholder="請輸入教師姓名">
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 時間查詢 Section -->
+                            <section>
+                                <h2>時間查詢</h2>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryYear_forQueryTime">學年</label>
+                                        <select v-model="querySelectQueryYear" id="querySelectQueryYear_forQueryTime"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學年...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQuerySmt_forQueryTime">學期</label>
+                                        <select v-model="querySelectQuerySmt" id="querySelectQuerySmt_forQueryTime"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇學期...</option>
+                                            <option value="1">上學期</option>
+                                            <option value="2">下學期</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryDay">星期</label>
+                                        <select v-model="querySelectQueryDay" id="querySelectQueryDay"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇星期幾...</option>
+                                            <option value="1">星期一</option>
+                                            <option value="2">星期二</option>
+                                            <option value="3">星期三</option>
+                                            <option value="4">星期四</option>
+                                            <option value="5">星期五</option>
+                                            <option value="6">星期六</option>
+                                            <option value="7">星期日</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="querySelectQueryPeriod">節次</label>
+                                        <select v-model="querySelectQueryPeriod" id="querySelectQueryPeriod"
+                                            class="form-control">
+                                            <option value="" selected disabled>選擇第幾節...</option>
+                                            <option value="01">第 1 節 08:10~09:00</option>
+                                            <option value="02">第 2 節 09:10~10:00</option>
+                                            <option value="03">第 3 節 10:10~11:00</option>
+                                            <option value="04">第 4 節 11:10~12:00</option>
+                                            <option value="05">第 5 節 12:10~13:00</option>
+                                            <option value="06">第 6 節 13:10~14:00</option>
+                                            <option value="07">第 7 節 14:10~15:00</option>
+                                            <option value="08">第 8 節 15:10~16:00</option>
+                                            <option value="09">第 9 節 16:10~17:00</option>
+                                            <option value="10">第 10 節 17:10~18:00 </option>
+                                            <option value="11">第 11 節 18:30~19:20</option>
+                                            <option value="12">第 12 節 19:30~20:20</option>
+                                            <option value="13">第 13 節 20:30~21:20</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <!-- <div :key="'course-list'+course.hashid" v-for="(course, index) in queryResultForList">
+                        {{ course }}
+                    </div> -->
+
+                    <div class="courses-list">
+
+                        <!-- 控制 MHModal -->
+                        <!-- https://codepen.io/joshuaward/pen/pwGgep?editors=1100 -->
+                        <input type="checkbox" id="MHmodal" />
+                        <label for="MHmodal" class="MHmodal-bg"></label>
+                        <div class="MHmodal-content">
+                            <label for="MHmodal" class="close">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </label>
+                            <header>
+                                <h2>{{ modalCourse.name }}</h3>
+                            </header>
+                            <article class="content">
+                                <p>由{{ modalCourse.teacher_name
+                                    }}教授教導，為系上的{{modalCourse.cos_type_name}}課程之一，上課教室位於{{modalCourse.room}}，學分數為{{modalCourse.credit}}。
+                                </p>
+                            </article>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <table id="courses-list-data-table" class="table table-striped table-hover"
+                                style="border-collapse:collapse;">
+                                <thead>
+                                    <tr>
+                                        <th>課程名稱</th>
+                                        <th>授課教師</th>
+                                        <th>課程類型</th>
+                                        <th>學分數</th>
+                                        <th>學系</th>
+                                        <th>加入選課名單</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr :key="'course-list'+course.hashid" v-for="(course, index) in queryResultForList"
+                                        @click="showCourseInfo(course)" data-toggle="collapse"
+                                        :data-target="'#demo-' +course.hashid" :data-hashid="course.hashid"
+                                        class="accordion-toggle point-it">
+                                        <td class="point-it">{{course.name}}</td>
+                                        <td class="point-it">{{course.teacher_name}}</td>
+                                        <td class="point-it">{{course.cos_type_name}}</td>
+                                        <td class="point-it">{{course.credit}}</td>
+                                        <td class="point-it">{{course.dept_name}}</td>
+                                        <td class="point-it"><span @click.capture.self="addToSchedule($event, course)"
+                                                class="btn hvr-bounce-to-right">加入選課清單</span> </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- End of query section ( 查詢課程 ) -->
+
+                <!-- 任務列表 -->
+                <div ss-container id="section-Task-List" class="inner-section">
+                    <h4>選課任務列表</h4>
+
+
+                    <div class="courses-list">
+                        <div class="col-lg-12">
+                            <table id="courses-list-data-table" class="table table-striped table-hover"
+                                style="border-collapse:collapse;">
+                                <thead>
+                                    <tr>
+                                        <th>Task ID</th>
+                                        <th>學系</th>
+                                        <th>課程名稱</th>
+                                        <th>課程類型</th>
+                                        <th>學分數</th>
+                                        <th>選課狀態</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr :key="'task-list-item'+task.id" v-for="(task, index) in tasks"
+                                        data-toggle="collapse" class="accordion-toggle point-it">
+                                        <td class="point-it">{{task.id}}</td>
+                                        <td class="point-it">{{task.dept_name}}</td>
+                                        <td class="point-it">{{task.name}}</td>
+                                        <td class="point-it">{{task.cos_type_name}}</td>
+                                        <td class="point-it">{{task.credit}}</td>
+                                        <td class="point-it">{{ status(task.status) }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- End of query section ( 任務列表 ) -->
+
+                <!-- 設定 -->
+                <div ss-container id="section-Settings" class="inner-section">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col">
+                                <h5>個人資訊</h5>
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="mb-3">
+                                            <label for="studentnameforreadonly" class="form-label">妳/你的名字</label>
+                                            <input id="studentnameforreadonly" :value="std_account_infomation.CName"
+                                                class="form-control" type="text" placeholder="妳/你的名字"
+                                                aria-label="Student Name" disabled readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="studentidforreadonly" class="form-label">妳/你的學號</label>
+                                            <input id='studentidforreadonly' :value="std_account_infomation.StdNo"
+                                                class="form-control" type="text" placeholder="妳/你的學號"
+                                                aria-label="Student ID Number" disabled readonly>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="carousel-item">
-                            <img class="d-block fillWidth" src="../asset/yzu/library_side.jpg" alt="Third slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h2><b>絕對安全的選課系統</b></h2>
-                                <p>我們秉持著公平公正公開的原則，在Github上開放原始碼接受大家的檢驗！<br>不挖礦！不竊取個資！</p>
+                            <div class="col">
+                                <h5>Settings</h5>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="StealCourseIntervalInput" class="form-label">檢查時間間隔({{
+                                                StealCourseInterval }}秒/選課一次)</label>
+                                            <input v-model="StealCourseInterval" type="range" class="form-range" min="2"
+                                                max="60" step="1" id="StealCourseIntervalInput">
+
+                                            <label for="StealCourseStageID" class="form-label">選擇選課階段</label>
+                                            <select v-model="StealCourseStage" id="StealCourseStageID"
+                                                class="form-select" aria-label="選課階段">
+                                                <option value="" selected disabled>選擇選課階段</option>
+                                                <option value="1">第一階段選課</option>
+                                                <option value="2">第二階段選課</option>
+                                                <option value="3">第三階段選課</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
+                </div> <!-- End of settings section ( 設定 ) -->
             </div>
-    
+        </div> <!-- End of Content Panel -->
+
+
+
+        <div ss-container id="about-modal" class="modal">
+            <div style="padding: 2rem;">
+                <h4>Wanna Class</h4>
+                <p>使用元智 Portal 帳號密碼登入，不須擔心帳號密碼會被盜用或記錄，程式碼完全公開接受開源社群的檢驗，絕對安全。</p>
+                <p>左方列表功能：
+                    <ol>
+                        <li>首頁<br>
+                            未來將會加入 「portal 通知列表」、「圖書館還書通知」等功能。
+                        </li>
+                        <li>課程查詢<br>
+                            快速查詢每學期的課表，點擊列表可以顯示該課程資訊(學分數、上課教室、教授名稱等資訊)，列表最右方有「加入選課清單」按鈕可以加入選課任務列表中。
+                        </li>
+                        <li>選課任務列表<br>
+                            以列表方式顯示目前每一門課的選課進度(「尚未選到」、「已選到！恭喜！」、「此課程已選過喔！」以及「其他未明狀態 狀態碼 x」)，若出現未明狀態可以通知作者喔！
+                        </li>
+                        <li>設定<br>
+                            設定選課的階段，根據元智選課方法，需要設定目前需要選課的階段(第一、第二、第三階段)才可選課。
+                        </li>
+                    </ol>
+
+                </p>
+
+                <hr>
+
+                <h4>關於作者</h4>
+                <p>
+                    李晧暐(Hao-Wei, Li)，元智資工碩士班學生<br>
+                    直到大三後才開始搶到喜歡的選修課，因為不希望其他學生跟作者一樣修不到有興趣的課程，因此特地開發此軟體！<br>
+                    <br>
+                    
+                    <h5>聯絡方式</h5>
+                    Email: henryliking@gmail.com <br>
+                    <a href="https://github.com/MissterHao/WannaClass"> 此專案 Github </a>
+
+
+                </p>
+
+            </div>
         </div>
+
+    </div> <!-- End of app div -->
+
+
     </div>
 
-
+    <!-- Import js -->
+    <script src="./js/navigate.js"></script>
+    <script defer type="text/javascript" src="./js/query.js"></script>
+    <script type="module" src="./js/app_vue.js"></script>
+    <script src="./js/landing.js"></script>
+    <script src="./js/content.js"></script>
 </body>
+
 </html>

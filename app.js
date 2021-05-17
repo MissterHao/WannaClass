@@ -1,16 +1,32 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-
+const fs = require("fs")
 
 const renderer_dirpath = path.join("./", "renderer")
 
 
 let MainWindow = null
+let SelectCourseWorkerWindow = null
+var initConfigSettingJson = {"interval":2, "stage": "1"};
 
+function readOrcreateSettingJson() {
+    try {
+        const content = fs.readFileSync("config/settings.json", "utf-8")
+    } catch (error) {
+        
+        fs.writeFile("config/settings.json", JSON.stringify(initConfigSettingJson), "utf-8", function (err, data) 
+        { 
+            
+        })
 
+    }
+
+}
 
 
 function createWindow() {
+    readOrcreateSettingJson()
+
     
     // 建立 Browser Window
     MainWindow = new BrowserWindow({
@@ -21,8 +37,9 @@ function createWindow() {
         // Remove the frame of the window
         frame: true, // 控制有沒有外框
         webPreferences: {
-            // preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
+            contextIsolation: false, // 預設為 true 必須設為 false
+            // preload: path.join(renderer_dirpath, "js", "preload_main.html"),
         }
     })
 
@@ -30,12 +47,33 @@ function createWindow() {
     MainWindow.webContents.openDevTools();
 
 
-    // 在主畫面關閉時 關閉 WorkerWindow
-    MainWindow.on("close", function(){
+
+
+
+    // 建立選課worker window
+    SelectCourseWorkerWindow = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        show: true,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false, // 預設為 true 必須設為 false
+        }
+    })
+    SelectCourseWorkerWindow.loadFile(path.join(renderer_dirpath, "CourseSelWorker.html"))
+    SelectCourseWorkerWindow.openDevTools()
+
+
+
+
+    // 在主畫面關閉時 關閉 Worker
+    MainWindow.on("close", function () {
+        SelectCourseWorkerWindow.close()
     })
 
 
-    
+
+
 }
 
 
@@ -62,3 +100,21 @@ app.on('activate', () => {
     }
 })
 
+
+
+
+
+
+
+
+
+
+
+// IPC 
+ipcMain.on("addTaskCourse", (event, data)=>{
+    SelectCourseWorkerWindow.webContents.send("addTaskCourse", data);
+})
+// IPC 重讀設定檔
+ipcMain.on("regetSettings", (event, data)=>{
+    SelectCourseWorkerWindow.webContents.send("regetSettings", data);
+})
