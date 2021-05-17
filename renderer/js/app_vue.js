@@ -228,11 +228,11 @@ const app = Vue.createApp({
 			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
 			ipcRenderer.send("regetSettings", {})
 		})
-		
+
 		watch(StealCourseStage, (newStage, prevStage) => {
 			settings["stage"] = newStage
 			fs.writeFileSync("./config/settings.json", JSON.stringify(settings))
-			
+
 			ipcRenderer.send("regetSettings", {})
 		})
 
@@ -240,7 +240,6 @@ const app = Vue.createApp({
 			event.preventDefault()
 			event.stopPropagation()
 			// 通知 worker 加入搶課列表
-			// window.tasks.addTaskList("addTaskList:toMain", course)
 			var course_obj = JSON.parse(JSON.stringify(course))
 			ipcRenderer.send("addTaskCourse", course_obj)
 
@@ -253,11 +252,11 @@ const app = Vue.createApp({
 
 		function status(s) {
 			if (s == 0) {
-				return "尚未搶到"
+				return "尚未選到"
 			} else if (s == 1) {
-				return "尚未搶到"
+				return "已選到！恭喜！"
 			} else if (s == 2) {
-				return "尚未搶到"
+				return "此課程已選過喔！"
 			} else {
 				return `其他未明狀態 狀態碼 ${s}`
 			}
@@ -267,13 +266,24 @@ const app = Vue.createApp({
 
 		onMounted(() => {
 			setInterval(() => {
-				database.all(`SELECT * FROM tasks where status!=0`, [], (err, rows) => {
+				database.all(`SELECT * FROM tasks`, [], (err, rows) => {
 					if (err) {
 						throw err;
 					}
 					tasks.value = rows
 				});
 			}, 5000)
+
+
+			document.addEventListener('DOMContentLoaded', function () {
+				// var options = {};
+				// var elems = document.querySelectorAll(".tap-target");
+				// var instances = M.TapTarget.init(elems, options);
+
+				var options = {};
+				var elems = document.querySelectorAll('.modal');
+				var instances = M.Modal.init(elems, options);
+			})
 		})
 
 		return {
@@ -295,7 +305,7 @@ const app = Vue.createApp({
 			// Task List 
 			tasks, status,
 			// Settings
-			StealCourseInterval,StealCourseStage,
+			StealCourseInterval, StealCourseStage,
 		}
 	}
 });

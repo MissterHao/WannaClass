@@ -7,8 +7,8 @@
         display: grid;
         grid-template-columns: 3fr;// 2fr;
         grid-template-rows: 1fr 3fr;
-        height: 100%;
-        width: 100%;
+        height:0%;
+        width: 0%;
     }
 
     .content-panel__notifylist {
@@ -36,11 +36,11 @@
         }
     }
 
-    .content-panel__coursetable {
-        grid-column: 1 / 3;
-        grid-row: 2 / 3;
-        background: burlywood;
-    }
+    // .content-panel__coursetable {
+        // grid-column: 1 / 3;
+        // grid-row: 2 / 3;
+        // background: burlywood;
+    // }
 
 
 
@@ -93,4 +93,14 @@
     height: 100%;
     // overflow-y: scroll;
     padding: 2rem;
+}
+
+
+#section-Main {
+    overflow: hidden;
+
+    .header {
+        height: 100%;
+        width: 100%;
+    }
 }

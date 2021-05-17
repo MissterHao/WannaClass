@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="./css/MHModal.css">
 
 
-
     <!-- YZU Backend api module -->
     <script type="module" src="./js/yzu_backend.js"></script>
 
@@ -45,6 +44,8 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Import Linq -->
     <script defer type="text/javascript" src="./js/linq.js"></script>
@@ -98,7 +99,8 @@
             </div>
             <div class="footer wc-container">
                 <ul>
-                    <li><a target="_blank" href="https://missterhao.me"><i class="fab fab fa-wordpress-simple"></i></a></li>
+                    <li><a target="_blank" href="https://missterhao.me"><i class="fab fab fa-wordpress-simple"></i></a>
+                    </li>
                     <li><a target="_blank" href="https://github.com/MissterHao/WannaClass"><i
                                 class="fab fa-github"></i></a></li>
                     <li><a target="_blank" href="https://www.linkedin.com/in/haowei526/"><i
@@ -128,7 +130,7 @@
                     </div>
                     <div @click="showSection('Task-List')" id="Task-List-sidebar-item" class="sidebar-item point-it">
                         <img src="../assets/ion-list-outline.svg" alt="">
-                        <span>搶課任務列表</span>
+                        <span>選課任務列表</span>
                     </div>
                     <div @click="showSection('Settings')" id="Settings-sidebar-item" class="sidebar-item point-it">
                         <img src="../assets/ion-settings-outline.svg" alt="">
@@ -138,14 +140,15 @@
 
                 <div id="author-sidebar-item" class="sidebar-item point-it">
                     <img src="../assets/ion-settings-outline.svg" alt="">
-                    <span>Author</span>
+                    <span><a id="author-sidebar-item-href" class="modal-trigger" href="#about-modal">Author</a></span>
                 </div>
+
 
             </div> <!-- End of Sidebar -->
 
             <div id="inner-content-panel">
                 <!-- 首頁 -->
-                <div ss-container id="section-Main" class="inner-section">
+                <div id="section-Main" class="inner-section">
                     <div class="header">
                         <h4>{{ greetings }} {{ std_account_infomation.CName }}, 今天想要來點什麼學分？</h4>
                     </div>
@@ -406,7 +409,7 @@
 
                 <!-- 任務列表 -->
                 <div ss-container id="section-Task-List" class="inner-section">
-                    <h4>課程查詢</h4>
+                    <h4>選課任務列表</h4>
 
 
                     <div class="courses-list">
@@ -476,9 +479,10 @@
                                                 StealCourseInterval }}秒/選課一次)</label>
                                             <input v-model="StealCourseInterval" type="range" class="form-range" min="2"
                                                 max="60" step="1" id="StealCourseIntervalInput">
-                                                
+
                                             <label for="StealCourseStageID" class="form-label">選擇選課階段</label>
-                                            <select v-model="StealCourseStage" id="StealCourseStageID" class="form-select" aria-label="選課階段">
+                                            <select v-model="StealCourseStage" id="StealCourseStageID"
+                                                class="form-select" aria-label="選課階段">
                                                 <option value="" selected disabled>選擇選課階段</option>
                                                 <option value="1">第一階段選課</option>
                                                 <option value="2">第二階段選課</option>
@@ -494,7 +498,53 @@
                 </div> <!-- End of settings section ( 設定 ) -->
             </div>
         </div> <!-- End of Content Panel -->
+
+
+
+        <div ss-container id="about-modal" class="modal">
+            <div style="padding: 2rem;">
+                <h4>Wanna Class</h4>
+                <p>使用元智 Portal 帳號密碼登入，不須擔心帳號密碼會被盜用或記錄，程式碼完全公開接受開源社群的檢驗，絕對安全。</p>
+                <p>左方列表功能：
+                    <ol>
+                        <li>首頁<br>
+                            未來將會加入 「portal 通知列表」、「圖書館還書通知」等功能。
+                        </li>
+                        <li>課程查詢<br>
+                            快速查詢每學期的課表，點擊列表可以顯示該課程資訊(學分數、上課教室、教授名稱等資訊)，列表最右方有「加入選課清單」按鈕可以加入選課任務列表中。
+                        </li>
+                        <li>選課任務列表<br>
+                            以列表方式顯示目前每一門課的選課進度(「尚未選到」、「已選到！恭喜！」、「此課程已選過喔！」以及「其他未明狀態 狀態碼 x」)，若出現未明狀態可以通知作者喔！
+                        </li>
+                        <li>設定<br>
+                            設定選課的階段，根據元智選課方法，需要設定目前需要選課的階段(第一、第二、第三階段)才可選課。
+                        </li>
+                    </ol>
+
+                </p>
+
+                <hr>
+
+                <h4>關於作者</h4>
+                <p>
+                    李晧暐(Hao-Wei, Li)，元智資工碩士班學生<br>
+                    直到大三後才開始搶到喜歡的選修課，因為不希望其他學生跟作者一樣修不到有興趣的課程，因此特地開發此軟體！<br>
+                    <br>
+                    
+                    <h5>聯絡方式</h5>
+                    Email: henryliking@gmail.com <br>
+                    <a href="https://github.com/MissterHao/WannaClass"> 此專案 Github </a>
+
+
+                </p>
+
+            </div>
+        </div>
+
     </div> <!-- End of app div -->
+
+
+    </div>
 
     <!-- Import js -->
     <script src="./js/navigate.js"></script>
