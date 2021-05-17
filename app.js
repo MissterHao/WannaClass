@@ -67,6 +67,12 @@ function createWindow() {
     // 在主畫面關閉時 關閉 Worker
     MainWindow.on("close", function () {
         SelectCourseWorkerWindow.close()
+
+        // 確保刪除登入 Token 
+        var settings = fs.readFileSync(settingFilePath, "utf-8")
+        settings["token"] = ""
+        fs.writeFile(settingFilePath, JSON.stringify(settings), "utf-8", function (err, data) {})
+
     })
 
 
