@@ -2,9 +2,6 @@
     <img src="icon-512x512.png" height="130">
 </p>
 <p align="center">
-<a href="https://img.shields.io/github/v/release/MissterHao/WannaClass" alt="Release Version">
-  <img src="https://img.shields.io/github/v/release/MissterHao/WannaClass" />
-</a>
 <a href="https://img.shields.io/badge/NodeJs-v14.15.3-green" alt="Node Js Version">
   <img src="https://img.shields.io/badge/NodeJs-v14.15.3-green" />
 </a>
