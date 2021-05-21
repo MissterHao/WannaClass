@@ -103,24 +103,27 @@
                 }
                 rows.forEach((element) => {
                     console.log(element);
-                    apibackend.selCourseInline(element).then((res) => {
-                        console.log(res);
-                        if (res["data"] === "選課系統尚未開放！") {
-                            // setStatus(element.id, Math.floor(Math.random() * 10))
-                            setStatus(element.id, 0)
-                        } else if (res["data"].indexOf("已選過")) {
-                            // 2 => 已選過
-                            setStatus(element.id, 2)
-                        } else if (res["data"].indexOf("加選訊息")) {
-                            // 1 => 已選 任務完成
-                            setStatus(element.id, 1)
-                        } else {
-                            // -9999 其他未知訊息
-                            setStatus(element.id, -9999)
-                        }
-                    }).catch((error) => {
-                        console.error(error)
-                    })
+
+                    if(element.status!=2 || element.status!=3){
+                        apibackend.selCourseInline(element).then((res) => {
+                            console.log(res);
+                            if (res["data"] === "選課系統尚未開放！") {
+                                // setStatus(element.id, Math.floor(Math.random() * 10))
+                                setStatus(element.id, 0)
+                            } else if (res["data"].indexOf("已選過")) {
+                                // 2 => 已選過
+                                setStatus(element.id, 2)
+                            } else if (res["data"].indexOf("加選訊息")) {
+                                // 1 => 已選 任務完成
+                                setStatus(element.id, 1)
+                            } else {
+                                // -9999 其他未知訊息
+                                setStatus(element.id, -9999)
+                            }
+                        }).catch((error) => {
+                            console.error(error)
+                        })
+                    }
                 });
             });
         }
