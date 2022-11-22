@@ -2,6 +2,11 @@
     <img src="icon-512x512.png" height="130">
 </p>
 <p align="center">
+    
+<a href="https://github.com/MissterHao/WannaClass" alt="WannaClass Total Download count">
+  <img src="https://img.shields.io/github/downloads/MissterHao/WannaClass/total" />
+</a>
+    
 <a href="https://img.shields.io/badge/NodeJs-v14.15.3-green" alt="Node Js Version">
   <img src="https://img.shields.io/badge/NodeJs-v14.15.3-green" />
 </a>
